@@ -1,0 +1,4 @@
+"Arquitetura","N_Estudos","Sensibilidade","Especificidade","Comentario"
+"VLM (Vision)",4,"95,2%","92,1%","N=4 estudos (Hong x3, Ostrovsky)"
+"LLM (Text)",3,"78,6%","99,4%","N=3 estudos (Huang x2, Lee)"
+"GenAI (Agentic)",1,"81,0%","19,0%","Noh 2026"

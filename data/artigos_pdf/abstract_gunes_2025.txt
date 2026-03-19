@@ -1,0 +1,7 @@
+ABSTRACT: The Diagnostic Performance of Large Language Models and General Radiologists in Thoracic Radiology Cases: A Comparative Study
+Authors: Yakup Can Gunes, Turay Cesur (2025)
+Journal: Journal of Thoracic Imaging (Pub online 2024)
+
+Methods: Evaluated ChatGPT-4o, Claude 3 Opus, Gemini 1.5 Pro, and Lrama 3 on 124 thoracic/abdominal cases.
+Results: Claude 3 Opus accuracy 70.29%, ChatGPT 4 59.75%, Gemini 1.5 Pro 59.75%. Radiologists 52.4% and 41.1%. 
+Accuracy is moderate; LLMs outperformed radiologists on text-based cases.

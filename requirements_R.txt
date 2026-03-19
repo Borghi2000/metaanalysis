@@ -1,0 +1,12 @@
+# R >= 4.3.0 required
+# Install with: source("install_packages.R")
+
+mada==0.5.11         # bivariate meta-analysis (Reitsma model)
+meta==7.0-0          # general meta-analysis utilities
+metafor==4.6-0       # alternative REML estimation
+ggplot2==3.5.1       # figures
+dplyr==1.1.4         # data manipulation
+tidyr==1.3.1         # data reshaping
+scales==1.3.0        # axis formatting
+gridExtra==2.3       # figure layout
+knitr==1.46          # table output

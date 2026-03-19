@@ -1,0 +1,68 @@
+Relatório de Auditoria Metodológica v9
+======================================
+
+Call:  reitsma.default(data = dados[, c("TP", "FN", "FP", "TN")])
+
+Bivariate diagnostic random-effects meta-analysis
+Estimation method: REML
+
+Fixed-effects coefficients
+                  Estimate Std. Error      z Pr(>|z|) 95%ci.lb 95%ci.ub    
+tsens.(Intercept)    1.983      0.349  5.676    0.000    1.298    2.668 ***
+tfpr.(Intercept)    -3.841      0.857 -4.480    0.000   -5.522   -2.161 ***
+sensitivity          0.879          -      -        -    0.786    0.935    
+false pos. rate      0.021          -      -        -    0.004    0.103    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Variance components: between-studies Std. Dev and correlation matrix
+      Std. Dev tsens  tfpr
+tsens    0.885 1.000     .
+tfpr     2.218 0.686 1.000
+
+ logLik     AIC     BIC 
+ 22.194 -34.387 -31.192 
+
+AUC:  0.955
+Partial AUC (restricted to observed FPRs and normalized):  0.907
+
+I2 estimates 
+Zhou and Dendukuri approach:  61 % 
+Holling sample size unadjusted approaches:  85.2 - 88.8 % 
+Holling sample size adjusted approaches:  2.1 - 3.5 %
+PI Sens: numeric(0)
+PI Spec: numeric(0)
+
+Rho: [1] 0.686173
+
+--- SEM HUANG 2025 ---
+Call:  reitsma.default(data = dados_no_huang[, c("TP", "FN", "FP", "TN")])
+
+Bivariate diagnostic random-effects meta-analysis
+Estimation method: REML
+
+Fixed-effects coefficients
+                  Estimate Std. Error      z Pr(>|z|) 95%ci.lb 95%ci.ub    
+tsens.(Intercept)    2.165      0.349  6.206    0.000    1.481    2.848 ***
+tfpr.(Intercept)    -2.856      0.320 -8.928    0.000   -3.483   -2.229 ***
+sensitivity          0.897          -      -        -    0.815    0.945    
+false pos. rate      0.054          -      -        -    0.030    0.097    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Variance components: between-studies Std. Dev and correlation matrix
+      Std. Dev tsens  tfpr
+tsens    0.818 1.000     .
+tfpr     0.709 0.536 1.000
+
+ logLik     AIC     BIC 
+ 20.067 -30.135 -27.710 
+
+AUC:  0.97
+Partial AUC (restricted to observed FPRs and normalized):  0.878
+
+I2 estimates 
+Zhou and Dendukuri approach:  56.7 % 
+Holling sample size unadjusted approaches:  87.4 - 90.7 % 
+Holling sample size adjusted approaches:  3.5 - 4.5 %
+RV+ sem Huang: [1] 16.50189

@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: >
+  If you use this software or data, please cite both 
+  the manuscript and the software as indicated below.
+
+title: >
+  llm-vlm-cxr-metaanalysis: Code and Data for 
+  'Diagnostic Accuracy of Generative and Multimodal 
+  Artificial Intelligence Models in Chest Radiograph 
+  Interpretation'
+
+version: 1.0.0
+date-released: 2025-01-01
+doi: 10.5281/zenodo.XXXXXXX
+license: MIT
+repository-code: https://github.com/[username]/llm-vlm-cxr-metaanalysis
+
+authors:
+  - family-names: "Oliveira"
+    given-names: "Gabriel Borghi de Freitas"
+    orcid: https://orcid.org/0009-0001-7191-231X
+    affiliation: "Universidade Santo Amaro"
+
+keywords:
+  - systematic review
+  - meta-analysis
+  - chest radiograph
+  - large language models
+  - vision-language models
+  - diagnostic accuracy
+  - PRISMA-DTA
+  - bivariate model
+
+references:
+  - type: article
+    title: >
+      Diagnostic Accuracy of Generative and Multimodal 
+      Artificial Intelligence Models in Chest Radiograph 
+      Interpretation: A Systematic Review and Exploratory 
+      Bivariate Hierarchical Meta-analysis
+    authors:
+      - family-names: "Oliveira"
+        given-names: "Gabriel Borghi de Freitas"
+    journal: "[Nome do Periódico]"
+    year: 2026
+    doi: "[DOI do manuscrito]"

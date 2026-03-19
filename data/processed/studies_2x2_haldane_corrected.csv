@@ -1,0 +1,8 @@
+study_id,author,year,tp,fp,tn,fn,sensitivity,specificity,haldane_applied,note
+001,Hong,2025,181,142,1813,9,0.9526,0.9274,FALSE,Original values
+002,Hong,2025,360,56,366,18,0.9524,0.8675,FALSE,Original values
+003,Hong,2025,234,25,487,12,0.9512,0.9512,FALSE,Original values
+004,Ostrovsky,2025,141,77,1138,44,0.7622,0.9367,FALSE,Original values
+005,Huang,2023,139,5,331,25,0.8476,0.9851,FALSE,Original values
+006,Huang,2025,24,22,97596,9,0.7273,0.9998,FALSE,Original values
+007,Noh,2026,107.5,0.5,31.5,25.5,0.8082,0.9843,TRUE,Haldane +0.5 applied; raw FP=0 spec=1.000

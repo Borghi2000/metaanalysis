@@ -1,0 +1,16 @@
+1. **van Ginneken B.** Fifty years of computer analysis in chest imaging: rule-based, machine learning, deep learning. *Radiol Phys Technol*. 2017;10(1):23–32.
+2. **Parikh JR, Van Moore A, Mead L, Bassett R, Rubin E.** Prevalence of burnout of radiologists in private practice. *J Am Coll Radiol*. 2023;20(7):712–718.
+3. **McInnes MDF, Moher D, Thombs BD, McGrath TA, Bossuyt PMM, the PRISMA-DTA Group.** Preferred Reporting Items for a Systematic Review and Meta-analysis of Diagnostic Test Accuracy Studies: The PRISMA-DTA Statement. *JAMA*. 2018;319(4):388–396.
+4. **Huang J, et al.** Efficiency and Quality of Generative AI-Assisted Radiograph Reporting. *JAMA Netw Open*. 2025;8. [doi:10.1001/jamanetworkopen.2025.13921](https://doi.org/10.1001/jamanetworkopen.2025.13921).
+5. **Whiting PF, Rutjes AWS, Westwood ME, Mallett S, Deeks JJ, Reitsma JB, et al.** QUADAS-2: a revised tool for the quality assessment of diagnostic accuracy studies. *Ann Intern Med*. 2011;155(8):529–536.
+6. **Reitsma JB, Glas AS, Rutjes AWS, Scholten RJPM, Bossuyt PM, Zwinderman AH.** Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews. *J Clin Epidemiol*. 2005;58(10):1082–1088.
+7. **Noh J, et al.** Synthetic Enhancement of Pneumothorax Detection via GenAI. 2026. PMID: [41714574](https://pubmed.ncbi.nlm.nih.gov/41714574/).
+8. **Takwoingi Y, Guo B, Riley RD, Deeks JJ.** Performance of methods for meta-analysis of diagnostic test accuracy with few studies or sparse data. *Stat Methods Med Res*. 2017;26(4):1896–1911.
+9. **Hong EK, et al.** Multimodal Generative Artificial Intelligence Model for Creating Radiology Reports for Chest Radiographs in Patients Undergoing Tuberculosis Screening. *AJR Am J Roentgenol*. 2025. [doi:10.2214/AJR.25.33059](https://doi.org/10.2214/AJR.25.33059).
+10. **Ostrovsky AM.** Evaluating a large language model's accuracy in chest X-ray interpretation for acute thoracic conditions. *Am J Emerg Med*. 2025. [doi:10.1016/j.ajem.2025.03.060](https://doi.org/10.1016/j.ajem.2025.03.060).
+11. **Hong EK, et al.** Diagnostic Accuracy and Clinical Value of a Domain-specific Multimodal Generative AI Model for Chest Radiograph Report Generation. *Radiology*. 2025. [doi:10.1148/radiol.241476](https://doi.org/10.1148/radiol.241476).
+12. **Huang J, et al.** Generative Artificial Intelligence for Chest Radiograph Interpretation in the Emergency Department. *JAMA Netw Open*. 2023;6(10):e2336100. [PMID: 37796505](https://pubmed.ncbi.nlm.nih.gov/37796505/).
+13. **Gunes YC, Cesur T.** The Diagnostic Performance of Large Language Models and General Radiologists in Thoracic Radiology Cases: A Comparative Study. *J Thorac Imaging*. 2025. [doi:10.1097/RTI.0000000000000805](https://doi.org/10.1097/RTI.0000000000000805).
+14. **Hong EK, et al.** Value of Using a Generative AI Model in Chest Radiography Reporting: A Reader Study. *Radiology*. 2025. [doi:10.1148/radiol.241646](https://doi.org/10.1148/radiol.241646).
+15. **Lee S, et al.** CXR-LLaVA: a multimodal large language model for interpreting chest X-ray images. *Eur Radiol*. 2025. [doi:10.1007/s00330-024-11339-6](https://doi.org/10.1007/s00330-024-11339-6).
+16. **Tanno R, et al.** Foundation models for general medical AI. *Nature Medicine*. 2025. [doi:10.1038/s41591-024-03302-1](https://doi.org/10.1038/s41591-024-03302-1).

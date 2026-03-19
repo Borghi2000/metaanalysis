@@ -1,0 +1,11 @@
+study_label,doi,tp,fp,fn,tn,sens_pct,spec_pct,N,has_2x2,notes
+Hong 2025a,10.1148/radiol.241476,,,,,95.3,92.7,2145,TRUE,Counts present in PDF; pending extraction
+Hong 2025b,10.2214/AJR.25.33059,,,,,95.2,86.7,800,TRUE,Counts present in PDF; pending extraction
+Hong 2025c,10.1148/radiol.241646,,,,,95.1,95.1,758,TRUE,Counts present in PDF; pending extraction
+Ostrovsky 2025,10.1016/j.ajem.2025.03.060,,,,,76.2,93.7,1400,TRUE,Counts present in PDF; pending extraction
+Huang 2023,10.1001/jamanetworkopen.2023.36100,,,,,84.8,98.5,500,TRUE,Counts present in PDF; pending extraction
+Huang 2025,10.1001/jamanetworkopen.2025.13921,,,,,72.7,99.9,97651,TRUE,Counts present in PDF; pending extraction
+Noh 2026,10.1016/j.jacr.2026.03.17,107,0,25,31,81.0,100.0,163,TRUE,TP/FN/TN/FP verified by user
+Lee 2025,10.1007/s00330-024-11339-6,,,,,63.0,93.0,3689,FALSE,No 2x2 reported; reported global metric
+Gunes 2025,10.1097/RTI.0000000000000805,,,,, , ,124,FALSE,No 2x2 reported
+Tanno 2025,10.1038/s41591-024-03302-1,,,,,66.7,92.3,,FALSE,No 2x2 reported
