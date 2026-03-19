@@ -2,7 +2,7 @@
 # Interpretation: A Systematic Review and Exploratory 
 # Bivariate Hierarchical Meta-analysis
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19115371.svg)](https://doi.org/10.5281/zenodo.19115371)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![OSF Registration](https://img.shields.io/badge/OSF-Registration-blue)](https://osf.io/XXXXX)
 
@@ -148,7 +148,7 @@ If you use this code or data, please cite:
 And the software itself:
 
 > Oliveira, G.B.F. llm-vlm-cxr-metaanalysis [Software]. 
-> Zenodo. DOI: 10.5281/zenodo.XXXXXXX
+> Zenodo. DOI: 10.5281/zenodo.19115371
 
 See also `CITATION.cff` for machine-readable citation metadata.
 
