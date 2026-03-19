@@ -22,7 +22,7 @@ the `mada` package in R.
 
 ## Repository Structure
 ```
-llm-vlm-cxr-metaanalysis/
+metaanalysis/
 ├── data/
 │   ├── raw/               # Original extracted data
 │   └── processed/         # Haldane-corrected matrices
@@ -52,8 +52,8 @@ llm-vlm-cxr-metaanalysis/
 
 ### Step 1 — Clone the repository
 ```bash
-git clone https://github.com/[username]/llm-vlm-cxr-metaanalysis.git
-cd llm-vlm-cxr-metaanalysis
+git clone https://github.com/Borghi2000/metaanalysis.git
+cd metaanalysis
 ```
 
 ### Step 2 — Install Python dependencies
