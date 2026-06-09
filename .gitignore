@@ -33,7 +33,7 @@ outputs/
 # --- Material legado / auditoria (substituido pelo pipeline em scripts/) ---
 analysis/
 audit/
-manuscript/
+# manuscript/
 notebooks/
 PDF DA PESQUISA/
 temp/
