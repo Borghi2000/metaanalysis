@@ -156,3 +156,26 @@ e incorporou os achados reais dos novos estudos.
 - **Noh 2026**: DOI `10.1016/j.jacr.2026.03.17` tem formato atípico (Elsevier não usa
   data como sufixo) e o estudo é datado de 2026 (prevalência 81% → desenho tipo
   caso-controle, D1 = High Risk). Confirmar existência/DOI/PMID e o desenho.
+
+## Saneamento do pipeline de coleta/triagem (auditoria de reprodutibilidade, 2026-06)
+Para tornar a etapa automatizada genuinamente reprodutível e auditável:
+- **`scripts/01_search_pipeline/search_nlp_tfidf.py` reescrito** como extrator REAL
+  (PubMed/SciELO/BVS) que persiste **título + resumo** e grava proveniência
+  (`SEARCH_PROVENANCE.json`). Antes era um scraper que atribuía `relevance_score=1.0`.
+- **`scripts/01_search_pipeline/screen_tfidf.py` (novo)**: triagem TF-IDF + cosseno
+  **determinística**, limiar 0.35 documentado.
+- **`analysis/python/recovery_scraper.py` REMOVIDO**: duplicata do scraper trivial.
+- **`data/raw/all_results_dta.csv` REMOVIDO**: dump bruto (465 KB), majoritariamente
+  fora do tema (só ~307/3164 sobre tórax), sem coluna de resumo, `relevance_score=1.0`;
+  não era referenciado por nenhum script. Será substituído por `all_results_search.csv`
+  gerado pelo pipeline real.
+- **`manual_validation.py` → `generate_prisma_flowchart.py`**: o nome não correspondia
+  ao conteúdo (gerava o fluxograma PRISMA) e **todos os contadores estavam hardcoded**.
+  Agora os números são lidos de `data/processed/prisma_counts.json` (fonte única, com
+  proveniência por bloco). **Pendência:** após o run real, regenerar os contadores
+  automatizados a partir das proveniências e reconciliar com o manuscrito.
+- **Documentação**: `docs/REPRODUCIBILITY.md` (mapa de auditoria ponta a ponta) e a seção
+  "Reproducibility & Limitations" do README atualizadas.
+- **Honestidade**: o fluxograma declara "Removidos via NLP (n=0)" — a redução
+  3.165 → 74 é **manual** (leitura de título/resumo por revisor único), não automatizada;
+  reforça que o núcleo analítico é manual e permanece como limitação (§4.5).

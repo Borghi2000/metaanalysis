@@ -27,7 +27,7 @@ metaanalysis/
 │   ├── raw/               # Original extracted data
 │   └── processed/         # Haldane-corrected matrices
 ├── scripts/
-│   ├── 01_search_pipeline/   # NLP/TF-IDF screening
+│   ├── 01_search_pipeline/   # Search (PubMed/SciELO/BVS) + TF-IDF screening
 │   ├── 02_data_extraction/   # 2x2 matrix extraction
 │   ├── 03_metaanalysis/      # R scripts for all models
 │   └── 04_figures/           # Figure generation
@@ -61,18 +61,34 @@ cd metaanalysis
 pip install -r requirements.txt
 ```
 
-### Step 3 — Run the screening pipeline
+### Step 3 — Run the search + screening pipeline
+
+The pipeline has two deterministic, auditable stages:
+
 ```bash
+# 3a. Real search + harvest (PubMed/SciELO/BVS). Requires network access to
+#     eutils.ncbi.nlm.nih.gov, search.scielo.org, pesquisa.bvsalud.org.
 python scripts/01_search_pipeline/search_nlp_tfidf.py \
-  --input data/raw/search_results/ \
+  --output data/raw \
+  --retmax 5000
+
+# 3b. TF-IDF relevance screening (deterministic; threshold documented in §2.2).
+python scripts/01_search_pipeline/screen_tfidf.py \
+  --input data/raw/all_results_search.csv \
   --output data/processed/ \
   --threshold 0.35
 ```
 
-The `--threshold` argument corresponds to the empirically 
-determined TF-IDF score cutoff described in Section 2.2 
-of the manuscript. This value is a declared limitation 
-of reproducibility (see manuscript).
+Stage 3a fetches title + abstract for every record using a fixed, documented 
+boolean query (2018–2026) and writes `data/raw/search_results/SEARCH_PROVENANCE.json` 
+(query, run date, per-source counts). Stage 3b computes a TF-IDF + cosine-similarity 
+relevance score against a fixed conceptual seed and applies the `--threshold` cutoff 
+(0.35). The screening is **deterministic**: the same corpus and threshold reproduce 
+exactly the same screened subset, so the automated step can be audited publicly.
+
+See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for the end-to-end audit map. 
+Manual downstream steps (abstract/full-text eligibility, single reviewer) are **not** 
+covered by the code and remain a declared limitation (see manuscript §4.5).
 
 ### Step 4 — Run the meta-analysis (R)
 
@@ -124,21 +140,31 @@ Same structure as raw file with Haldane-Anscombe
 correction (+0.5 to all cells) applied to Ciflik 2026 
 (FN=0 in original data; raw sensitivity=100%).
 
-## Declared Limitations of Reproducibility
+## Reproducibility & Limitations
 
-1. The TF-IDF threshold (0.35) was determined empirically 
-   and is not derived from a pre-specified rule. Independent 
-   replication of the screening step may yield marginally 
-   different results.
+**Automated screening is reproducible and auditable.** The search query, date 
+range, TF-IDF parameters, and the 0.35 threshold are fixed and documented in the 
+pipeline scripts (`search_nlp_tfidf.py`, `screen_tfidf.py`). The screening is 
+deterministic: given the same corpus and threshold, any researcher obtains exactly 
+the same screened subset. Provenance is recorded in `SEARCH_PROVENANCE.json` and 
+`SCREENING_PROVENANCE.json`. See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
 
-2. The protocol was not registered prospectively in PROSPERO. 
-   Retrospective registration was completed in OSF Registries 
-   (https://osf.io/XXXXX) after data extraction, as declared 
-   in the manuscript.
+Remaining limitations:
 
-3. Manual validation of NLP screening was performed by a 
-   single reviewer. Independent replication requires a 
-   second reviewer.
+1. The TF-IDF threshold (0.35) was determined empirically rather than from a 
+   pre-specified rule. Re-running the live search at a later date may return a 
+   different record count (PubMed grows over time); what is guaranteed is the 
+   determinism of the pipeline for a given corpus, query, date, and threshold.
+
+2. The protocol was not registered prospectively in PROSPERO. Retrospective 
+   registration was completed in OSF Registries (https://osf.io/XXXXX) after data 
+   extraction, as declared in the manuscript.
+
+3. **The manual steps — title/abstract eligibility, full-text reading, and 2×2 
+   extraction — were performed by a single reviewer and are NOT covered by the 
+   code.** These constitute the analytic core of the review and remain subject to 
+   single-reviewer selection bias; independent replication requires a second reviewer 
+   (see manuscript §4.5).
 
 ## Auditoria de Rigor (2026-06)
 

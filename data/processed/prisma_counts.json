@@ -1,0 +1,46 @@
+{
+  "_comment": "Fonte UNICA de verdade dos contadores do fluxograma PRISMA-DTA. Cada bloco declara a PROVENIENCIA do numero (de onde ele vem e se e automatizado, manual ou declarado). O gerador scripts/01_search_pipeline/generate_prisma_flowchart.py LE este arquivo (nada e hardcoded). Apos o run real do pipeline (Fase C da auditoria de reprodutibilidade), os numeros automatizados devem ser REGENERADOS a partir de SEARCH_PROVENANCE.json e SCREENING_PROVENANCE.json.",
+  "_status": "declared_pending_regeneration",
+  "_source_of_declared_numbers": "Manuscrito v16 (paper_v16_N7.docx) / Fig. PRISMA. A coleta automatizada real ainda nao foi reexecutada neste ambiente (bases bloqueadas por politica de rede).",
+
+  "identification": {
+    "_provenance": "automated_search :: deve vir de data/raw/search_results/SEARCH_PROVENANCE.json (counts_per_source) apos o run",
+    "records_identified_databases": 4185,
+    "records_identified_registers": 12
+  },
+
+  "before_screening_removed": {
+    "_provenance": "automated_dedup :: duplicatas por DOI/titulo (search_nlp_tfidf.py:_dedupe). removed_via_nlp_automation reflete a contribuicao da triagem TF-IDF (screen_tfidf.py); no manuscrito v16 declarado = 0.",
+    "duplicate_records_removed": 1032,
+    "removed_via_nlp_automation": 0,
+    "removed_other_reasons": 0
+  },
+
+  "screening": {
+    "_provenance": "records_screened = identificados - removidos antes da triagem (automatizado). records_excluded = decisao MANUAL de revisor unico sobre titulo/resumo (NAO coberta pelo codigo; ver limitacao §4.5).",
+    "records_screened": 3165,
+    "records_excluded": 3091
+  },
+
+  "retrieval": {
+    "_provenance": "manual_review :: recuperacao e leitura de textos completos por revisor unico.",
+    "reports_sought_for_retrieval": 74,
+    "reports_not_retrieved": 0
+  },
+
+  "eligibility": {
+    "_provenance": "manual_review :: exclusao por elegibilidade na leitura do texto completo (revisor unico). Soma das exclusoes = 64.",
+    "reports_assessed": 74,
+    "excluded": {
+      "reviews_editorials": 30,
+      "no_2x2_data": 25,
+      "other_or_pediatric": 9
+    }
+  },
+
+  "included": {
+    "_provenance": "manual_review :: estudos incluidos na sintese (10 = Pool Principal N=7 com 2x2 bruto + Pool Suplementar N=3).",
+    "studies_included": 10,
+    "reports_of_included_studies": 10
+  }
+}
