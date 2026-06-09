@@ -16,7 +16,10 @@ except ImportError:
     HAS_FITZ = False
     print("❌ pymupdf não instalado. Execute: pip install pymupdf")
 
-pdf_path = r"e:\Pesquisa projeto\data\artigos_pdf\huang_2025_oi_250461_1748448325.30901.pdf"
+# AUDITORIA: caminho absoluto anterior (r"e:\Pesquisa projeto\...") nao existia
+# nesta maquina. Usar caminho relativo ao repositorio para portabilidade.
+pdf_path = os.path.join("data", "artigos_pdf",
+                        "huang_2025_oi_250461_1748448325.30901.pdf")
 
 if not os.path.exists(pdf_path):
     print(f"❌ PDF não encontrado: {pdf_path}")

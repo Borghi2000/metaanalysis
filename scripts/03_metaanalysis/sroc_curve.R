@@ -19,11 +19,40 @@ dados_biv <- master %>%
 fit <- reitsma(dados_biv[, c("TP", "FN", "FP", "TN")])
 s <- summary(fit)
 
-# Valores calculados na auditoria v9 para o pool completo (N=7)
-# Sens: 87.9% [PI: 38.7% - 98.8%]
-# Spec: 97.9% [PI: 9.4% - 99.9%]
-pi_sens <- c(0.387, 0.988)
-pi_spec <- c(0.094, 0.999)
+# === ESTATISTICAS DERIVADAS DOS DADOS (auditoria: nada hardcoded) =============
+# Intervalo de predicao em nivel de estudo (df = n_estudos - 2).
+.calc_pi <- function(fit) {
+  co <- summary(fit)$coefficients; v <- vcov(fit)
+  n  <- nrow(fit$data); tcrit <- qt(0.975, df = n - 2)
+  ls <- co[1, 1]; lf <- co[2, 1]
+  hw_s <- tcrit * sqrt(fit$Psi[1, 1] + v[1, 1])
+  hw_f <- tcrit * sqrt(fit$Psi[2, 2] + v[2, 2])
+  list(sens = plogis(c(ls - hw_s, ls + hw_s)),
+       spec = c(1 - plogis(lf + hw_f), 1 - plogis(lf - hw_f)))
+}
+.pis     <- .calc_pi(fit)
+pi_sens  <- .pis$sens
+pi_spec  <- .pis$spec
+auc_val  <- s$AUC$AUC
+i2_zhou  <- s$i2[["Zhou"]]
+i2_holl  <- max(s$i2[["HollingUnadjusted1"]], s$i2[["HollingUnadjusted2"]], s$i2[["HollingUnadjusted3"]])
+
+# Teste de assimetria de funil de DEEKS (apropriado para DTA; o teste de Egger
+# classico nao e recomendado para razoes diagnosticas). ATENCAO: com < 10 estudos
+# o teste tem baixa potencia (Cochrane DTA) e seu p deve ser lido com cautela.
+.ess    <- (dados_biv$TP + dados_biv$FN) * (dados_biv$TN + dados_biv$FP) /
+           ((dados_biv$TP + dados_biv$FN) + (dados_biv$TN + dados_biv$FP))
+.lndor  <- log(((dados_biv$TP + 0.5) * (dados_biv$TN + 0.5)) /
+               ((dados_biv$FP + 0.5) * (dados_biv$FN + 0.5)))
+deeks_p <- tryCatch(summary(lm(.lndor ~ I(1 / sqrt(.ess)), weights = .ess))$coefficients[2, 4],
+                    error = function(e) NA_real_)
+
+# RV+ / RV- robustas: pool excluindo o outlier de volume Huang 2025
+.dh        <- dados_biv[dados_biv$authors != "Huang 2025", ]
+.sh        <- summary(reitsma(.dh[, c("TP", "FN", "FP", "TN")]))$coefficients
+.sens_h    <- plogis(.sh[1, 1]); .fpr_h <- plogis(.sh[2, 1])
+lr_pos_robust <- .sens_h / .fpr_h
+lr_neg_robust <- (1 - .sens_h) / (1 - .fpr_h)
 
 # ── PREPARAÇÃO DE DADOS ADICIONAIS ───────────────────────────────────────────
 # Adicionar correção de continuidade (0.5) para as métricas do Funnel Plot
@@ -62,17 +91,15 @@ generate_forest_with_pi <- function(type, filename, subtitle_stats, pi_range) {
   dev.off()
 }
 
-generate_forest_with_pi("sens", "outputs/figures/Fig1_Forest_Sens_V10.png", 
-                        "I² = 61% (Zhou) | p < 0.001", pi_sens)
+generate_forest_with_pi("sens", "outputs/figures/Fig1_Forest_Sens_V10.png",
+                        sprintf("I² = %.0f%% (Zhou)", i2_zhou * 100), pi_sens)
 
-generate_forest_with_pi("spec", "outputs/figures/Fig2_Forest_Spec_V10.png", 
-                        "I² = 85.2% (Holling) | p < 0.001", pi_spec)
+generate_forest_with_pi("spec", "outputs/figures/Fig2_Forest_Spec_V10.png",
+                        sprintf("I² = %.1f%% (Holling)", i2_holl * 100), pi_spec)
 
 
 # ── FIGURA 3: Fagan (Cenário de Sensibilidade sem Huang) ─────────────────────
-# RV+ sem Huang: 16.5
-lr_pos_robust <- 16.5
-lr_neg_robust <- 0.11
+# lr_pos_robust / lr_neg_robust calculados acima (pool sem Huang 2025)
 pre_test <- 0.20
 post_pos <- (lr_pos_robust * pre_test) / (pre_test * (lr_pos_robust - 1) + 1)
 
@@ -101,7 +128,7 @@ png("outputs/figures/Fig4_SROC_Prediction_V10.png", width=2400, height=2400, res
 par(mar = c(5, 5, 4, 2), family = "sans")
 plot(fit, main = "", pch = 21, bg = "red", cex = 1.5, xlim=c(0, 0.5), ylim=c(0.4, 1.0))
 # Apenas Subtítulo
-title(main = "AUC = 0.955 (IC 95%) | Modelo Reitsma (REML)", line = 1, font.main = 1, cex.main = 1.1)
+title(main = sprintf("AUC = %.3f | Modelo Reitsma (REML)", auc_val), line = 1, font.main = 1, cex.main = 1.1)
 grid()
 
 # Elipse de Predição (Retângulo)
@@ -116,7 +143,7 @@ p5 <- ggplot(dados_biv, aes(x = log(dor), y = 1/se_dor)) +
   geom_point(size = 5, alpha = 0.7, fill = "gold", color = "black", shape = 21) +
   geom_vline(xintercept = mean(log(dados_biv$dor)), linetype = "dashed") +
   labs(title = NULL,
-       subtitle = "Teste de Egger (p = 0.44) | Correcão de Haldane (+0.5)",
+       subtitle = sprintf("Teste de Deeks (p = %.3f; cautela: <10 estudos) | Correcão de Haldane (+0.5)", deeks_p),
        x = "Log Diagnostic Odds Ratio", y = "Precisao (1/SE)") +
   theme_bw(base_size = 14) +
   theme(plot.subtitle = element_text(size = 13, hjust = 0.5))

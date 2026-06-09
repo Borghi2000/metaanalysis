@@ -6,6 +6,9 @@ Diagnostic Accuracy of Generative and Multimodal Artificial Intelligence Models 
 ## Abstract
 ... (link to OSF: https://osf.io/XXXXX)
 
+## DOI (Zenodo)
+10.5281/zenodo.19115371
+
 ## Methods
 - PRISMA-DTA guidelines
 - Bivariate random-effects model (Reitsma et al.)

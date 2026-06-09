@@ -1,0 +1,58 @@
+name: QUADAS-2 — Concordância interavaliador (κ de Cohen)
+
+# Roda automaticamente quando o 2º revisor edita/commita o arquivo dele,
+# e também pode ser disparado manualmente (aba Actions → Run workflow).
+on:
+  push:
+    paths:
+      - 'data/raw/quadas2_reviewer2.csv'
+      - 'data/master_audit.csv'
+      - 'analysis/python/calculate_kappa.py'
+  pull_request:
+    paths:
+      - 'data/raw/quadas2_reviewer2.csv'
+  workflow_dispatch:
+
+jobs:
+  kappa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: pip install pandas scikit-learn
+
+      - name: Calcular κ de Cohen
+        id: run
+        run: |
+          set +e
+          python analysis/python/calculate_kappa.py > kappa_out.txt 2>&1
+          echo "rc=$?" >> "$GITHUB_OUTPUT"
+          cat kappa_out.txt
+
+      - name: Publicar resultado no resumo da execução
+        if: always()
+        run: |
+          {
+            echo '## QUADAS-2 — Concordância interavaliador (κ de Cohen)'
+            echo ''
+            echo '```'
+            cat kappa_out.txt
+            echo '```'
+            if [ "${{ steps.run.outputs.rc }}" != "0" ]; then
+              echo ''
+              echo '> ⚠️ O cálculo falhou. Causa provável: o arquivo `data/raw/quadas2_reviewer2.csv`'
+              echo '> ainda não existe ou contém células `PREENCHER`/valores fora de {Low, Unclear, High}.'
+              echo '> Veja `data/raw/INSTRUCOES_2o_revisor.md`.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Falhar se o cálculo não concluiu
+        if: always()
+        run: exit ${{ steps.run.outputs.rc }}

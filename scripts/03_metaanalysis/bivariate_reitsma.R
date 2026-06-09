@@ -22,9 +22,12 @@ if (!file.exists(path_audit)) stop("Arquivo audit_database.csv não encontrado!"
 
 full_data <- read.csv(path_audit, stringsAsFactors = FALSE)
 
-# Separar estudos por tipo
-dados <- full_data[full_data$verified_sum == "YES", ]
-dados_acc <- full_data[full_data$verified_sum == "Accuracy Only", ]
+# AUDITORIA: no CSV committed TODAS as 10 linhas estao marcadas verified_sum=="YES"
+# (os 3 estudos "Accuracy Only" estao mis-coded), o que fazia este filtro retornar 10
+# linhas e o reitsma() quebrar nas celulas NA. Criterio robusto: 2x2 completo.
+for (col in c("tp", "fp", "tn", "fn")) full_data[[col]] <- suppressWarnings(as.numeric(full_data[[col]]))
+dados     <- full_data[complete.cases(full_data[, c("tp", "fp", "tn", "fn")]), ]
+dados_acc <- full_data[!complete.cases(full_data[, c("tp", "fp", "tn", "fn")]), ]
 
 cat(sprintf("   ✓ %d estudos bivariados carregados\n", nrow(dados)))
 cat(sprintf("   ✓ %d estudos de acurácia carregados\n", nrow(dados_acc)))

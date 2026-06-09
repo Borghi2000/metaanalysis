@@ -1,3 +1,3 @@
-"Condicao","N_Estudos","Comentario"
-"Pneumonia/Radiografia Geral",7,"Maioria dos estudos (N=103.417)"
-"Pneumotorax",3,"Subgrupo especifico (N=2.500)"
+"Condicao","N_Estudos","N_participantes","Estudos"
+"Outras condicoes toracicas",3,"2.700","Hong 2025b, Ostrovsky 2025, Huang 2023"
+"Pneumotorax",4,"100.256","Hong 2025a, Huang 2025, Akçay 2025, Ciflik 2026"

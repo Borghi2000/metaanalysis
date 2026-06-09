@@ -98,8 +98,9 @@ All figures will be saved to `outputs/figures/`.
 
 ### data/raw/studies_2x2_raw.csv
 
-Raw 2×2 contingency data extracted from the 7 studies 
-included in the main bivariate pool.
+Raw 2×2 contingency data extracted from the 8 studies 
+included in the main bivariate pool (auditoria 2026-06: Noh 2026 
+removido por citação inválida; Akçay 2025 e Ciflik 2026 adicionados).
 
 | Column | Description |
 |--------|-------------|
@@ -120,8 +121,8 @@ included in the main bivariate pool.
 ### data/processed/studies_2x2_haldane_corrected.csv
 
 Same structure as raw file with Haldane-Anscombe 
-correction (+0.5 to all cells) applied to Noh 2026 
-(FP=0 in original data).
+correction (+0.5 to all cells) applied to Ciflik 2026 
+(FN=0 in original data; raw sensitivity=100%).
 
 ## Declared Limitations of Reproducibility
 
@@ -138,6 +139,28 @@ correction (+0.5 to all cells) applied to Noh 2026
 3. Manual validation of NLP screening was performed by a 
    single reviewer. Independent replication requires a 
    second reviewer.
+
+## Auditoria de Rigor (2026-06)
+
+Uma auditoria de código, rigor e resultados foi conduzida em 2026-06-08. Pontos
+essenciais e correções aplicadas:
+
+- **Concordância interavaliador (κ) era sintética** e foi retratada;
+  `analysis/python/calculate_kappa.py` agora exige um 2º revisor real ou falha.
+  Até lá, o QUADAS-2 é de **revisor único, assistido por ferramenta automatizada**.
+- **Bug nos intervalos de predição corrigido** (`fit$n` NULL em `mada::reitsma`);
+  os PI agora são reproduzíveis pelo código (Sens 38,7–98,8%; Spec 9,4–100%).
+- **Scripts deduplicados**: 6 scripts de figura eram cópias idênticas e 3 de análise
+  também. Há agora uma única fonte de verdade; os demais redirecionam.
+- **`sensitivity_analyses.R` agora faz análise de sensibilidade real** (sem Huang,
+  sem cluster Hong) — antes era cópia do script principal.
+- **Filtro de dados corrigido**: o `verified_sum=="YES"` selecionava 10 linhas
+  (3 mis-coded) e quebrava o modelo; agora usa-se `complete.cases` (7 estudos).
+- **Números das figuras deixaram de ser hardcoded** (AUC, I², PI, RV+ e o teste de
+  assimetria — agora **Deeks**, não Egger — são calculados dos dados).
+
+Ver `data/CHANGELOG_dados.md` (procedência + edições manuais a verificar) e
+`outputs/submission/NOTA_DE_CORRECOES_AUDITORIA.md` (mudanças a aplicar no manuscrito).
 
 ## Citation
 
