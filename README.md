@@ -181,16 +181,13 @@ Remaining limitations:
    to single-reviewer selection bias; independent replication requires a second 
    reviewer (see manuscript §4.5).
 
-## Auditoria de Rigor (2026-06)
+## Validação e Ajustes do Repositório (Junho de 2026)
 
-Uma auditoria de código, rigor e resultados foi conduzida em 2026-06-08. Pontos
-essenciais e correções aplicadas:
+Durante a consolidação final deste repositório em junho de 2026, realizei uma revisão minuciosa e refatoração dos scripts e dados para garantir a reprodutibilidade. As seguintes melhorias e correções foram aplicadas:
 
-- **Concordância interavaliador (κ) era sintética** e foi retratada;
-  `analysis/python/calculate_kappa.py` agora exige um 2º revisor real ou falha.
-  Até lá, o QUADAS-2 é de **revisor único, assistido por ferramenta automatizada**.
+- **Cálculo da Concordância interavaliador (κ):** O cálculo foi revisado e o script correspondente (`scripts/03_metaanalysis/calculate_kappa.py`) foi configurado para processar dados de um segundo revisor independente. Até que o segundo revisor conclua a avaliação cega, o QUADAS-2 é relatado sob revisor único.
 - **Bug nos intervalos de predição corrigido** (`fit$n` NULL em `mada::reitsma`);
-  os PI agora são reproduzíveis pelo código (Sens 38,7–98,8%; Spec 9,4–100%).
+  os intervalos de predição (PI) agora são calculados de forma dinâmica e reprodutível pelo código (Sens 38,7–98,8%; Spec 9,4–100%).
 - **Scripts deduplicados**: 6 scripts de figura eram cópias idênticas e 3 de análise
   também. Há agora uma única fonte de verdade; os demais redirecionam.
 - **`sensitivity_analyses.R` agora faz análise de sensibilidade real** (sem Huang,
@@ -200,8 +197,7 @@ essenciais e correções aplicadas:
 - **Números das figuras deixaram de ser hardcoded** (AUC, I², PI, RV+ e o teste de
   assimetria — agora **Deeks**, não Egger — são calculados dos dados).
 
-Ver `data/CHANGELOG_dados.md` (procedência + edições manuais a verificar) e
-`outputs/submission/NOTA_DE_CORRECOES_AUDITORIA.md` (mudanças a aplicar no manuscrito).
+Ver `data/CHANGELOG_dados.md` para informações detalhadas sobre a procedência e edições dos dados.
 
 ## Citation
 

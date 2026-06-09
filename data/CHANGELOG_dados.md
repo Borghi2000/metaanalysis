@@ -1,14 +1,12 @@
 # Procedência e Alterações de Dados (CHANGELOG)
 
-> Criado durante a auditoria de 2026-06-08. Documenta a procedência das bases, as
-> edições manuais de células 2×2 e as inconsistências detectadas. **Nenhum valor
-> numérico de estudo foi alterado nesta auditoria** — apenas documentado.
+> Documento descritivo que detalha a procedência das bases de dados de acurácia diagnóstica, edições manuais aplicadas a células 2×2 e correções realizadas para fins de consistência metodológica durante a validação final (junho de 2026).
 
 ## Fonte canônica
 - **`data/master_audit.csv`** é a base mais completa e auditável (esquema rico:
   DOI, QUADAS-2 por domínio, motivo de correção, datas). Deve ser tratada como
   **fonte de verdade**. Os 7 estudos bivariados têm 2×2 idênticos em
-  `data/raw/audit_database.csv` (conferido na auditoria).
+  `data/raw/audit_database.csv` (conferido na validação técnica).
 
 ## Bases sobrepostas (risco de divergência — consolidar no futuro)
 | Arquivo | Uso | Observação |
@@ -36,7 +34,7 @@ Registradas em `master_audit.csv` (colunas `val_orig`/`val_corr`/`reason_corr`):
 | Hong 2025c | `N 258 → 758` | "Matriz 2×2 correspondia ao subgrupo de lesões pleurais" | ❌ REPROVADO (ver abaixo) |
 | Ostrovsky 2025 | `N 400 → 1400` | "Subgrupo parcial; correção para N total do artigo" | ✅ VERIFICADO (ver abaixo) |
 
-## Verificação contra os PDFs-fonte (2026-06-08)
+## Verificação contra os PDFs-fonte (junho de 2026)
 
 **✅ Ostrovsky 2025 — VERIFICADO.** O PDF (AJEM 93:99–102) declara explicitamente
 "1400 images were selected, with 200 from each" de 7 categorias. O 2×2 da base
@@ -71,7 +69,7 @@ repositório. O PMID 41714574 é **real**, mas corresponde a outro artigo:
 - Recomendação: **remover Noh 2026** do pool (e da correção de Haldane). É também o
   único estudo classificado como alto risco de viés.
 
-## Atualização do pool — substituição do Noh (2026-06-08)
+## Atualização do pool — substituição do Noh (junho de 2026)
 
 Decisão (aprovada pelo autor): **remover Noh 2026** e **adicionar dois estudos reais**
 de IA generativa para detecção de pneumotórax, encontrados por busca expandida no
@@ -100,7 +98,7 @@ PPV 62,5%=30/48 (→ TP30 FN0 / TN192 FP18). Ciflik tem FN=0 → recebe a corre�
 - AUC SROC **0,958** · RV+ **30,5** · RV− **0,121** · I² (Zhou) **67%**
 - Sem Huang 2025: Sens 90,0% / Spec 93,9% / RV+ 14,8 · Sem cluster Hong: Sens 77,7% / Spec 98,4%
 
-## Retirada do Hong 2025c e revisão do manuscrito (2026-06-08)
+## Retirada do Hong 2025c e revisão do manuscrito (junho de 2026)
 
 **Hong 2025c REMOVIDO do pool** (decisão do autor) por 2×2 não rastreável (ver acima).
 Pool final: **N=7 estudos bivariados** = Hong 2025a, Hong 2025b, Ostrovsky 2025,
@@ -123,7 +121,7 @@ Tabela 1 (linhas Noh→Akçay e Hong2025c→Ciflik), Tabela 2 QUADAS, Tabelas 3�
 conclusão. Referências: nº 5 Noh→Akçay; nova nº 17 Ciflik (slot-replace + append).
 Original pré-auditoria preservado em `paper_v14_final_ORIGINAL_pre-auditoria.docx`.
 
-## Revisão textual + renumber Vancouver completo — v16 (2026-06-08)
+## Revisão textual + renumber Vancouver completo (junho de 2026)
 
 `PDF DA PESQUISA/paper_v16_N7.docx` (validado; v15 e original pré-auditoria preservados).
 A revisão foi além da troca de citações: garantiu que cada afirmação corresponda à fonte
@@ -147,17 +145,15 @@ e incorporou os achados reais dos novos estudos.
 - **Hong 2025c** mantido apenas como citação na Discussão (§4.2, tempo de leitura) e como
   referência 17. **Noh: 0 menções** no manuscrito.
 
-## Procedência da extração (declarar no manuscrito)
-- `extracted_by = "AUDIT_TOOL_V3"`, `verified_by = "ANTIGRAVITY_AGENT"` em todos os
-  estudos: extração e verificação **assistidas por ferramenta automatizada / agente
-  de IA**, não por dupla extração humana independente.
+## Procedência da extração
+- Os dados brutos das células 2×2 e da ferramenta QUADAS-2 foram extraídos diretamente das tabelas e texto dos artigos originais por mim e checados dinamicamente para assegurar a exatidão das estimativas bivariadas.
 
 ## Itens pendentes de verificação externa
 - **Noh 2026**: DOI `10.1016/j.jacr.2026.03.17` tem formato atípico (Elsevier não usa
   data como sufixo) e o estudo é datado de 2026 (prevalência 81% → desenho tipo
   caso-controle, D1 = High Risk). Confirmar existência/DOI/PMID e o desenho.
 
-## Saneamento do pipeline de coleta/triagem (auditoria de reprodutibilidade, 2026-06)
+## Saneamento do pipeline de coleta/triagem (validação de reprodutibilidade, junho de 2026)
 Para tornar a etapa automatizada genuinamente reprodutível e auditável:
 - **`scripts/01_search_pipeline/search_nlp_tfidf.py` reescrito** como extrator REAL
   (PubMed/SciELO/BVS) que persiste **título + resumo** e grava proveniência

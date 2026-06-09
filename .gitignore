@@ -39,9 +39,21 @@ PDF DA PESQUISA/
 temp/
 backup/
 
+# --- ClaudePrism (diretório de trabalho interno, não versionado) ---
+.prism/
+
 # --- Sistema / credenciais ---
 .DS_Store
 Thumbs.db
 secrets.py
 api_keys.txt
 *.env
+
+# --- Arquivos nao essenciais para reprodutibilidade ---
+*.ps1
+*.bat
+abstracts.txt
+manuscript.txt
+scripts/abnt_converter.py
+scripts/extract_pdf_insights.py
+docs/extracted_pdf_insights.md

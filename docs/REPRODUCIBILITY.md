@@ -1,4 +1,4 @@
-# Reprodutibilidade e Auditoria do Pipeline de Coleta/Triagem
+# Reprodutibilidade e Validação do Pipeline de Coleta/Triagem
 
 Este documento descreve, de ponta a ponta, como **reproduzir e auditar** a etapa de
 busca e triagem de estudos desta revisão sistemática. O objetivo é que qualquer
@@ -74,7 +74,7 @@ PubMed, de registros anteriores à data de corte; ela é menor e fica documentad
 contagens por base de `SEARCH_PROVENANCE.json` a cada run. O determinismo da triagem
 (TF-IDF + limiar) é total dado o mesmo corpus.
 
-Após a reexecução real (Fase C da auditoria de reprodutibilidade), os contadores
+Após a reexecução real (Fase de validação de reprodutibilidade), os contadores
 automatizados de `prisma_counts.json` devem ser **regenerados** a partir das
 proveniências, e qualquer divergência frente aos números declarados no manuscrito deve
 ser reconciliada e documentada.
@@ -83,5 +83,5 @@ ser reconciliada e documentada.
 
 A procedência das matrizes 2×2, as edições manuais de células e as inconsistências
 detectadas estão documentadas em [`data/CHANGELOG_dados.md`](../data/CHANGELOG_dados.md)
-(auditoria de 2026-06-08). A fonte canônica dos dados de estudo é
+(validação técnica de junho de 2026). A fonte canônica dos dados de estudo é
 `data/master_audit.csv`.
