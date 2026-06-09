@@ -46,7 +46,13 @@ calc_pi <- function(fit) {
   tau2_sens <- as.numeric(fit$Psi[1, 1])
   se2_sens <- as.numeric(v[1, 1])
   
-  n_studies <- as.numeric(fit$n)
+  # BUGFIX (auditoria): fit$n e NULL em objetos mada::reitsma -> df = numeric(0),
+  # o que fazia qt() retornar vazio e os PI saiam como numeric(0).
+  # NB: fit$nobs = 14 (linhas tsens+tfpr), nao o n de estudos. O df correto do
+  # intervalo de predicao em nivel de estudo e (n_estudos - 2) = 5.
+  n_studies <- nrow(fit$data)
+  if (length(n_studies) != 1 || is.na(n_studies) || n_studies < 3)
+    stop("Numero de estudos invalido para intervalo de predicao (n_estudos = ", n_studies, ").")
   tcrit <- qt(0.975, df = n_studies - 2)
   
   # Logit Sens PI

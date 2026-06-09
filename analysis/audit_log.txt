@@ -66,3 +66,14 @@ Alertas/Avisos: 3
 
 ✅ DADOS APROVADOS PARA FASE 5
 [PHASE 6] QUADAS-2 Reliability: Kappa = 0.605 (N=70 items, 2 reviewers).
+
+============================================================
+RETRATAÇÃO DE AUDITORIA — 2026-06-08
+============================================================
+A linha [PHASE 6] acima é INVÁLIDA e fica RETRATADA. O kappa de 0.605 NÃO foi
+medido contra um segundo revisor real: o script calculate_kappa.py gerava o
+"revisor 2" copiando o revisor 1 e invertendo 7/70 rótulos (np.random.seed(42))
+para forçar ~90% de concordância. NÃO houve concordância interavaliador.
+Ação: calculate_kappa.py foi reescrito para exigir avaliações reais de um 2º
+revisor (ou falhar). Enquanto não houver 2º revisor humano, o QUADAS-2 deve ser
+reportado como AVALIAÇÃO DE REVISOR ÚNICO, assistida por ferramenta automatizada.

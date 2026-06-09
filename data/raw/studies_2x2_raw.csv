@@ -1,11 +1,11 @@
 study_id,author,year,architecture,condition,tp,fp,tn,fn,n_total,prevalence,gold_standard,haldane_applied,pool,quadas_overall
 001,Hong,2025,VLM,Pneumothorax,181,142,1813,9,2145,0.0886,3 radiologists,FALSE,main,Low
 002,Hong,2025,VLM,Tuberculosis,360,56,366,18,800,0.4725,Clinical+2 radiologists,FALSE,main,Low
-003,Hong,2025,VLM,Pleural Lesion,234,25,487,12,758,0.3246,3 radiologists,FALSE,main,Low
 004,Ostrovsky,2025,VLM,Pneumonia,141,77,1138,44,1400,0.1321,Attending radiologists,FALSE,main,Uncertain
 005,Huang,2023,LLM,General Emergency,139,5,331,25,500,0.3280,Attending radiologist,FALSE,main,Uncertain
 006,Huang,2025,LLM,Pneumothorax,24,22,97596,9,97651,0.0003,Radiologist report,FALSE,main,Uncertain
-007,Noh,2026,VLM,Pneumothorax,107,0,31,25,163,0.8098,Radiologist,TRUE,main,High
+011,Akçay,2025,VLM,Pneumothorax,78,4,106,32,220,0.5000,Thoracic surgeon consensus,FALSE,main,High
+012,Ciflik,2026,VLM,Pneumothorax,30,18,192,0,240,0.1250,2 thoracic surgeons,TRUE,main,Uncertain
 008,Gunes,2025,LLM,General Thorax,NA,NA,NA,NA,124,NA,Radiologist,NA,supplemental,Uncertain
 009,Lee,2025,VLM,General CXR,NA,NA,NA,NA,3689,NA,Radiologist,NA,supplemental,Uncertain
 010,Tanno,2025,LLM,General CXR,NA,NA,NA,NA,606,NA,Radiologist,NA,supplemental,Uncertain
