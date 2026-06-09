@@ -176,6 +176,13 @@ Para tornar a etapa automatizada genuinamente reprodutível e auditável:
   automatizados a partir das proveniências e reconciliar com o manuscrito.
 - **Documentação**: `docs/REPRODUCIBILITY.md` (mapa de auditoria ponta a ponta) e a seção
   "Reproducibility & Limitations" do README atualizadas.
-- **Honestidade**: o fluxograma declara "Removidos via NLP (n=0)" — a redução
-  3.165 → 74 é **manual** (leitura de título/resumo por revisor único), não automatizada;
-  reforça que o núcleo analítico é manual e permanece como limitação (§4.5).
+- **Atribuição correta das etapas (correção do autor):** a triagem de título/resumo
+  (**3.165 → 74**) foi **AUTOMATIZADA** pela ferramenta de relevância TF-IDF — os 3.165
+  resumos **não** foram lidos manualmente. Logo, essa redução é reproduzível/auditável
+  pelo código. O **julgamento manual de revisor único** aplica-se às etapas seguintes —
+  **elegibilidade por texto completo (74 → 10) e extração 2×2/QUADAS-2** —, que são o
+  núcleo analítico e permanecem como limitação (§4.5). A label "Removidos via NLP (n=0)"
+  do fluxograma antigo era enganosa: a exclusão automatizada está contabilizada na caixa
+  de triagem (`records_excluded = 3091`), não em "removidos antes da triagem".
+- **Escopo temporal fixo:** busca congelada por data de publicação
+  `2018/01/01–2026/06/09` (`SEARCH_CUTOFF`), garantindo a mesma janela em re-execuções.

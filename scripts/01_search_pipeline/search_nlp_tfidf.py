@@ -61,7 +61,14 @@ import requests
 # --------------------------------------------------------------------------- #
 # Parâmetros de busca FIXOS e auditáveis (documentados no manuscrito §2.2/PIRT)
 # --------------------------------------------------------------------------- #
-DATE_RANGE = ("2018/01/01", "2026/12/31")
+# ESCOPO TEMPORAL FIXO da busca (filtro por data de PUBLICAÇÃO no PubMed).
+# O limite superior é uma DATA DE CORTE CONGELADA — propositalmente NÃO é "hoje".
+# Manter estas duas datas constantes é o que torna a contagem da busca
+# reproduzível entre execuções (re-rodar amanhã devolve o mesmo conjunto).
+# Janela alinhada ao manuscrito: estudos publicados de 2018 a 2026.
+SEARCH_START = "2018/01/01"
+SEARCH_CUTOFF = "2026/06/09"          # data de corte fixa da busca (search date)
+DATE_RANGE = (SEARCH_START, SEARCH_CUTOFF)
 
 # Conceito "Índice" (IA generativa: LLM/VLM) AND conceito "População" (radiografia
 # de tórax). Termos restritos a título/resumo ([tiab]) para precisão da triagem.

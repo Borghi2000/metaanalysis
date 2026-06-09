@@ -10,26 +10,26 @@
   },
 
   "before_screening_removed": {
-    "_provenance": "automated_dedup :: duplicatas por DOI/titulo (search_nlp_tfidf.py:_dedupe). removed_via_nlp_automation reflete a contribuicao da triagem TF-IDF (screen_tfidf.py); no manuscrito v16 declarado = 0.",
+    "_provenance": "automated_dedup :: duplicatas por DOI/titulo (search_nlp_tfidf.py:_dedupe). removed_via_nlp_automation aqui = 0 (nenhuma remocao por automacao ANTES da triagem; a exclusao por TF-IDF e contada na etapa de triagem abaixo).",
     "duplicate_records_removed": 1032,
     "removed_via_nlp_automation": 0,
     "removed_other_reasons": 0
   },
 
   "screening": {
-    "_provenance": "records_screened = identificados - removidos antes da triagem (automatizado). records_excluded = decisao MANUAL de revisor unico sobre titulo/resumo (NAO coberta pelo codigo; ver limitacao §4.5).",
+    "_provenance": "automated_tfidf :: a triagem de titulo/resumo (3165 -> 74) foi feita pela ferramenta AUTOMATIZADA de relevancia (screen_tfidf.py, TF-IDF + cosseno, limiar 0.35). NAO houve leitura manual dos 3165 resumos. records_excluded = registros abaixo do limiar. Esta etapa e reproduzivel/auditavel pelo codigo.",
     "records_screened": 3165,
     "records_excluded": 3091
   },
 
   "retrieval": {
-    "_provenance": "manual_review :: recuperacao e leitura de textos completos por revisor unico.",
+    "_provenance": "manual_review :: recuperacao e leitura dos textos completos dos 74 registros por revisor unico.",
     "reports_sought_for_retrieval": 74,
     "reports_not_retrieved": 0
   },
 
   "eligibility": {
-    "_provenance": "manual_review :: exclusao por elegibilidade na leitura do texto completo (revisor unico). Soma das exclusoes = 64.",
+    "_provenance": "manual_review :: NUCLEO MANUAL. Exclusao por elegibilidade na leitura do TEXTO COMPLETO (74 -> 10), por revisor unico, NAO coberta pelo codigo (limitacao §4.5). Soma das exclusoes = 64.",
     "reports_assessed": 74,
     "excluded": {
       "reviews_editorials": 30,

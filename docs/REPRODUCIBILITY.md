@@ -12,15 +12,17 @@ a etapa automatizada e verificar cada número do fluxograma PRISMA.
 |---|---|---|
 | Busca nas bases (PubMed/SciELO/BVS) | automatizada | ✅ `search_nlp_tfidf.py` |
 | Deduplicação | automatizada (determinística) | ✅ `search_nlp_tfidf.py` |
-| Triagem por relevância (TF-IDF + cosseno, limiar 0.35) | automatizada (determinística) | ✅ `screen_tfidf.py` |
-| Triagem de título/resumo (elegibilidade) | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
-| Leitura de texto completo / extração 2×2 | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
+| **Triagem de título/resumo por relevância** (TF-IDF + cosseno, limiar 0.35; **3.165 → 74**) | automatizada (determinística) | ✅ `screen_tfidf.py` |
+| Elegibilidade por **texto completo** (74 → incluídos) | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
+| Extração 2×2 / QUADAS-2 | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
 
-> A disponibilização do código garante a **transparência e a reprodutibilidade
-> determinística da etapa automatizada**. As etapas manuais subsequentes constituem o
-> núcleo analítico da revisão e permanecem sujeitas a viés de revisor único — uma
-> limitação honestamente declarada no manuscrito (§4.5, item 9), **não** sanada pela
-> publicação do código.
+> **A triagem de título/resumo (a redução 3.165 → 74) foi AUTOMATIZADA pela ferramenta
+> de relevância TF-IDF — os 3.165 resumos não foram lidos manualmente.** Essa é
+> exatamente a etapa que o código torna transparente e **reproduzível de forma
+> determinística**. O **julgamento manual de revisor único** aplica-se às etapas
+> seguintes — **elegibilidade por texto completo (74 → 10) e extração 2×2/QUADAS-2** —
+> que constituem o núcleo analítico e permanecem sujeitas a viés de revisor único
+> (limitação declarada no manuscrito §4.5, item 9), **não** sanada pela publicação do código.
 
 ## Fluxo de execução
 
@@ -46,9 +48,11 @@ python scripts/01_search_pipeline/generate_prisma_flowchart.py \
 
 ## Garantias de reprodutibilidade
 
-- **Consulta fixa e documentada**: a query booleana do PubMed e o intervalo de datas
-  (2018–2026) são constantes no topo de `search_nlp_tfidf.py` e gravados em
-  `SEARCH_PROVENANCE.json` a cada execução.
+- **Consulta e escopo temporal fixos**: a query booleana e o **escopo temporal
+  congelado** (`SEARCH_START = 2018/01/01`, `SEARCH_CUTOFF = 2026/06/09`, por data de
+  publicação) são constantes no topo de `search_nlp_tfidf.py` e gravados em
+  `SEARCH_PROVENANCE.json` a cada execução. A data de corte é fixa de propósito (não é
+  "hoje"), de modo que re-rodar em outra data devolve a mesma janela.
 - **Triagem determinística**: `screen_tfidf.py` usa TF-IDF + similaridade de cosseno
   contra uma **semente conceitual fixa**, sem aleatoriedade. Mesmo corpus + mesmo
   limiar ⇒ **exatamente o mesmo subconjunto triado**.
@@ -58,13 +62,16 @@ python scripts/01_search_pipeline/generate_prisma_flowchart.py \
 - **Versões fixadas**: `requirements.txt` (Python) e `requirements_R.txt` (R) pinam as
   versões usadas.
 
-## Limite de reprodutibilidade temporal (caveat honesto)
+## Escopo temporal fixo e reprodutibilidade
 
-Reexecutar a busca em uma data futura **não reproduz necessariamente a contagem
-histórica** (4.000 / 3.165 registros), porque o PubMed cresce ao longo do tempo. O que
-é garantido é o **determinismo do pipeline dado um mesmo corpus, query, data e limiar**.
-Por isso, a data de execução e as contagens por base ficam registradas em
-`SEARCH_PROVENANCE.json`, permitindo auditoria do que foi obtido em cada run.
+Para garantir reprodutibilidade, a busca usa um **escopo temporal congelado** (por data
+de publicação): `2018/01/01` a `2026/06/09` (`SEARCH_CUTOFF`). Como o filtro é por data
+de publicação e a data de corte é fixa (não "hoje"), reexecutar a busca em qualquer
+momento futuro devolve **a mesma janela** de registros — o limite superior não cresce
+com o tempo. A única variação residual possível é a indexação tardia/backfill, pelo
+PubMed, de registros anteriores à data de corte; ela é menor e fica documentada nas
+contagens por base de `SEARCH_PROVENANCE.json` a cada run. O determinismo da triagem
+(TF-IDF + limiar) é total dado o mesmo corpus.
 
 Após a reexecução real (Fase C da auditoria de reprodutibilidade), os contadores
 automatizados de `prisma_counts.json` devem ser **regenerados** a partir das

@@ -121,7 +121,8 @@ def main() -> None:
 
     ax.text(1, 0.5,
             "*Numero de registros identificados em cada base: ver SEARCH_PROVENANCE.json.\n"
-            "**Triagem por revisor unico (titulo/resumo); etapa manual, nao coberta pelo codigo.",
+            "**Triagem de titulo/resumo AUTOMATIZADA (TF-IDF, limiar 0.35); reproduzivel pelo codigo.\n"
+            "  Etapa manual de revisor unico = elegibilidade por texto completo (74) e extracao 2x2.",
             fontsize=8, ha="left")
 
     out = Path(args.output)
