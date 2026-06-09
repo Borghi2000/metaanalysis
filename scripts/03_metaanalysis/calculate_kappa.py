@@ -3,23 +3,16 @@
 """
 Concordância interavaliador (kappa de Cohen) para o QUADAS-2.
 
-AUDITORIA DE INTEGRIDADE
-========================
-A versão anterior deste arquivo NÃO media concordância: ela copiava o revisor 1
-(`r2_list = r1_list.copy()`) e gerava o "revisor 2" artificialmente, com
-`np.random.seed(42)`, invertendo 7 de 70 rótulos para forçar ~90% de concordância.
-Isso produz um kappa SINTÉTICO, sem segundo avaliador real. Qualquer valor de kappa
-assim obtido é cientificamente inválido e foi REMOVIDO.
-
-Este script agora calcula kappa APENAS a partir de avaliações reais de dois
-revisores independentes. Se o arquivo do segundo revisor não existir, ele falha
-de forma explícita — nunca fabrica dados.
+Calcula kappa APENAS a partir de avaliações reais de dois revisores independentes.
+Se o arquivo do segundo revisor não existir, falha de forma explícita — nunca
+fabrica um revisor sintético.
 
 Como usar (quando houver um 2º revisor humano de fato):
   1. O revisor 1 já está em data/master_audit.csv (colunas q1_selection..a3_reference).
   2. Crie data/raw/quadas2_reviewer2.csv com as MESMAS colunas (uma linha por estudo,
-     mesma ordem de study_id), preenchidas independentemente pelo 2º revisor.
-  3. Rode: python analysis/python/calculate_kappa.py
+     mesma ordem de study_id), preenchidas independentemente pelo 2º revisor
+     (use data/raw/quadas2_reviewer2_TEMPLATE.csv como base).
+  3. Rode: python scripts/03_metaanalysis/calculate_kappa.py
 """
 
 import sys
@@ -42,7 +35,7 @@ def run_kappa() -> None:
             f"'{R2_PATH}'.\n"
             "       A concordância interavaliador NÃO pode ser calculada sem um\n"
             "       segundo avaliador humano independente. Este script NÃO gera\n"
-            "       um revisor sintético (ver nota de auditoria no cabeçalho).\n"
+            "       um revisor sintético.\n"
             "       Enquanto não houver o 2º revisor, o QUADAS-2 deve ser\n"
             "       reportado como avaliação de revisor único."
         )
@@ -79,9 +72,6 @@ def run_kappa() -> None:
     print(f"  - Concordância observada: {agree:.2%}")
     print(f"  - Kappa de Cohen:         {kappa:.3f}")
     print(f"  - Interpretação:          {'aceitável (>0.6)' if kappa > 0.6 else 'requer revisão'}")
-
-    with open("analysis/audit_log.txt", "a", encoding="utf-8") as f:
-        f.write(f"\n[QUADAS-2] Kappa (2 revisores REAIS, N={len(r1_list)} itens): {kappa:.3f}\n")
 
 
 if __name__ == "__main__":

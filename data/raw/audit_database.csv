@@ -2,10 +2,12 @@ authors,year,doi,pmid,journal,jcr,model_name,arch,clinical_scenario,ref_method,n
 Hong 2025a,2025,10.1148/radiol.241476,314(3):e241476,Radiology,19.7,KARA-CXR,VLM,Pneumothorax,3 radiologists consensus,3,Blinded,181.0,142.0,1813.0,9,2145,YES
 Hong 2025b,2025,10.2214/AJR.25.33059,225:e2533059,AJR,5.2,KARA-CXR,VLM,Tuberculosis Screening,Clinical + 2 radiologists,2,Blinded,360.0,56.0,366.0,18,800,YES
 Ostrovsky 2025,2025,10.1016/j.ajem.2025.03.060,93(2025)99-102,Am J Emerg Med,3.5,ChatGPT-4.0,LLM,Pneumonia vs Normal,Radiologists (on-site),1,Double Check,141,77,1138,44,1400,YES
-Huang 2023,2023,10.1001/jamanetworkopen.2023.36100,,JAMA Network Open,13.8,Transformer-based GenAI,LLM,Emergency Chest X-ray,Radiologist (on-site),1,Blinded,139.0,5.0,331.0,25,500,YES
-Huang 2025,2025,10.1001/jamanetworkopen.2025.13921,,JAMA Network Open,13.8,Generative Draft Reporting,LLM,Pneumothorax (Prospective),Radiologist (final report),1,Blinded (Shadow),24.0,22.0,97596.0,9,97651,YES
+Huang 2023,2023,10.1001/jamanetworkopen.2023.36100,37796505,JAMA Network Open,13.8,Transformer-based GenAI,LLM,Emergency Chest X-ray,Radiologist (on-site),1,Blinded,139.0,5.0,331.0,25,500,YES
+Huang 2025,2025,10.1001/jamanetworkopen.2025.13921,40471579,JAMA Network Open,13.8,Generative Draft Reporting,LLM,Pneumothorax (Prospective),Radiologist (final report),1,Blinded (Shadow),24.0,22.0,97596.0,9,97651,YES
 Akçay 2025,2025,10.1186/s12890-025-04041-w,41275154,BMC Pulm Med,,GPT-4o,VLM,Pneumothorax (spontaneous),Thoracic surgeon consensus,2,Blinded,78,4,106,32,220,YES
-Ciflik 2026,2026,10.1186/s12890-026-04151-z,41645118,BMC Pulm Med,,GPT-5.1,VLM,Pneumothorax (real-world),2 thoracic surgeons,2,Blinded,30,18,192,0,240,YES
-Lee 2025,2025,10.1007/s00330-024-11339-6,,Eur Radiol,,CXR-LLaVA,VLM,Chest X-ray Interpretation,Radiologist,1,Blinded,,,,3689,Accuracy Only,YES
-Gunes 2025,2025,10.1097/RTI.0000000000000805,,J Thorac Imaging,,LLM vs Radiologists,LLM,Thoracic Radiology Cases,Radiologist,1,Comparative,,,,124,Accuracy Only,YES
-Tanno 2025,2025,10.1038/s41591-024-03302-1,,Nat Med,,GenAI Reporting,LLM,Chest X-ray Reporting,Radiologist,1,Blinded,,,,606,Accuracy Only,YES
+Ciflik 2026,2026,10.1186/s12890-026-04151-z,41645118,BMC Pulm Med,,Multimodal LLM,VLM,Pneumothorax (real-world),2 thoracic surgeons,2,Blinded,30,18,192,0,240,YES
+Güzel 2026,2026,10.4274/dir.2026.263696,41674096,Diagn Interv Radiol,,Gemini 2 Pro,VLM,Pneumothorax (large-scale SIIM-ACR),SIIM-ACR radiologist masks,NA,Image-only,523,415,7881,1856,10675,YES
+Khovanova 2025,2025,10.3389/fdgth.2025.1674835,41675260,Front Digit Health,,Claude 3.7 Sonnet,VLM,Pulmonary Nodule,Radiologist + CT confirmation,1,Image-only,12,3,42,26,83,YES
+Lee 2025,2025,10.1007/s00330-024-11339-6,39812665,Eur Radiol,,CXR-LLaVA,VLM,Chest X-ray Interpretation,Radiologist,1,Blinded,,,,,3689,Accuracy Only,YES
+Bai 2026,2026,10.1038/s41467-026-72680-6,42098114,Nat Commun,,Janus-Pro-CXR,VLM,Report Generation (per-finding AUC),Radiologist,1,Prospective,,,,,296,Accuracy Only,YES
+Bulut 2025,2025,10.1371/journal.pone.0331962,40938938,PLoS One,,ChatGPT-4o,VLM,Pneumothorax (sensitivity only),Thoracic CT confirmation,1,Comparative,,,,,172,Accuracy Only,YES

@@ -126,7 +126,7 @@ ggsave("outputs/figures/Fig3_Fagan_Robust_V10.png", p3, width = 8, height = 7, d
 
 png("outputs/figures/Fig4_SROC_Prediction_V10.png", width=2400, height=2400, res=300)
 par(mar = c(5, 5, 4, 2), family = "sans")
-plot(fit, main = "", pch = 21, bg = "red", cex = 1.5, xlim=c(0, 0.5), ylim=c(0.4, 1.0))
+plot(fit, main = "", pch = 21, bg = "red", cex = 1.5, xlim=c(0, 0.5), ylim=c(0.1, 1.0))
 # Apenas Subtítulo
 title(main = sprintf("AUC = %.3f | Modelo Reitsma (REML)", auc_val), line = 1, font.main = 1, cex.main = 1.1)
 grid()
@@ -157,7 +157,7 @@ p6 <- ggplot(dados_biv, aes(x = 1 - (TN/(TN+FP)), y = TP/(TP+FN), size = N, fill
                   box.padding = 0.8, point.padding = 0.5, 
                   force = 10, segment.color = "grey50") +
   scale_size_continuous(range = c(5, 20)) +
-  scale_x_continuous(limits = c(0, 0.25)) + scale_y_continuous(limits = c(0.6, 1)) +
+  scale_x_continuous(limits = c(0, 0.25)) + scale_y_continuous(limits = c(0.1, 1)) +
   labs(title = NULL,
        subtitle = "Tamanho da bolha proporcional ao N de participantes",
        x = "1 - Especificidade", y = "Sensibilidade", size = "N Total", fill = "Arquitetura") +

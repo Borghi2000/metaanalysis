@@ -1,6 +1,0 @@
-ABSTRACT: Performance of methods for meta-analysis of diagnostic test accuracy with few studies or sparse data
-Authors: Y. Takwoingi, B. Guo, R. D. Riley, J. J. Deeks (2017)
-Journal: Statistical Methods in Medical Research
-
-Summary: HSROC and bivariate models are recommended for DTA meta-analysis but can fail with few studies or sparse data (100% sens/spec).
-Results: Simulation shows simpler hierarchical models or univariate random-effects logistic regression are valid alternatives when bivariate models don't converge.

@@ -1,8 +1,0 @@
-ABSTRACT: Prevalence of Burnout of Radiologists in Private Practice
-Authors: Jay R. Parikh et al. (2023)
-Journal: Journal of the American College of Radiology
-
-Purpose: Evaluate prevalence/factors of burnout among private practice radiologists.
-Methods: Survey of 1,235 radiologists (254 responses).
-Results: Burnout rate 46%. Fulfillment rate 26.7%. Significant inverse association between fulfillment and burnout (r = -0.66). Nights/weekends (on call) associated with higher burnout.
-Conclusions: Approx half of radiologists experience burnout. Self-care and older age are protective.

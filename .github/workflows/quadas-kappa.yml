@@ -7,7 +7,7 @@ on:
     paths:
       - 'data/raw/quadas2_reviewer2.csv'
       - 'data/master_audit.csv'
-      - 'analysis/python/calculate_kappa.py'
+      - 'scripts/03_metaanalysis/calculate_kappa.py'
   pull_request:
     paths:
       - 'data/raw/quadas2_reviewer2.csv'
@@ -32,7 +32,7 @@ jobs:
         id: run
         run: |
           set +e
-          python analysis/python/calculate_kappa.py > kappa_out.txt 2>&1
+          python scripts/03_metaanalysis/calculate_kappa.py > kappa_out.txt 2>&1
           echo "rc=$?" >> "$GITHUB_OUTPUT"
           cat kappa_out.txt
 

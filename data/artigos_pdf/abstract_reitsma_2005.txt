@@ -1,5 +1,0 @@
-ABSTRACT: Bivariate analysis of sensitivity and specificity produces informative summary measures in diagnostic reviews
-Authors: Reitsma JB, Glas AS, Rutjes AW, Scholten RJP, Bossuyt PM, Zwinderman AH (2005)
-Journal: J Clin Epidemiol
-
-Summary: Discusses the bivariate approach for DTA meta-analysis, which preserves the 2D nature of sensitivity/specificity pairs and incorporates correlation, improved over the traditional SROC approach.

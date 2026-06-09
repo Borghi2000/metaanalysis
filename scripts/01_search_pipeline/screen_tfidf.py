@@ -9,7 +9,7 @@ Lê o corpus produzido por `search_nlp_tfidf.py` (`data/raw/all_results_search.c
 com colunas `title` e `abstract`), calcula um escore de relevância TF-IDF +
 similaridade de cosseno de cada registro contra uma SEMENTE conceitual fixa
 (radiografia de tórax + IA generativa/LLM/VLM + acurácia diagnóstica) e aplica o
-LIMIAR (default 0.35) descrito no manuscrito (§2.2). Registros com
+LIMIAR (default 0.04) descrito no manuscrito (§2.2). Registros com
 `relevance_score >= limiar` são triados como potencialmente elegíveis.
 
 Por que é reprodutível/auditável
@@ -34,7 +34,7 @@ Uso
     python scripts/01_search_pipeline/screen_tfidf.py \
         --input data/raw/all_results_search.csv \
         --output data/processed \
-        --threshold 0.35
+        --threshold 0.04
 """
 from __future__ import annotations
 
@@ -66,7 +66,7 @@ VECTORIZER_KW = dict(
     min_df=1,
     sublinear_tf=True,
 )
-DEFAULT_THRESHOLD = 0.35
+DEFAULT_THRESHOLD = 0.04
 
 
 def compute_scores(df: pd.DataFrame) -> pd.Series:

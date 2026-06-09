@@ -1,46 +1,57 @@
 {
-  "_comment": "Fonte UNICA de verdade dos contadores do fluxograma PRISMA-DTA. Cada bloco declara a PROVENIENCIA do numero (de onde ele vem e se e automatizado, manual ou declarado). O gerador scripts/01_search_pipeline/generate_prisma_flowchart.py LE este arquivo (nada e hardcoded). Apos o run real do pipeline (Fase C da auditoria de reprodutibilidade), os numeros automatizados devem ser REGENERADOS a partir de SEARCH_PROVENANCE.json e SCREENING_PROVENANCE.json.",
-  "_status": "declared_pending_regeneration",
-  "_source_of_declared_numbers": "Manuscrito v16 (paper_v16_N7.docx) / Fig. PRISMA. A coleta automatizada real ainda nao foi reexecutada neste ambiente (bases bloqueadas por politica de rede).",
+  "_comment": "Fonte UNICA e OFICIAL dos contadores do fluxograma PRISMA-DTA. Gerado a partir da rodada real de busca de 2026-06-09 (search_nlp_tfidf.py + screen_tfidf.py, limiar TF-IDF 0.04). Substitui integralmente os numeros declarados (buggy) das versoes anteriores.",
+  "_status": "regenerated_from_real_run",
+  "_run_date": "2026-06-09",
 
   "identification": {
-    "_provenance": "automated_search :: deve vir de data/raw/search_results/SEARCH_PROVENANCE.json (counts_per_source) apos o run",
-    "records_identified_databases": 4185,
-    "records_identified_registers": 12
+    "_provenance": "automated_search :: SEARCH_PROVENANCE.json (PubMed real). SciELO/BVS retornaram 0.",
+    "records_identified_databases": 164,
+    "sources": {"PubMed": 164, "SciELO": 0, "BVS": 0},
+    "records_identified_manual": 1,
+    "_manual_note": "Huang 2025 (JAMA Netw Open, DOI 10.1001/jamanetworkopen.2025.13921) adicionado por busca manual: estudo elegivel cujos termos nao constam no titulo/resumo na forma exata da query [tiab]."
   },
 
   "before_screening_removed": {
-    "_provenance": "automated_dedup :: duplicatas por DOI/titulo (search_nlp_tfidf.py:_dedupe). removed_via_nlp_automation aqui = 0 (nenhuma remocao por automacao ANTES da triagem; a exclusao por TF-IDF e contada na etapa de triagem abaixo).",
-    "duplicate_records_removed": 1032,
-    "removed_via_nlp_automation": 0,
-    "removed_other_reasons": 0
+    "_provenance": "automated_dedup :: deduplicacao por DOI/titulo (search_nlp_tfidf.py:_dedupe).",
+    "total_before_dedup": 165,
+    "duplicate_records_removed": 0,
+    "total_after_dedup": 165
   },
 
   "screening": {
-    "_provenance": "automated_tfidf :: a triagem de titulo/resumo (3165 -> 74) foi feita pela ferramenta AUTOMATIZADA de relevancia (screen_tfidf.py, TF-IDF + cosseno, limiar 0.35). NAO houve leitura manual dos 3165 resumos. records_excluded = registros abaixo do limiar. Esta etapa e reproduzivel/auditavel pelo codigo.",
-    "records_screened": 3165,
-    "records_excluded": 3091
-  },
-
-  "retrieval": {
-    "_provenance": "manual_review :: recuperacao e leitura dos textos completos dos 74 registros por revisor unico.",
-    "reports_sought_for_retrieval": 74,
-    "reports_not_retrieved": 0
+    "_provenance": "automated_tfidf :: triagem de titulo/resumo por TF-IDF + cosseno (screen_tfidf.py), limiar 0.04. +1 registro manual entra direto na elegibilidade.",
+    "records_screened": 164,
+    "records_excluded_auto": 136,
+    "records_passed_tfidf": 28,
+    "manual_added": 1,
+    "total_for_eligibility": 29
   },
 
   "eligibility": {
-    "_provenance": "manual_review :: NUCLEO MANUAL. Exclusao por elegibilidade na leitura do TEXTO COMPLETO (74 -> 10), por revisor unico, NAO coberta pelo codigo (limitacao §4.5). Soma das exclusoes = 64.",
-    "reports_assessed": 74,
+    "_provenance": "manual_review :: leitura de texto completo dos PDFs por revisor, aplicando criterios PIRT do protocolo (docs/complementary/PROTOCOL_original.md).",
+    "reports_assessed": 29,
     "excluded": {
-      "reviews_editorials": 30,
-      "no_2x2_data": 25,
-      "other_or_pediatric": 9
+      "carta_comentario_editorial": 1,
+      "texto_completo_inacessivel": 14,
+      "indice_nao_generativo_CNN": 1,
+      "indice_nao_interpreta_imagem_CXR": 1,
+      "populacao_pediatrica": 1
+    },
+    "_excluded_named": {
+      "Erdemir 2025": "carta/comentario ao editor - sem dados originais",
+      "Castilla 2025": "indice = CNN/deep-learning classico (TRIA); LLM usado apenas para padrao-ouro",
+      "Park 2024": "indice extrai dados de laudos textuais (nao interpreta imagem de CXR); inclui TC",
+      "Wang 2026": "populacao exclusivamente pediatrica (<18 anos) - excluida pelo protocolo"
     }
   },
 
   "included": {
-    "_provenance": "manual_review :: estudos incluidos na sintese (10 = Pool Principal N=7 com 2x2 bruto + Pool Suplementar N=3).",
-    "studies_included": 10,
-    "reports_of_included_studies": 10
+    "_provenance": "manual_review :: estudos incluidos na revisao apos pente-fino dos criterios PIRT.",
+    "studies_included_total": 12,
+    "main_pool_2x2": 9,
+    "supplemental_pool": 3,
+    "_main_pool": ["Hong 2025a (PTX)", "Hong 2025b (TB)", "Ostrovsky 2025 (pneumonia)", "Huang 2023 (emergencia)", "Huang 2025 (PTX)", "Akcay 2025 (PTX)", "Ciflik 2026 (PTX)", "Guzel 2026 (PTX, Gemini 2)", "Khovanova 2025 (nodulo, Claude 3.7)"],
+    "_supplemental_pool": ["Lee 2025 (CXR-LLaVA)", "Bai 2026 (geracao de laudo)", "Bulut 2025 (PTX, so sensibilidade)"],
+    "_model_selection_rule": "Para estudos multi-modelo, extraido o MELHOR modelo generativo por estudo (Guzel->Gemini 2; Khovanova->Claude 3.7 Sonnet, pois BiomedCLIP/MedRAX nao sao generativos puros)."
   }
 }

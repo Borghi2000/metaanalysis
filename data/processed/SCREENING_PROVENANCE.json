@@ -1,0 +1,18 @@
+{
+  "input": "data\\raw\\all_results_search.csv",
+  "threshold": 0.04,
+  "vectorizer_params": {
+    "lowercase": true,
+    "stop_words": "english",
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 1,
+    "sublinear_tf": true
+  },
+  "screening_seed": "chest radiograph chest x-ray thoracic radiography cxr generative artificial intelligence large language model llm vision-language model vlm gpt-4 chatgpt multimodal foundation model llava diagnostic accuracy sensitivity specificity true positive false positive confusion matrix auroc roc area under the curve radiology interpretation pneumothorax tuberculosis pleural interstitial lung disease",
+  "n_input": 164,
+  "n_included": 28,
+  "n_excluded": 136
+}

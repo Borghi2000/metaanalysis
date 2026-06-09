@@ -3,16 +3,10 @@
 """
 Gerador do fluxograma PRISMA-DTA 2020 — RASTREÁVEL (sem números hardcoded).
 
-Substitui o antigo `manual_validation.py`, cujo nome não correspondia ao conteúdo
-e cujos contadores estavam todos embutidos no código (4185, 3165, 74, 10 …), sem
-qualquer ligação com os dados — um passivo para auditoria.
-
-Aqui TODOS os contadores são lidos de uma fonte única e versionada:
-`data/processed/prisma_counts.json`, onde cada bloco declara a proveniência do
-número (automatizado vs. revisão manual). Após o run real do pipeline, os contadores
-automatizados devem ser regenerados a partir de `SEARCH_PROVENANCE.json` e
-`SCREENING_PROVENANCE.json` e gravados nesse mesmo JSON — o diagrama então reflete
-automaticamente os dados.
+TODOS os contadores são lidos de uma fonte única e versionada:
+`data/processed/prisma_counts.json` (regenerado a partir da rodada real de busca de
+2026-06-09). Cada bloco declara a proveniência do número. O diagrama reflete
+automaticamente os dados — alterou o JSON, a figura muda.
 
 Uso
 ---
@@ -55,10 +49,22 @@ def main() -> None:
     idn = counts["identification"]
     rem = counts["before_screening_removed"]
     scr = counts["screening"]
-    ret = counts["retrieval"]
     elig = counts["eligibility"]
     inc = counts["included"]
     ex = elig["excluded"]
+
+    # Rótulos legíveis para os motivos de exclusão (chave -> texto)
+    ex_labels = {
+        "carta_comentario_editorial": "Cartas/comentarios/editoriais",
+        "texto_completo_inacessivel": "Texto completo inacessivel",
+        "indice_nao_generativo_CNN": "Indice nao generativo (CNN)",
+        "indice_nao_interpreta_imagem_CXR": "Indice nao interpreta imagem CXR",
+        "populacao_pediatrica": "Populacao pediatrica",
+    }
+    ex_lines = "\n".join(
+        f"{ex_labels.get(k, k)} ({v})" for k, v in ex.items()
+    )
+    total_excluded = sum(ex.values())
 
     fig, ax = plt.subplots(figsize=(12, 14))
     ax.set_xlim(0, 10)
@@ -74,55 +80,55 @@ def main() -> None:
     ax.add_patch(patches.Rectangle((0.2, 3.5), 0.4, 5.5, facecolor="#90caf9", alpha=0.5))
     ax.text(0.4, 6.25, "Triagem", rotation=90, ha="center", va="center",
             fontweight="bold", fontsize=11)
-    ax.add_patch(patches.Rectangle((0.2, 1.5), 0.4, 1.5, facecolor="#a5d6a7", alpha=0.5))
-    ax.text(0.4, 2.25, "Incluido", rotation=90, ha="center", va="center",
+    ax.add_patch(patches.Rectangle((0.2, 1.3), 0.4, 1.4, facecolor="#a5d6a7", alpha=0.5))
+    ax.text(0.4, 2.0, "Incluido", rotation=90, ha="center", va="center",
             fontweight="bold", fontsize=11)
 
     draw_box(ax, 5, 12.8, 6, 0.4,
-             "Identificacao de estudos via bases de dados e registros",
+             "Identificacao de estudos via bases de dados e busca manual",
              color="#ffc107", fontweight="bold")
-    draw_box(ax, 3, 11, 3, 1.5,
-             f"Registros identificados em*:\nBases de dados (n = {idn['records_identified_databases']})"
-             f"\nRegistros (n = {idn['records_identified_registers']})", align="left")
-    draw_box(ax, 7, 11, 3, 1.5,
+    draw_box(ax, 3, 11, 3.2, 1.5,
+             "Registros identificados:\n"
+             f"PubMed (n = {idn['sources']['PubMed']})\n"
+             f"SciELO (n = {idn['sources']['SciELO']})\n"
+             f"BVS (n = {idn['sources']['BVS']})\n"
+             f"Busca manual (n = {idn['records_identified_manual']})", align="left")
+    draw_box(ax, 7, 11, 3.2, 1.2,
              "Registros removidos antes\nda triagem:\n"
-             f"Duplicados (n = {rem['duplicate_records_removed']})\n"
-             f"Removidos via NLP (n = {rem['removed_via_nlp_automation']})\n"
-             f"Outros motivos (n = {rem['removed_other_reasons']})", align="left")
-    draw_arrow(ax, 4.5, 11, 5.5, 11)
+             f"Duplicados (n = {rem['duplicate_records_removed']})", align="left")
+    draw_arrow(ax, 4.6, 11, 5.4, 11)
     draw_arrow(ax, 3, 10.25, 3, 9.25)
 
-    draw_box(ax, 3, 8.5, 3, 0.8, f"Registros triados\n(n = {scr['records_screened']})")
-    draw_arrow(ax, 4.5, 8.5, 5.5, 8.5)
-    draw_box(ax, 7, 8.5, 3, 0.8, f"Registros excluidos**\n(n = {scr['records_excluded']})")
-    draw_arrow(ax, 3, 8.1, 3, 7.4)
+    draw_box(ax, 3, 8.5, 3.2, 0.9,
+             f"Registros triados por TF-IDF\n(n = {scr['records_screened']})")
+    draw_arrow(ax, 4.6, 8.5, 5.4, 8.5)
+    draw_box(ax, 7, 8.5, 3.2, 0.9,
+             "Registros excluidos pela\n"
+             f"triagem automatizada\n(n = {scr['records_excluded_auto']})")
+    draw_arrow(ax, 3, 8.05, 3, 5.5)
 
-    draw_box(ax, 3, 7, 3, 0.8,
-             f"Relatorios buscados para\nrecuperacao (n = {ret['reports_sought_for_retrieval']})")
-    draw_arrow(ax, 4.5, 7, 5.5, 7)
-    draw_box(ax, 7, 7, 3, 0.8,
-             f"Relatorios nao recuperados\n(n = {ret['reports_not_retrieved']})")
-    draw_arrow(ax, 3, 6.6, 3, 5.9)
-
-    draw_box(ax, 3, 5, 3, 1,
-             f"Relatorios avaliados para\nelegibilidade (n = {elig['reports_assessed']})")
-    draw_arrow(ax, 4.5, 5, 5.5, 5)
-    draw_box(ax, 7, 5, 3, 1.5,
-             "Relatorios excluidos:\n"
-             f"Reviews/Editoriais ({ex['reviews_editorials']})\n"
-             f"Sem dados 2x2 ({ex['no_2x2_data']})\n"
-             f"Outros/Pediatria ({ex['other_or_pediatric']})", align="left")
-    draw_arrow(ax, 3, 4.5, 3, 2.75)
-
-    draw_box(ax, 3, 2, 3, 1,
-             f"Estudos incluidos na revisao\n(n = {inc['studies_included']})\n"
-             f"Relatorios de estudos\nincluidos (n = {inc['reports_of_included_studies']})",
+    draw_box(ax, 3, 5, 3.2, 1.1,
+             "Relatorios avaliados para\nelegibilidade (texto completo)\n"
+             f"(n = {elig['reports_assessed']})\n"
+             f"[{scr['records_passed_tfidf']} TF-IDF + {scr['manual_added']} manual]",
              align="left")
+    draw_arrow(ax, 4.6, 5, 5.4, 5)
+    draw_box(ax, 7, 4.9, 3.4, 1.9,
+             f"Relatorios excluidos (n = {total_excluded}):\n{ex_lines}", align="left",
+             fontsize=8)
+    draw_arrow(ax, 3, 4.45, 3, 2.6)
 
-    ax.text(1, 0.5,
-            "*Numero de registros identificados em cada base: ver SEARCH_PROVENANCE.json.\n"
-            "**Triagem de titulo/resumo AUTOMATIZADA (TF-IDF, limiar 0.35); reproduzivel pelo codigo.\n"
-            "  Etapa manual de revisor unico = elegibilidade por texto completo (74) e extracao 2x2.",
+    draw_box(ax, 3, 1.9, 3.4, 1.3,
+             f"Estudos incluidos na revisao (n = {inc['studies_included_total']})\n"
+             f"- Pool principal/2x2 (n = {inc['main_pool_2x2']})\n"
+             f"- Pool suplementar (n = {inc['supplemental_pool']})",
+             color="#a5d6a7", align="left")
+
+    ax.text(1, 0.4,
+            "Busca real PubMed (2026-06-09); SciELO/BVS retornaram 0. Triagem de "
+            "titulo/resumo AUTOMATIZADA (TF-IDF + cosseno, limiar 0.04), reproduzivel "
+            "pelo codigo.\nElegibilidade por texto completo (revisor) aplicando criterios "
+            "PIRT do protocolo. Fonte dos numeros: data/processed/prisma_counts.json.",
             fontsize=8, ha="left")
 
     out = Path(args.output)

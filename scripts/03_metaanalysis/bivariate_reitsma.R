@@ -179,7 +179,7 @@ y_pos <- nrow(dados):1
 
 plot(NA, xlim = c(0.3, 1.0), ylim = c(0.2, nrow(dados) + 1.5),
      xlab = "Sensibilidade", ylab = "",
-     main = "Gráfico 1: Floresta de Sensibilidade por Estudo (N=7)",
+     main = "Gráfico 1: Floresta de Sensibilidade por Estudo (N=9)",
      yaxt = "n", font.main = 2, cex.main = 1.4, cex.lab = 1.1)
 
 # Estudos individuais
@@ -229,7 +229,7 @@ spec_vals <- dados$spec_ind
 
 plot(NA, xlim = c(0.8, 1.0), ylim = c(0.2, nrow(dados) + 1.5),
      xlab = "Especificidade", ylab = "",
-     main = "Gráfico 2: Floresta de Especificidade por Estudo (N=7)",
+     main = "Gráfico 2: Floresta de Especificidade por Estudo (N=9)",
      yaxt = "n", font.main = 2, cex.main = 1.4, cex.lab = 1.1)
 
 # Estudos individuais
@@ -269,9 +269,9 @@ cat("   ✓ Gráfico 2: outputs/figures/Grafico_2_FlorestaE.png\n")
 
 # -- 6.3 SROC Curve
 png("outputs/figures/Grafico_4_CurvaSROC.png", width = 800, height = 800, res = 120)
-plot(fit_overall, main = "Gráfico 4: Curva SROC e Resumo Bivariado (N=7)",
-     xlab = "1 - Especificidade", ylab = "Sensibilidade",
-     sroc = TRUE, ellipse = TRUE, pch = 1, cex = 1.2)
+plot(fit_overall, main = "Gráfico 4: Curva SROC e Resumo Bivariado (N=9)",
+     xlim = c(0, 1), ylim = c(0, 1), pch = 1, cex = 1.2,
+     sroclwd = 2, predict = TRUE)
 points(1 - dados$spec_ind, dados$sens_ind, pch = 19, col = "#003D8280", cex = 1.5)
 points(1 - spec_pooled, sens_pooled, pch = 18, col = "#DC143C", cex = 3)
 legend("bottomright", legend = c("Estudos Individuais", "Estimativa Agrupada (Reitsma)", "Elipse de Confiança 95%"),

@@ -1,4 +1,19 @@
-# Python
+# =============================================================================
+# .gitignore — repositorio publico (codigo + dados reproduziveis)
+# Mantem rastreado: scripts/, data/ (csv/json/md), docs/*.md, README, LICENSE,
+# requirements, CITATION. Ignora: PDFs, binarios, ambientes, saidas regeneraveis
+# e o material legado de auditoria/manuscrito.
+# =============================================================================
+
+# --- PDFs dos artigos (preservados no disco, NAO versionados por direitos autorais) ---
+data/artigos_pdf/
+*.pdf
+
+# --- Documentos binarios ---
+*.docx
+*.xlsx
+
+# --- Python ---
 __pycache__/
 *.py[cod]
 *.egg
@@ -6,38 +21,27 @@ __pycache__/
 .venv/
 venv/
 
-# R
+# --- R ---
 .Rhistory
 .RData
 .Rproj.user/
 *.Rproj
 
-# Outputs que não devem ser versionados
-outputs/figures/*.png
-outputs/figures/*.pdf
-outputs/tables/*.xlsx
+# --- Saidas regeneraveis pelos scripts (figuras, tabelas, logs) ---
+outputs/
 
-# Sistema
-.DS_Store
-Thumbs.db
-
-# Credenciais (nunca versionar)
-*.env
-secrets.py
-api_keys.txt
-
-# Arquivos de pesquisa não essenciais
-PDF DA PESQUISA/
+# --- Material legado / auditoria (substituido pelo pipeline em scripts/) ---
 analysis/
 audit/
 manuscript/
 notebooks/
+PDF DA PESQUISA/
 temp/
 backup/
-*.docx
-*.pdf
 
-# Outros outputs não essenciais
-outputs/statistics/
-outputs/submission/
-outputs/audit_log.txt
+# --- Sistema / credenciais ---
+.DS_Store
+Thumbs.db
+secrets.py
+api_keys.txt
+*.env

@@ -76,7 +76,7 @@ python scripts/01_search_pipeline/search_nlp_tfidf.py \
 python scripts/01_search_pipeline/screen_tfidf.py \
   --input data/raw/all_results_search.csv \
   --output data/processed/ \
-  --threshold 0.35
+  --threshold 0.04
 ```
 
 Stage 3a fetches title + abstract for every record using a fixed, documented boolean 
@@ -84,15 +84,19 @@ query and a **frozen temporal scope** (publication date 2022/11/30 — the ChatG
 launch — to 2026/06/09), writing 
 `data/raw/search_results/SEARCH_PROVENANCE.json` (query, run date, per-source counts). 
 Stage 3b computes a TF-IDF + cosine-similarity relevance score against a fixed conceptual 
-seed and applies the `--threshold` cutoff (0.35). This title/abstract screening (the 
-**3,165 → 74** reduction) is **automated and deterministic** — the abstracts were not 
-read manually — so the same corpus and threshold reproduce exactly the same subset, and 
-the step can be audited publicly.
+seed and applies the `--threshold` cutoff (0.04). In the registered run (2026-06-09) this 
+title/abstract screening reduced **164 → 28** records (PubMed; SciELO/BVS returned 0), 
+plus **1 manually added** eligible record (Huang 2025, whose query terms are absent from 
+the title/abstract), giving **29** records assessed for full-text eligibility. The 
+screening is **automated and deterministic** — abstracts were not read manually — so the 
+same corpus and threshold reproduce exactly the same subset, and the step can be audited 
+publicly.
 
 See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for the end-to-end audit map. 
-The manual single-reviewer steps — **full-text eligibility (74 → 10) and 2×2 / QUADAS-2 
-extraction** — are **not** covered by the code and remain a declared limitation 
-(see manuscript §4.5).
+The manual single-reviewer steps — **full-text eligibility (29 → 12 included: 9 in the 
+main bivariate pool + 3 supplemental) and 2×2 / QUADAS-2 extraction** — are **not** 
+covered by the code and remain a declared limitation (see manuscript §4.5). The PRISMA 
+counts are the single source of truth in [`data/processed/prisma_counts.json`](data/processed/prisma_counts.json).
 
 ### Step 4 — Run the meta-analysis (R)
 
@@ -106,10 +110,12 @@ source("scripts/03_metaanalysis/fagan_nomogram.R")
 
 ### Step 5 — Generate figures
 ```r
-source("scripts/04_figures/forest_plot_sensitivity.R")
-source("scripts/04_figures/forest_plot_specificity.R")
-source("scripts/04_figures/funnel_plot.R")
-source("scripts/04_figures/bubble_plot.R")
+# Forest plots, SROC, Fagan, funnel, bubble e bar chart (Fig1–Fig7) sao todos
+# gerados pela fonte unica sroc_curve.R (os stubs em 04_figures redirecionam a ela).
+source("scripts/03_metaanalysis/sroc_curve.R")
+
+# Graficos QUADAS-2 (traffic light + summary) a partir de data/master_audit.csv
+source("scripts/04_figures/quadas2_plots.R")
 ```
 
 All figures will be saved to `outputs/figures/`.
@@ -118,9 +124,10 @@ All figures will be saved to `outputs/figures/`.
 
 ### data/raw/studies_2x2_raw.csv
 
-Raw 2×2 contingency data extracted from the 8 studies 
-included in the main bivariate pool (auditoria 2026-06: Noh 2026 
-removido por citação inválida; Akçay 2025 e Ciflik 2026 adicionados).
+Raw 2×2 contingency data for the **9 studies in the main bivariate pool** plus
+**3 supplemental studies** (no reconstructable 2×2; narrative synthesis only).
+Run of 2026-06-09 added Güzel 2026 and Khovanova 2025 to the main pool; Park 2024,
+Castilla 2025 and Wang 2026 were excluded on PIRT grounds (see `prisma_counts.json`).
 
 | Column | Description |
 |--------|-------------|
@@ -128,21 +135,24 @@ removido por citação inválida; Akçay 2025 e Ciflik 2026 adicionados).
 | author | First author surname |
 | year | Publication year |
 | architecture | LLM or VLM |
+| model_extracted | Specific model extracted (best generative model per study) |
 | condition | Target condition |
-| tp | True positives |
-| fp | False positives |
-| tn | True negatives |
-| fn | False negatives |
+| tp / fp / tn / fn | 2×2 cells (blank for supplemental studies) |
 | n_total | Total sample size |
 | prevalence | Condition prevalence in test set |
 | gold_standard | Reference standard used |
 | haldane_applied | Boolean: Haldane correction applied |
+| pool | `main` (2×2 meta-analysis) or `supplemental` (narrative) |
+| quadas_overall | QUADAS-2 overall risk of bias |
 
-### data/processed/studies_2x2_haldane_corrected.csv
+### data/raw/audit_database.csv & data/master_audit.csv
 
-Same structure as raw file with Haldane-Anscombe 
-correction (+0.5 to all cells) applied to Ciflik 2026 
-(FN=0 in original data; raw sensitivity=100%).
+`audit_database.csv` is the input to the R meta-analysis scripts (bivariate + 
+sensitivity); `master_audit.csv` is the richer audit table feeding the figure and 
+QUADAS-2 generators. Both are the single source of truth for the 9 main + 3 
+supplemental studies. Studies with complete 2×2 cells enter the bivariate model 
+(`complete.cases`); Ciflik 2026 has FN=0, handled by the continuity correction 
+applied inside `mada::reitsma`.
 
 ## Reproducibility & Limitations
 
@@ -155,7 +165,7 @@ the same screened subset. Provenance is recorded in `SEARCH_PROVENANCE.json` and
 
 Remaining limitations:
 
-1. The TF-IDF threshold (0.35) was determined empirically rather than from a 
+1. The TF-IDF threshold (0.04) was determined empirically rather than from a 
    pre-specified rule. The search uses a **frozen temporal scope** (publication date 
    2022/11/30 — the ChatGPT launch — to 2026/06/09), so re-running returns the same 
    window; the screening is deterministic for a given corpus and threshold.
@@ -164,7 +174,7 @@ Remaining limitations:
    registration was completed in OSF Registries (https://osf.io/XXXXX) after data 
    extraction, as declared in the manuscript.
 
-3. **The manual steps — full-text eligibility assessment (74 → 10) and 2×2 / 
+3. **The manual steps — full-text eligibility assessment (29 → 12) and 2×2 / 
    QUADAS-2 extraction — were performed by a single reviewer and are NOT covered by 
    the code.** (Title/abstract screening, by contrast, was automated via TF-IDF.) 
    These manual steps constitute the analytic core of the review and remain subject 

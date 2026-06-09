@@ -60,25 +60,31 @@ resumo_cenario <- function(rotulo, d) {
   )
 }
 
-d_full    <- dados
-d_noHuang <- dados[dados$authors != "Huang 2025", ]
-d_noAkcay <- dados[!grepl("Ak", dados$authors), ]   # Akçay = unico alto risco QUADAS
-d_noHong  <- dados[!grepl("Hong", dados$authors), ]
+# Cenarios de robustez para o pool atual (N=9). QUADAS alto risco = Akcay + Khovanova.
+d_full      <- dados
+d_noGuzel   <- dados[!grepl("zel", dados$authors), ]            # outlier de volume + sens muito baixa
+d_noHuang   <- dados[dados$authors != "Huang 2025", ]          # outlier de volume (TN ~97k)
+d_noVolOut  <- dados[!grepl("zel", dados$authors) & dados$authors != "Huang 2025", ]  # ambos mega-volume
+d_lowRisk   <- dados[!grepl("Ak|Khovanova", dados$authors), ]  # remove alto risco QUADAS
+d_ptx       <- dados[grepl("Pneumothorax", dados$clinical_scenario), ]  # subgrupo homogeneo
 
 lbl <- function(pref, d) sprintf("%s (N=%d)", pref, nrow(d))
 tab <- rbind(
   resumo_cenario(lbl("1. Pool completo", d_full), d_full),
-  resumo_cenario(lbl("A. Sem outlier Huang 2025", d_noHuang), d_noHuang),
-  resumo_cenario(lbl("B. Sem Akcay 2025 (alto risco)", d_noAkcay), d_noAkcay),
-  resumo_cenario(lbl("D. Sem cluster Hong 2025a/b", d_noHong), d_noHong)
+  resumo_cenario(lbl("A. Sem outlier de volume Guzel 2026", d_noGuzel), d_noGuzel),
+  resumo_cenario(lbl("B. Sem outlier de volume Huang 2025", d_noHuang), d_noHuang),
+  resumo_cenario(lbl("C. Sem ambos outliers de volume", d_noVolOut), d_noVolOut),
+  resumo_cenario(lbl("D. Sem alto risco QUADAS (Akcay+Khovanova)", d_lowRisk), d_lowRisk),
+  resumo_cenario(lbl("E. Subgrupo Pneumotorax", d_ptx), d_ptx)
 )
 
-cat("\n=== ANALISES DE SENSIBILIDADE / ROBUSTEZ ===\n\n")
+cat("\n=== ANALISES DE SENSIBILIDADE / ROBUSTEZ (N=9) ===\n\n")
 print(tab, row.names = FALSE)
 
 dir.create("outputs/statistics", showWarnings = FALSE, recursive = TRUE)
 write.csv(tab, "outputs/statistics/Sensibilidade_Cenarios.csv", row.names = FALSE)
 cat("\n[OK] Salvo: outputs/statistics/Sensibilidade_Cenarios.csv\n")
 
-cat("\nLeitura: a especificidade e a RV+ caem substancialmente ao remover Huang 2025\n",
-    "(dominancia de volume) e a precisao muda ao remover o cluster Hong (independencia).\n")
+cat("\nLeitura: Guzel 2026 e Huang 2025 dominam por volume; remove-los eleva a\n",
+    "sensibilidade agrupada. O subgrupo homogeneo de pneumotorax e a analise mais\n",
+    "interpretavel clinicamente.\n")

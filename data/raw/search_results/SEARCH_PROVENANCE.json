@@ -1,0 +1,17 @@
+{
+  "run_utc": "2026-06-09T14:25:41.532732+00:00",
+  "pubmed_query": "((\"generative artificial intelligence\"[tiab] OR \"large language model\"[tiab] OR \"large language models\"[tiab] OR LLM[tiab] OR \"vision-language model\"[tiab] OR \"vision language model\"[tiab] OR VLM[tiab] OR \"GPT-4\"[tiab] OR ChatGPT[tiab] OR \"multimodal artificial intelligence\"[tiab] OR \"foundation model\"[tiab] OR LLaVA[tiab] OR \"multimodal large language model\"[tiab]) AND (\"chest radiograph\"[tiab] OR \"chest radiographs\"[tiab] OR \"chest x-ray\"[tiab] OR \"chest x-rays\"[tiab] OR CXR[tiab] OR \"thoracic radiograph\"[tiab] OR \"thoracic radiographs\"[tiab] OR \"chest radiography\"[tiab])) AND (\"2022/11/30\"[dp] : \"2026/06/09\"[dp])",
+  "free_text_query": "(generative artificial intelligence OR large language model OR LLM OR vision-language model OR VLM OR ChatGPT OR GPT-4 OR multimodal artificial intelligence) AND (chest radiograph OR chest x-ray OR CXR OR thoracic radiograph)",
+  "date_range": [
+    "2022/11/30",
+    "2026/06/09"
+  ],
+  "counts_per_source": {
+    "PubMed": 164,
+    "SciELO": 0,
+    "BVS": 0
+  },
+  "total_before_dedup": 164,
+  "total_after_dedup": 164,
+  "api_key_used": false
+}
