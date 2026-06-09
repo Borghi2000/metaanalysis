@@ -49,7 +49,7 @@ python scripts/01_search_pipeline/generate_prisma_flowchart.py \
 ## Garantias de reprodutibilidade
 
 - **Consulta e escopo temporal fixos**: a query booleana e o **escopo temporal
-  congelado** (`SEARCH_START = 2018/01/01`, `SEARCH_CUTOFF = 2026/06/09`, por data de
+  congelado** (`SEARCH_START = 2022/11/30`, lançamento do ChatGPT; `SEARCH_CUTOFF = 2026/06/09`, por data de
   publicação) são constantes no topo de `search_nlp_tfidf.py` e gravados em
   `SEARCH_PROVENANCE.json` a cada execução. A data de corte é fixa de propósito (não é
   "hoje"), de modo que re-rodar em outra data devolve a mesma janela.
@@ -65,7 +65,8 @@ python scripts/01_search_pipeline/generate_prisma_flowchart.py \
 ## Escopo temporal fixo e reprodutibilidade
 
 Para garantir reprodutibilidade, a busca usa um **escopo temporal congelado** (por data
-de publicação): `2018/01/01` a `2026/06/09` (`SEARCH_CUTOFF`). Como o filtro é por data
+de publicação): `2022/11/30` (lançamento do ChatGPT, início da era de IA generativa) a
+`2026/06/09` (`SEARCH_CUTOFF`). Como o filtro é por data
 de publicação e a data de corte é fixa (não "hoje"), reexecutar a busca em qualquer
 momento futuro devolve **a mesma janela** de registros — o limite superior não cresce
 com o tempo. A única variação residual possível é a indexação tardia/backfill, pelo

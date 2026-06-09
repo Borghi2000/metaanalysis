@@ -62,11 +62,12 @@ import requests
 # Parâmetros de busca FIXOS e auditáveis (documentados no manuscrito §2.2/PIRT)
 # --------------------------------------------------------------------------- #
 # ESCOPO TEMPORAL FIXO da busca (filtro por data de PUBLICAÇÃO no PubMed).
-# O limite superior é uma DATA DE CORTE CONGELADA — propositalmente NÃO é "hoje".
-# Manter estas duas datas constantes é o que torna a contagem da busca
-# reproduzível entre execuções (re-rodar amanhã devolve o mesmo conjunto).
-# Janela alinhada ao manuscrito: estudos publicados de 2018 a 2026.
-SEARCH_START = "2018/01/01"
+# Início = data de lançamento do ChatGPT (30/11/2022), que marca a inauguração da
+# era de IA generativa/LLM cujo desempenho diagnóstico esta revisão avalia — logo,
+# anterior a essa data não há tecnologia-índice a ser avaliada.
+# Fim = data de corte da busca. AMBAS são constantes congeladas: manter estas datas
+# fixas é o que torna a contagem da busca reproduzível entre execuções.
+SEARCH_START = "2022/11/30"           # lançamento do ChatGPT (inicio da era generativa)
 SEARCH_CUTOFF = "2026/06/09"          # data de corte fixa da busca (search date)
 DATE_RANGE = (SEARCH_START, SEARCH_CUTOFF)
 

@@ -185,4 +185,7 @@ Para tornar a etapa automatizada genuinamente reprodutível e auditável:
   do fluxograma antigo era enganosa: a exclusão automatizada está contabilizada na caixa
   de triagem (`records_excluded = 3091`), não em "removidos antes da triagem".
 - **Escopo temporal fixo:** busca congelada por data de publicação
-  `2018/01/01–2026/06/09` (`SEARCH_CUTOFF`), garantindo a mesma janela em re-execuções.
+  `2022/11/30` (lançamento do ChatGPT) `–2026/06/09` (`SEARCH_CUTOFF`), garantindo a
+  mesma janela em re-execuções. **Pendência:** o PIRT do manuscrito (§2.2) declara
+  "2018–2026"; reconciliar com a nova janela (início no lançamento do ChatGPT) — nenhum
+  estudo incluído é perdido (o mais antigo é Huang 2023).

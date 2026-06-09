@@ -80,7 +80,8 @@ python scripts/01_search_pipeline/screen_tfidf.py \
 ```
 
 Stage 3a fetches title + abstract for every record using a fixed, documented boolean 
-query and a **frozen temporal scope** (publication date 2018/01/01–2026/06/09), writing 
+query and a **frozen temporal scope** (publication date 2022/11/30 — the ChatGPT 
+launch — to 2026/06/09), writing 
 `data/raw/search_results/SEARCH_PROVENANCE.json` (query, run date, per-source counts). 
 Stage 3b computes a TF-IDF + cosine-similarity relevance score against a fixed conceptual 
 seed and applies the `--threshold` cutoff (0.35). This title/abstract screening (the 
@@ -156,8 +157,8 @@ Remaining limitations:
 
 1. The TF-IDF threshold (0.35) was determined empirically rather than from a 
    pre-specified rule. The search uses a **frozen temporal scope** (publication date 
-   2018/01/01–2026/06/09), so re-running returns the same window; the screening is 
-   deterministic for a given corpus and threshold.
+   2022/11/30 — the ChatGPT launch — to 2026/06/09), so re-running returns the same 
+   window; the screening is deterministic for a given corpus and threshold.
 
 2. The protocol was not registered prospectively in PROSPERO. Retrospective 
    registration was completed in OSF Registries (https://osf.io/XXXXX) after data 
