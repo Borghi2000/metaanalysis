@@ -12,15 +12,15 @@ a etapa automatizada e verificar cada número do fluxograma PRISMA.
 |---|---|---|
 | Busca nas bases (PubMed/SciELO/BVS) | automatizada | ✅ `search_nlp_tfidf.py` |
 | Deduplicação | automatizada (determinística) | ✅ `search_nlp_tfidf.py` |
-| **Triagem de título/resumo por relevância** (TF-IDF + cosseno, limiar 0.35; **3.165 → 74**) | automatizada (determinística) | ✅ `screen_tfidf.py` |
-| Elegibilidade por **texto completo** (74 → incluídos) | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
+| **Triagem de título/resumo por relevância** (TF-IDF + cosseno, limiar 0.04; **164 → 28**) | automatizada (determinística) | ✅ `screen_tfidf.py` |
+| Elegibilidade por **texto completo** (29 → 12 incluídos) | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
 | Extração 2×2 / QUADAS-2 | **julgamento manual, revisor único** | ❌ **não** — limitação declarada (§4.5) |
 
-> **A triagem de título/resumo (a redução 3.165 → 74) foi AUTOMATIZADA pela ferramenta
-> de relevância TF-IDF — os 3.165 resumos não foram lidos manualmente.** Essa é
+> **A triagem de título/resumo (a redução 164 → 28) foi AUTOMATIZADA pela ferramenta
+> de relevância TF-IDF — os 164 resumos não foram lidos manualmente.** Essa é
 > exatamente a etapa que o código torna transparente e **reproduzível de forma
 > determinística**. O **julgamento manual de revisor único** aplica-se às etapas
-> seguintes — **elegibilidade por texto completo (74 → 10) e extração 2×2/QUADAS-2** —
+> seguintes — **elegibilidade por texto completo (29 → 12) e extração 2×2/QUADAS-2** —
 > que constituem o núcleo analítico e permanecem sujeitas a viés de revisor único
 > (limitação declarada no manuscrito §4.5, item 9), **não** sanada pela publicação do código.
 
@@ -35,9 +35,9 @@ python scripts/01_search_pipeline/search_nlp_tfidf.py --output data/raw --retmax
 #   -> data/raw/all_results_search.csv                 (corpus com titulo+resumo)
 #   -> data/raw/search_results/SEARCH_PROVENANCE.json  (query, data, contagens)
 
-# 2) Triagem TF-IDF deterministica (limiar documentado = 0.35).
+# 2) Triagem TF-IDF deterministica (limiar documentado = 0.04).
 python scripts/01_search_pipeline/screen_tfidf.py \
-    --input data/raw/all_results_search.csv --output data/processed --threshold 0.35
+    --input data/raw/all_results_search.csv --output data/processed --threshold 0.04
 #   -> data/processed/screening_tfidf_scored.csv / _included.csv
 #   -> data/processed/SCREENING_PROVENANCE.json
 

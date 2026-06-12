@@ -15,7 +15,7 @@ This repository serves as the methodological support for the meta-analysis proto
 
 > **Scope note (updated 2026-06-09):** The executed pipeline and the registered title ("Chest Radiograph Interpretation") restrict the population to **chest radiograph (X-ray) only**. The earlier mention of CT/tomosynthesis is superseded by this CXR-only scope. The search query (`search_nlp_tfidf.py`) uses CXR terms exclusively.
 
-> **Multi-model extraction rule (updated 2026-06-09):** When a study evaluates several models, the **best-performing generative model** is extracted for the 2x2 (e.g., Güzel 2026 → Gemini 2; Khovanova 2025 → Claude 3.7 Sonnet — non-generative BiomedCLIP/MedRAX excluded from index even when higher-accuracy).
+> **Multi-model extraction rule (updated 2026-06-09):** When a study evaluates several models, the **best-performing generative model** is extracted for the 2x2 (e.g., Güzel 2026 → Gemini 2; Khovanova 2026 → Claude 3.7 Sonnet — non-generative BiomedCLIP/MedRAX excluded from index even when higher-accuracy).
 
 ---
 

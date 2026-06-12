@@ -4,7 +4,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19115371.svg)](https://doi.org/10.5281/zenodo.19115371)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![OSF Registration](https://img.shields.io/badge/OSF-Registration-blue)](https://osf.io/XXXXX)
+[![OSF Registration](https://img.shields.io/badge/OSF-Registration-blue)](https://osf.io/sh5z7)
 
 ## Overview
 
@@ -126,7 +126,7 @@ All figures will be saved to `outputs/figures/`.
 
 Raw 2×2 contingency data for the **9 studies in the main bivariate pool** plus
 **3 supplemental studies** (no reconstructable 2×2; narrative synthesis only).
-Run of 2026-06-09 added Güzel 2026 and Khovanova 2025 to the main pool; Park 2024,
+Run of 2026-06-09 added Güzel 2026 and Khovanova 2026 to the main pool; Park 2024,
 Castilla 2025 and Wang 2026 were excluded on PIRT grounds (see `prisma_counts.json`).
 
 | Column | Description |
@@ -157,7 +157,7 @@ applied inside `mada::reitsma`.
 ## Reproducibility & Limitations
 
 **Automated screening is reproducible and auditable.** The search query, date 
-range, TF-IDF parameters, and the 0.35 threshold are fixed and documented in the 
+range, TF-IDF parameters, and the 0.04 threshold are fixed and documented in the 
 pipeline scripts (`search_nlp_tfidf.py`, `screen_tfidf.py`). The screening is 
 deterministic: given the same corpus and threshold, any researcher obtains exactly 
 the same screened subset. Provenance is recorded in `SEARCH_PROVENANCE.json` and 
@@ -171,7 +171,7 @@ Remaining limitations:
    window; the screening is deterministic for a given corpus and threshold.
 
 2. The protocol was not registered prospectively in PROSPERO. Retrospective 
-   registration was completed in OSF Registries (https://osf.io/XXXXX) after data 
+   registration was completed in OSF Registries (https://osf.io/sh5z7) after data 
    extraction, as declared in the manuscript.
 
 3. **The manual steps — full-text eligibility assessment (29 → 12) and 2×2 / 
@@ -187,13 +187,13 @@ Durante a consolidação final deste repositório em junho de 2026, realizei uma
 
 - **Cálculo da Concordância interavaliador (κ):** O cálculo foi revisado e o script correspondente (`scripts/03_metaanalysis/calculate_kappa.py`) foi configurado para processar dados de um segundo revisor independente. Até que o segundo revisor conclua a avaliação cega, o QUADAS-2 é relatado sob revisor único.
 - **Bug nos intervalos de predição corrigido** (`fit$n` NULL em `mada::reitsma`);
-  os intervalos de predição (PI) agora são calculados de forma dinâmica e reprodutível pelo código (Sens 38,7–98,8%; Spec 9,4–100%).
+  os intervalos de predição (PI) agora são calculados de forma dinâmica e reprodutível pelo código (pool N=9: Sens 6,4–99,5%; Spec 18,1–100%).
 - **Scripts deduplicados**: 6 scripts de figura eram cópias idênticas e 3 de análise
   também. Há agora uma única fonte de verdade; os demais redirecionam.
 - **`sensitivity_analyses.R` agora faz análise de sensibilidade real** (sem Huang,
   sem cluster Hong) — antes era cópia do script principal.
 - **Filtro de dados corrigido**: o `verified_sum=="YES"` selecionava 10 linhas
-  (3 mis-coded) e quebrava o modelo; agora usa-se `complete.cases` (7 estudos).
+  (3 mis-coded) e quebrava o modelo; agora usa-se `complete.cases` (9 estudos).
 - **Números das figuras deixaram de ser hardcoded** (AUC, I², PI, RV+ e o teste de
   assimetria — agora **Deeks**, não Egger — são calculados dos dados).
 

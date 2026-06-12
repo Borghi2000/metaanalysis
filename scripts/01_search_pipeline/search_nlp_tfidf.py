@@ -10,7 +10,7 @@ relevance_score=1.0". Este módulo realiza a BUSCA real nas três bases declarad
 no manuscrito (§2.2) e PERSISTE título + RESUMO de cada registro, que são o
 insumo necessário para a triagem por TF-IDF (ver `screen_tfidf.py`, etapa 2).
 
-A triagem por relevância (TF-IDF + similaridade de cosseno, limiar 0.35) NÃO é
+A triagem por relevância (TF-IDF + similaridade de cosseno, limiar 0.04) NÃO é
 feita aqui — ela vive em `screen_tfidf.py`, para manter coleta e triagem
 separadas, versionadas e auditáveis de forma independente.
 

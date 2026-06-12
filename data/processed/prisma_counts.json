@@ -50,7 +50,7 @@
     "studies_included_total": 12,
     "main_pool_2x2": 9,
     "supplemental_pool": 3,
-    "_main_pool": ["Hong 2025a (PTX)", "Hong 2025b (TB)", "Ostrovsky 2025 (pneumonia)", "Huang 2023 (emergencia)", "Huang 2025 (PTX)", "Akcay 2025 (PTX)", "Ciflik 2026 (PTX)", "Guzel 2026 (PTX, Gemini 2)", "Khovanova 2025 (nodulo, Claude 3.7)"],
+    "_main_pool": ["Hong 2025a (PTX)", "Hong 2025b (TB)", "Ostrovsky 2025 (pneumonia)", "Huang 2023 (emergencia)", "Huang 2025 (PTX)", "Akcay 2025 (PTX)", "Ciflik 2026 (PTX)", "Guzel 2026 (PTX, Gemini 2)", "Khovanova 2026 (nodulo, Claude 3.7)"],
     "_supplemental_pool": ["Lee 2025 (CXR-LLaVA)", "Bai 2026 (geracao de laudo)", "Bulut 2025 (PTX, so sensibilidade)"],
     "_model_selection_rule": "Para estudos multi-modelo, extraido o MELHOR modelo generativo por estudo (Guzel->Gemini 2; Khovanova->Claude 3.7 Sonnet, pois BiomedCLIP/MedRAX nao sao generativos puros)."
   }

@@ -1,264 +1,234 @@
 % =============================================================================
-% references.bib — Meta-análise LLM/VLM em Radiografia de Tórax
-% Rodada oficial: 2026-06-09 | N=9 pool principal + 3 suplementares
-% Chaves: AutorANO (sem acento). Atualizar nomes completos quando disponíveis.
+% references.bib — Acurácia diagnóstica de IA generativa/multimodal em CXR
+% ESPELHO da bibliografia oficial de manuscript/main.tex (thebibliography).
+% Chaves idênticas às do main.tex. DOIs conferidos nos PDFs de data/artigos_pdf/.
+% Nomes de autores em INICIAIS conforme impresso nos artigos (sem expandir
+% prenomes não verificados). Atualizado na auditoria de referências (N=9 + PRIME 2.0/STARD).
 % =============================================================================
 
-% ---------------------------------------------------------------------------
-% ESTUDOS INCLUÍDOS — Pool principal (N=9, com 2x2)
-% ---------------------------------------------------------------------------
+% --- CONTEXTO / INTRODUÇÃO ---------------------------------------------------
+
+@article{vanginneken,
+  author  = {van Ginneken, B.},
+  title   = {Fifty Years of Computer Analysis in Chest Imaging: Rule-Based,
+             Machine Learning, Deep Learning},
+  journal = {Radiological Physics and Technology},
+  year    = {2017}, volume = {10}, number = {1}, pages = {23--32},
+  doi     = {10.1007/s12194-017-0394-5}
+}
+
+@article{parikh,
+  author  = {Parikh, J. R. and Van Moore, A. and Mead, L. and Bassett, R. and Rubin, E.},
+  title   = {Prevalence of Burnout of Radiologists in Private Practice},
+  journal = {Journal of the American College of Radiology},
+  year    = {2023}, volume = {20}, number = {7}, pages = {712--718},
+  doi     = {10.1016/j.jacr.2023.01.007}
+}
+
+% --- REFERÊNCIAS METODOLÓGICAS / DIRETRIZES DE REPORTE -----------------------
+
+@article{mcinnes,
+  author  = {McInnes, M. D. F. and Moher, D. and Thombs, B. D. and McGrath, T. A.
+             and Bossuyt, P. M. and {PRISMA-DTA Group}},
+  title   = {Preferred Reporting Items for a Systematic Review and Meta-analysis
+             of Diagnostic Test Accuracy Studies: {The} {PRISMA-DTA} Statement},
+  journal = {{JAMA}},
+  year    = {2018}, volume = {319}, number = {4}, pages = {388--396},
+  doi     = {10.1001/jama.2017.19163}
+}
+
+@article{stard,
+  author  = {Bossuyt, P. M. and Reitsma, J. B. and Bruns, D. E. and
+             Gatsonis, C. A. and Glasziou, P. P. and Irwig, L. and others},
+  title   = {{STARD} 2015: An Updated List of Essential Items for Reporting
+             Diagnostic Accuracy Studies},
+  journal = {{BMJ}},
+  year    = {2015}, volume = {351}, pages = {h5527},
+  doi     = {10.1136/bmj.h5527}
+}
+
+@article{kagiyama,
+  author  = {Kagiyama, N. and others},
+  title   = {{PRIME} 2.0: Proposed Requirements for Cardiovascular
+             Imaging-Related Multimodal {AI} Evaluation},
+  journal = {{JACC}: Cardiovascular Imaging},
+  year    = {2026}, volume = {19}, number = {2}, pages = {223--251},
+  doi     = {10.1016/j.jcmg.2025.08.004}
+}
+
+@article{whiting,
+  author  = {Whiting, P. F. and Rutjes, A. W. S. and Westwood, M. E. and
+             Mallett, S. and Deeks, J. J. and Reitsma, J. B. and Leeflang, M. M. G.
+             and Sterne, J. A. C. and Bossuyt, P. M. M.},
+  title   = {{QUADAS}-2: {A} Revised Tool for the Quality Assessment of
+             Diagnostic Accuracy Studies},
+  journal = {Annals of Internal Medicine},
+  year    = {2011}, volume = {155}, number = {8}, pages = {529--536},
+  doi     = {10.7326/0003-4819-155-8-201110180-00009}
+}
+
+@article{reitsma,
+  author  = {Reitsma, J. B. and Glas, A. S. and Rutjes, A. W. S. and
+             Scholten, R. J. P. M. and Bossuyt, P. M. and Zwinderman, A. H.},
+  title   = {Bivariate Analysis of Sensitivity and Specificity Produces
+             Informative Summary Measures in Diagnostic Reviews},
+  journal = {Journal of Clinical Epidemiology},
+  year    = {2005}, volume = {58}, number = {10}, pages = {982--990},
+  doi     = {10.1016/j.jclinepi.2005.02.022}
+}
+
+@article{takwoingi,
+  author  = {Takwoingi, Y. and Guo, B. and Riley, R. D. and Deeks, J. J.},
+  title   = {Performance of Methods for Meta-analysis of Diagnostic Test
+             Accuracy with Few Studies or Sparse Data},
+  journal = {Statistical Methods in Medical Research},
+  year    = {2017}, volume = {26}, number = {4}, pages = {1896--1911},
+  doi     = {10.1177/0962280215592269}
+}
+
+% --- ESTUDOS INCLUÍDOS — Pool principal (N=9, com 2x2) -----------------------
 
 @article{hong2025a,
-  author    = {Hong, Wonjin and others},
-  title     = {Diagnostic Accuracy and Clinical Value of a Domain-specific
-               Multimodal Generative {AI} Model for Chest Radiograph Report
-               Generation},
-  journal   = {Radiology},
-  year      = {2025},
-  volume    = {314},
-  number    = {3},
-  pages     = {e241476},
-  doi       = {10.1148/radiol.241476},
-  note      = {KARA-CXR; Pneumothorax; N=2145}
+  author  = {Hong, E. K. and Ham, J. and Roh, B. and others},
+  title   = {Diagnostic Accuracy and Clinical Value of a Domain-specific
+             Multimodal Generative {AI} Model for Chest Radiograph Report Generation},
+  journal = {Radiology},
+  year    = {2025}, volume = {314}, number = {3}, pages = {e241476},
+  doi     = {10.1148/radiol.241476},
+  note    = {KARA-CXR; Pneumothorax; N=2145}
 }
 
 @article{hong2025b,
-  author    = {Hong, Wonjin and others},
-  title     = {Value of Using a Generative {AI} Model in Chest Radiography
-               Reporting: {A} Reader Study},
-  journal   = {American Journal of Roentgenology},
-  year      = {2025},
-  volume    = {225},
-  pages     = {e2533059},
-  doi       = {10.2214/AJR.25.33059},
-  note      = {KARA-CXR; Tuberculosis screening; N=800}
+  author  = {Hong, E. K. and Kim, H. W. and Song, O. K. and others},
+  title   = {Multimodal Generative Artificial Intelligence Model for Creating
+             Radiology Reports for Chest Radiographs in Patients Undergoing
+             Tuberculosis Screening},
+  journal = {American Journal of Roentgenology},
+  year    = {2025}, volume = {225}, number = {4}, pages = {e2533059},
+  doi     = {10.2214/AJR.25.33059},
+  note    = {KARA-CXR; Tuberculosis screening; N=800}
 }
 
-@article{ostrovsky2025,
-  author    = {Ostrovsky, Ariel and others},
-  title     = {Evaluating a Large Language Model's Accuracy in Chest {X}-ray
-               Interpretation for Acute Thoracic Conditions},
-  journal   = {The American Journal of Emergency Medicine},
-  year      = {2025},
-  volume    = {93},
-  pages     = {99--102},
-  doi       = {10.1016/j.ajem.2025.03.060},
-  note      = {ChatGPT-4.0; Pneumonia vs Normal; N=1400}
+@article{ostrovsky,
+  author  = {Ostrovsky, A. M.},
+  title   = {Evaluating a Large Language Model's Accuracy in Chest {X}-ray
+             Interpretation for Acute Thoracic Conditions},
+  journal = {The American Journal of Emergency Medicine},
+  year    = {2025}, volume = {93}, pages = {99--102},
+  doi     = {10.1016/j.ajem.2025.03.060},
+  note    = {ChatGPT-4o; Pneumonia vs Normal; N=1400}
 }
 
 @article{huang2023,
-  author    = {Huang, Shenyang and others},
-  title     = {Generative Artificial Intelligence for Chest Radiograph
-               Interpretation in the Emergency Department},
-  journal   = {{JAMA} Network Open},
-  year      = {2023},
-  volume    = {6},
-  number    = {10},
-  pages     = {e2336100},
-  doi       = {10.1001/jamanetworkopen.2023.36100},
-  pmid      = {37796505},
-  note      = {Transformer-based GenAI; Emergency CXR; N=500}
+  author  = {Huang, J. and Neill, L. and Wittbrodt, M. and others},
+  title   = {Generative Artificial Intelligence for Chest Radiograph
+             Interpretation in the Emergency Department},
+  journal = {{JAMA} Network Open},
+  year    = {2023}, volume = {6}, number = {10}, pages = {e2336100},
+  doi     = {10.1001/jamanetworkopen.2023.36100}, pmid = {37796505},
+  note    = {Transformer-based GenAI; Emergency CXR; N=500}
 }
 
 @article{huang2025,
-  author    = {Huang, Xin and others},
-  title     = {Generative {AI}-Assisted Radiograph Reporting: {A} Prospective
-               Multicenter Study},
-  journal   = {{JAMA} Network Open},
-  year      = {2025},
-  doi       = {10.1001/jamanetworkopen.2025.13921},
-  pmid      = {40471579},
-  note      = {Manual search add; Generative Draft Reporting; Pneumothorax
-               prospective; N=97651. VERIFY full title and volume/pages.}
+  author  = {Huang, J. and Moor, M. and Banerjee, O. and others},
+  title   = {Efficiency and Quality of Generative {AI}-Assisted Radiograph Reporting},
+  journal = {{JAMA} Network Open},
+  year    = {2025}, volume = {8}, number = {6}, pages = {e2513921},
+  doi     = {10.1001/jamanetworkopen.2025.13921}, pmid = {40471579},
+  note    = {Generative Draft Reporting; Pneumothorax prospective; N=97651}
 }
 
-@article{akcay2025,
-  author    = {Ak{\c{c}}ay, Ali and others},
-  title     = {Evaluation of the Effectiveness of the {ChatGPT} Artificial
-               Intelligence Application in the Diagnosis of Spontaneous
-               Pneumothorax},
-  journal   = {{BMC} Pulmonary Medicine},
-  year      = {2025},
-  doi       = {10.1186/s12890-025-04041-w},
-  pmid      = {41275154},
-  note      = {GPT-4o; Spontaneous pneumothorax; N=220; High QUADAS D1}
+@article{akcay,
+  author  = {Ak{\c{c}}ay, O. and {\"O}zt{\"u}rk, {\"O}.},
+  title   = {Evaluation of the Effectiveness of the {ChatGPT} Artificial
+             Intelligence Application in the Diagnosis of Spontaneous
+             Pneumothorax on Chest Radiograph Interpretation},
+  journal = {{BMC} Pulmonary Medicine},
+  year    = {2025}, volume = {26}, number = {1}, pages = {8},
+  doi     = {10.1186/s12890-025-04041-w}, pmid = {41275154},
+  note    = {GPT-4o; Spontaneous pneumothorax; N=220; High QUADAS D1}
 }
 
-@article{ciflik2026,
-  author    = {{\c{C}}iflik, Bar{\i}{\c{s}} and others},
-  title     = {Evaluation of Multimodal Large Language Models for Pneumothorax
-               Assessment in Real-World Clinical Scenarios},
-  journal   = {{BMC} Pulmonary Medicine},
-  year      = {2026},
-  doi       = {10.1186/s12890-026-04151-z},
-  pmid      = {41645118},
-  note      = {GPT-5.1; Real-world PTX; N=240; FN=0 (Haldane correction)}
+@article{ciflik,
+  author  = {{\c{C}}iflik, K. B. and {\"O}zdemir {\c{C}}iflik, B.},
+  title   = {Evaluation of Multimodal Large Language Models for Pneumothorax
+             Assessment in Real-World Clinical Scenarios},
+  journal = {{BMC} Pulmonary Medicine},
+  year    = {2026}, volume = {26}, pages = {105},
+  doi     = {10.1186/s12890-026-04151-z}, pmid = {41645118},
+  note    = {ChatGPT (GPT-5.1); Real-world PTX; N=240; FN=0 (Haldane)}
 }
 
-@article{guzel2026,
-  author    = {G{\"u}zel, Osman and others},
-  title     = {Large-Scale Evaluation of Multimodal Large Language Models for
-               Pneumothorax Detection},
-  journal   = {Diagnostic and Interventional Radiology},
-  year      = {2026},
-  doi       = {10.4274/dir.2026.263696},
-  pmid      = {41674096},
-  note      = {Gemini 2 Pro; SIIM-ACR benchmark; N=10675; outlier by volume}
+@article{guzel,
+  author  = {G{\"u}zel, H. E. and {\"O}zenba{\c{s}}, C. and Ko{\c{c}}, A. M.},
+  title   = {Large-Scale Evaluation of Multimodal Large Language Models for
+             Pneumothorax Detection},
+  journal = {Diagnostic and Interventional Radiology},
+  year    = {2026},
+  doi     = {10.4274/dir.2026.263696}, pmid = {41674096},
+  note    = {Gemini 2 Pro; SIIM-ACR; N=10675; outlier de volume; epub ahead of print}
 }
 
-@article{khovanova2025,
-  author    = {Khovanova, Anastasia and others},
-  title     = {A Comparative Accuracy Study of Multimodal {LLM}s, {VLM} and
-               Agent-Based Framework for Pulmonary Nodule Detection on Chest
-               Radiographs},
-  journal   = {Frontiers in Digital Health},
-  year      = {2025},
-  doi       = {10.3389/fdgth.2025.1674835},
-  pmid      = {41675260},
-  note      = {Claude 3.7 Sonnet (best generative); Pulmonary nodule; N=83;
-               High QUADAS D1}
+@article{khovanova,
+  author  = {Khovanova, D. and Vasilev, Y. and Vladzymyrskyy, A. and others},
+  title   = {A Comparative Accuracy Study of Multimodal {LLM}s, {VLM} and
+             Agent-Based Framework for Pulmonary Nodule Detection on Chest Radiographs},
+  journal = {Frontiers in Digital Health},
+  year    = {2026}, volume = {7}, pages = {1674835},
+  doi     = {10.3389/fdgth.2025.1674835}, pmid = {41675260},
+  note    = {Claude 3.7 Sonnet (melhor generativo); Nódulo pulmonar; N=83; High QUADAS D1}
 }
 
-% ---------------------------------------------------------------------------
-% ESTUDOS INCLUÍDOS — Pool suplementar (N=3, sem 2x2 reconstruível)
-% ---------------------------------------------------------------------------
+% --- ESTUDOS INCLUÍDOS — Pool suplementar (N=3, sem 2x2 reconstruível) -------
 
-@article{lee2025,
-  author    = {Lee, Taehee and others},
-  title     = {{CXR-LLaVA}: A Multimodal Large Language Model for Interpreting
-               Chest {X}-Ray Images},
-  journal   = {European Radiology},
-  year      = {2025},
-  doi       = {10.1007/s00330-024-11339-6},
-  pmid      = {39812665},
-  note      = {CXR-LLaVA; Multi-finding; N=3689; accuracy only}
+@article{lee,
+  author  = {Lee, S. and Youn, J. and Kim, H. and others},
+  title   = {{CXR-LLaVA}: A Multimodal Large Language Model for Interpreting
+             Chest {X}-Ray Images},
+  journal = {European Radiology},
+  year    = {2025}, volume = {35}, number = {6}, pages = {4374--4386},
+  doi     = {10.1007/s00330-024-11339-6}, pmid = {39812665},
+  note    = {CXR-LLaVA; Multi-finding; N=3689; accuracy only}
 }
 
-@article{bai2026,
-  author    = {Bai, Yang and others},
-  title     = {A {DeepSeek}-Powered {AI} System for Automated Chest Radiograph
-               Interpretation in Clinical Practice},
-  journal   = {Nature Communications},
-  year      = {2026},
-  doi       = {10.1038/s41467-026-72680-6},
-  pmid      = {42098114},
-  note      = {Janus-Pro-CXR; Report generation; N=296; accuracy only}
+@article{bai,
+  author  = {Bai, Yaowei and Zhang, Ruiheng and Lei, Yu and others},
+  title   = {A {DeepSeek}-Powered {AI} System for Automated Chest Radiograph
+             Interpretation in Clinical Practice},
+  journal = {Nature Communications},
+  year    = {2026},
+  doi     = {10.1038/s41467-026-72680-6}, pmid = {42098114},
+  note    = {Janus-Pro-CXR; Report generation; N=296; accuracy only; no prelo (in press)}
 }
 
-@article{bulut2025,
-  author    = {Bulut, Taner and others},
-  title     = {New Frontiers in Radiologic Interpretation: Evaluating the
-               Effectiveness of Large Language Models in Pneumothorax Diagnosis},
-  journal   = {{PLOS ONE}},
-  year      = {2025},
-  doi       = {10.1371/journal.pone.0331962},
-  pmid      = {40938938},
-  note      = {ChatGPT-4o; PTX positives only; N=172; accuracy only}
+@article{bulut,
+  author  = {Bulut, B. and {\"O}z, M. A. and others},
+  title   = {New Frontiers in Radiologic Interpretation: Evaluating the
+             Effectiveness of Large Language Models in Pneumothorax Diagnosis},
+  journal = {{PLOS ONE}},
+  year    = {2025}, volume = {20}, number = {9}, pages = {e0331962},
+  doi     = {10.1371/journal.pone.0331962}, pmid = {40938938},
+  note    = {ChatGPT-4o; PTX positives only; N=172; accuracy only}
 }
 
-% ---------------------------------------------------------------------------
-% REFERÊNCIAS METODOLÓGICAS
-% ---------------------------------------------------------------------------
+% --- MÉTRICAS / FRAMEWORK QUALITATIVO ---------------------------------------
 
-@article{reitsma2005,
-  author    = {Reitsma, Johannes B and Glas, Afina S and Rutjes, Anne W S and
-               Scholten, Rob J P and Bossuyt, Patrick M and Zwinderman,
-               Aeilko H},
-  title     = {Bivariate Analysis of Sensitivity and Specificity Produces
-               Informative Summary Measures in Diagnostic Reviews},
-  journal   = {Journal of Clinical Epidemiology},
-  year      = {2005},
-  volume    = {58},
-  number    = {10},
-  pages     = {997--1003},
-  doi       = {10.1016/j.jclinepi.2005.02.022}
+@article{banerjee,
+  author  = {Banerjee, O. and Saenz, A. and Wu, K. and others},
+  title   = {{ReXamine-Global}: A Framework for Uncovering Inconsistencies in
+             Radiology Report Generation Metrics},
+  journal = {Pacific Symposium on Biocomputing},
+  year    = {2025},
+  note    = {Preprint: arXiv:2509.01188}
 }
 
-@article{whiting2011,
-  author    = {Whiting, Penny F and Rutjes, Anne W S and Westwood, Marie E and
-               Mallett, Sue and Deeks, Jonathan J and Reitsma, Johannes B and
-               Leeflang, Mariska M G and Sterne, Jonathan A C and Bossuyt,
-               Patrick M M},
-  title     = {{QUADAS}-2: {A} Revised Tool for the Quality Assessment of
-               Diagnostic Accuracy Studies},
-  journal   = {Annals of Internal Medicine},
-  year      = {2011},
-  volume    = {155},
-  number    = {8},
-  pages     = {529--536},
-  doi       = {10.7326/0003-4819-155-8-201110180-00009}
-}
-
-@article{mcinnes2018,
-  author    = {McInnes, Matthew D F and Moher, David and Thombs, Brett D and
-               McGrath, Trevor A and Bossuyt, Patrick M and {PRISMA-DTA Group}
-               and others},
-  title     = {Preferred Reporting Items for a Systematic Review and
-               Meta-analysis of Diagnostic Test Accuracy Studies: {The}
-               {PRISMA-DTA} Statement},
-  journal   = {{JAMA}},
-  year      = {2018},
-  volume    = {319},
-  number    = {4},
-  pages     = {388--396},
-  doi       = {10.1001/jama.2017.19163}
-}
-
-@article{page2021,
-  author    = {Page, Matthew J and McKenzie, Joanne E and Bossuyt, Patrick M and
-               Boutron, Isabelle and Hoffmann, Tammy C and Mulrow, Cynthia D and
-               Shamseer, Larissa and Tetzlaff, Jennifer M and Akl, Elie A and
-               Brennan, Sue E and others},
-  title     = {The {PRISMA} 2020 Statement: An Updated Guideline for Reporting
-               Systematic Reviews},
-  journal   = {{BMJ}},
-  year      = {2021},
-  volume    = {372},
-  pages     = {n71},
-  doi       = {10.1136/bmj.n71}
-}
-
-@article{cohen1960,
-  author    = {Cohen, Jacob},
-  title     = {A Coefficient of Agreement for Nominal Scales},
-  journal   = {Educational and Psychological Measurement},
-  year      = {1960},
-  volume    = {20},
-  number    = {1},
-  pages     = {37--46},
-  doi       = {10.1177/001316446002000104}
-}
-
-@manual{mada2022,
-  author    = {Doebler, Philipp and Holling, Heinz},
-  title     = {{mada}: {Meta}-Analysis of Diagnostic Accuracy},
-  year      = {2022},
-  note      = {R package version 0.5.11.
-               Available at \url{https://CRAN.R-project.org/package=mada}}
-}
-
-@article{harbord2007,
-  author    = {Harbord, Roger M and Deeks, Jonathan J and Egger, Matthias and
-               Whiting, Penny and Sterne, Jonathan A C},
-  title     = {A Unification of Models for Meta-analysis of Diagnostic Accuracy
-               Studies},
-  journal   = {Biostatistics},
-  year      = {2007},
-  volume    = {8},
-  number    = {2},
-  pages     = {239--251},
-  doi       = {10.1093/biostatistics/kxl004}
-}
-
-@article{deeks2005,
-  author    = {Deeks, Jonathan J and Macaskill, Petra and Irwig, Les},
-  title     = {The Performance of Tests of Publication Bias and Other Sample
-               Size Effects in Systematic Reviews of Diagnostic Test Accuracy
-               Was Assessed},
-  journal   = {Journal of Clinical Epidemiology},
-  year      = {2005},
-  volume    = {58},
-  number    = {9},
-  pages     = {882--893},
-  doi       = {10.1016/j.jclinepi.2005.01.016}
+@article{hongjacr,
+  author  = {Hong, E. K. and Suh, C. H. and Nukala, M. and Esfahani, A. and
+             Licaros, A. and Madan, R. and Hunsaker, A. and Hammer, M.},
+  title   = {Radiologist Interaction with Artificial Intelligence-Generated
+             Preliminary Reports: A Longitudinal Multireader Study},
+  journal = {Journal of the American College of Radiology},
+  year    = {2026}, volume = {23}, number = {2}, pages = {292--298},
+  doi     = {10.1016/j.jacr.2025.09.015},
+  note    = {KARA-CXR; reader study longitudinal; citado na Discussão (viés de automação)}
 }

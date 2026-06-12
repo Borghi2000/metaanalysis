@@ -159,7 +159,7 @@ Para tornar a etapa automatizada genuinamente reprodutível e auditável:
   (PubMed/SciELO/BVS) que persiste **título + resumo** e grava proveniência
   (`SEARCH_PROVENANCE.json`). Antes era um scraper que atribuía `relevance_score=1.0`.
 - **`scripts/01_search_pipeline/screen_tfidf.py` (novo)**: triagem TF-IDF + cosseno
-  **determinística**, limiar 0.35 documentado.
+  **determinística**, limiar 0.04 documentado.
 - **`analysis/python/recovery_scraper.py` REMOVIDO**: duplicata do scraper trivial.
 - **`data/raw/all_results_dta.csv` REMOVIDO**: dump bruto (465 KB), majoritariamente
   fora do tema (só ~307/3164 sobre tórax), sem coluna de resumo, `relevance_score=1.0`;
@@ -185,3 +185,23 @@ Para tornar a etapa automatizada genuinamente reprodutível e auditável:
   mesma janela em re-execuções. **Pendência:** o PIRT do manuscrito (§2.2) declara
   "2018–2026"; reconciliar com a nova janela (início no lançamento do ChatGPT) — nenhum
   estudo incluído é perdido (o mais antigo é Huang 2023).
+
+## Restauração e renomeação dos PDFs + triagem de critérios (auditoria de referências)
+
+**Contexto:** os PDFs dos artigos (`data/artigos_pdf/`, *gitignored* por direitos autorais)
+haviam sido apagados do disco, sobrando 7. Cópias íntegras existiam em
+`.prism/build/data/artigos_pdf/` (21 PDFs) e foram **restauradas**.
+
+- **Restaurados + renomeados por autor-ano** (nomes usados nas citações), 19 elegíveis em
+  `data/artigos_pdf/`: `ostrovsky2025`, `hong2025a_diagnostic`, `hong2025b_tuberculose`,
+  `hong2025c_readerstudy`, `huang2023`, `huang2025`, `akcay2026`, `ciflik2026`, `guzel2026`,
+  `khovanova2025`, `bulut2025`, `lee2025`, `bai2026`, `reitsma2005`, `mcinnes2018_prisma-dta`,
+  `whiting2011_quadas2`, `banerjee2025_rexamine`, `kagiyama2026_prime2`, `hong_jacr2025_interaction`.
+  Caminho atualizado em `scripts/02_data_extraction/extract_2x2.py` (`huang2025.pdf`).
+- **Fora dos critérios → `data/artigos_pdf/_fora_dos_criterios/`** (movidos, não apagados;
+  ver `LEIAME.md`): `wang2026_chatgpt5_pediatrico` (população **pediátrica** → viola P=adultos);
+  `huangY2025_nsclc_4dct` (TC 4D + segmentação, não CXR/IA generativa → viola I/modalidade/T).
+- **Limítrofe:** `hong_jacr2025_interaction` (JACR 2025) é *reader study* sem 2×2 isolado →
+  não entra no pool; eventual citação de fluxo de trabalho (decidir).
+- **κ interavaliador:** será resolvido por **coautor humano** (2º revisor real) — fora do
+  escopo desta rodada de correção automatizada.

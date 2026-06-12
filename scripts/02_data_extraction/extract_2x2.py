@@ -19,7 +19,7 @@ except ImportError:
 # AUDITORIA: caminho absoluto anterior (r"e:\Pesquisa projeto\...") nao existia
 # nesta maquina. Usar caminho relativo ao repositorio para portabilidade.
 pdf_path = os.path.join("data", "artigos_pdf",
-                        "huang_2025_oi_250461_1748448325.30901.pdf")
+                        "huang2025.pdf")
 
 if not os.path.exists(pdf_path):
     print(f"❌ PDF não encontrado: {pdf_path}")
@@ -27,7 +27,7 @@ if not os.path.exists(pdf_path):
 
 if not HAS_FITZ:
     print("\n📋 INSTRUÇÕES MANUAIS:")
-    print("1. Abra o PDF: huang_2025_oi_250461_1748448325.30901.pdf")
+    print("1. Abra o PDF: huang2025.pdf")
     print("2. Localize a Tabela 1 (Methods ou Results)")
     print("3. Encontre a linha 'Pneumothorax' ou conforme o estudo")
     print("4. Verifique os valores exatos de:")
