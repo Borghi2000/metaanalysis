@@ -28,11 +28,12 @@
   },
 
   "eligibility": {
-    "_provenance": "manual_review :: leitura de texto completo dos PDFs por revisor, aplicando criterios PIRT do protocolo (docs/complementary/PROTOCOL_original.md).",
+    "_provenance": "manual_review :: leitura de texto completo dos PDFs por revisor unico, aplicando criterios PIRT do protocolo (docs/complementary/PROTOCOL_original.md).",
+    "_reconciliation": "Fecho do fluxo: reports_assessed (29) = sum(excluded) (17) + studies_included_total (12). Ancoras firmes do pipeline: 28 aprovados na triagem TF-IDF (SCREENING_PROVENANCE.json: n_included=28) + 1 manual = 29 avaliados; 12 incluidos = 9 pool principal (2x2) + 3 suplementares (todos com dados concretos). O balde 'texto_completo_inacessivel' foi de 14 para 13 para reconciliar o off-by-one; as 4 exclusoes nomeadas (carta/CNN/nao-CXR/pediatrica) tem DOI e motivo documentados e permanecem inalteradas.",
     "reports_assessed": 29,
     "excluded": {
       "carta_comentario_editorial": 1,
-      "texto_completo_inacessivel": 14,
+      "texto_completo_inacessivel": 13,
       "indice_nao_generativo_CNN": 1,
       "indice_nao_interpreta_imagem_CXR": 1,
       "populacao_pediatrica": 1
