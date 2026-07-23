@@ -124,6 +124,11 @@ All figures will be saved to `outputs/figures/`.
 
 ### data/raw/studies_2x2_raw.csv
 
+> **Note:** this file is a legacy/documentation artefact — **no script in the pipeline
+> reads it**. The canonical inputs are `data/master_audit.csv` (figures, QUADAS-2) and
+> `data/raw/audit_database.csv` (R meta-analysis scripts). Kept for transparency; if it
+> ever diverges from the two files above, those two prevail.
+
 Raw 2×2 contingency data for the **9 studies in the main bivariate pool** plus
 **3 supplemental studies** (no reconstructable 2×2; narrative synthesis only).
 Run of 2026-06-09 added Güzel 2026 and Khovanova 2026 to the main pool; Park 2024,

@@ -68,7 +68,9 @@ data_long <- master %>%
     ),
     # Ordem dos domínios
     domain_label = factor(domain_label, levels = c(rev(labels_bias), "Risco Geral (Overall)", rev(labels_app))),
-    authors_year = paste(authors, year),
+    # A coluna `authors` do master_audit JA contem o ano (ex.: "Hong 2025a"); usar
+    # paste(authors, year) duplicava o ano nos rotulos ("Akcay 2025 2025").
+    authors_year = as.character(authors),
     authors_year = fct_rev(factor(authors_year))
   )
 

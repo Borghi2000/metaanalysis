@@ -2,6 +2,43 @@
 
 > Documento descritivo que detalha a procedência das bases de dados de acurácia diagnóstica, edições manuais aplicadas a células 2×2 e correções realizadas para fins de consistência metodológica durante a validação final (junho de 2026).
 
+## ESTADO ATUAL (leia primeiro) — pool N=9
+
+> **Este arquivo é um registro histórico.** As seções seguintes descrevem rodadas
+> anteriores (pools N=7 e N=8) e **não refletem o estado final**. O estado vigente é:
+
+- **Pool principal: N=9 estudos** com 2×2 — Hong 2025a, Hong 2025b, Ostrovsky 2025,
+  Huang 2023, Huang 2025, Akçay 2025, Ciflik 2026, **Güzel 2026** e **Khovanova 2026**
+  (113.714 exames). Güzel e Khovanova entraram na rodada de 2026-06-09.
+- **Pool suplementar: N=3** (Lee 2025, Bai 2026, Bulut 2025). **Total incluído: 12.**
+- Resultados vigentes: Sens **78,1%** (IC95% 54,9–91,3) · Spec **96,8%** (89,1–99,1) ·
+  RV+ **24,10** · RV− **0,226** · AUC **0,953** · I²(Zhou) **74,6%** · PI sens 6,4–99,5%.
+- **Manuscrito vigente: `manuscript/main.tex`** (compilado em `manuscript/main.pdf`).
+  Os `.docx` em `PDF DA PESQUISA/` (v14/v15, pool N=7) estão **defasados**; o
+  `paper_v16` citado adiante nunca foi versionado neste repositório.
+- A renumeração Vancouver descrita adiante (com Gunes e Tanno) é **obsoleta**: a
+  bibliografia vigente é a do `main.tex`, espelhada em `docs/references.bib`.
+- QUADAS-2 é reportado sob **revisor único** (κ não calculável) — ver `docs/REPRODUCIBILITY.md`.
+
+### Auditoria de julho de 2026 (rodada atual)
+- Manuscrito reescrito para **revisor único** (§2.2/§2.3), com a limitação
+  correspondente promovida a item nº 1 da lista de limitações.
+- **Fluxograma PRISMA fechado**: `texto_completo_inacessivel` 14 → 13, de modo que
+  29 avaliados = 17 excluídos + 12 incluídos; figura regenerada do JSON.
+- **Extração 2×2 auditada contra os PDFs-fonte**: Akçay, Khovanova, Ciflik e Güzel
+  conferem exatamente; Huang 2025 (mescla coorte de sensibilidade n=33 e de precisão
+  n=78) e Ostrovsky (subtarefa de pneumonia em 1.400 imagens) são rastreáveis e
+  receberam nota de rodapé de transparência no manuscrito. **Nenhuma fabricação.**
+- Correções factuais verificadas nos PDFs: "Claude 3.5 Sonnet" → **"Claude 4 Sonnet"**
+  (Güzel) e Huang 2025 "retrospectivo" → **"prospectivo"**.
+- QUADAS-2: Hong 2025c removido da tabela (N=13 → **12**), alinhando ao conjunto de
+  incluídos e à figura; rótulos das figuras corrigidos (ano duplicado).
+- Figura 3 refeita como **nomograma de Fagan real** (pré-teste 5/10/20%, RV do pool
+  principal), substituindo o gráfico de barras de cenário único.
+- Janela de busca do manuscrito reconciliada com o pipeline (**2022/11/30–2026/06/09**);
+  teste de Deeks rebaixado a **descritivo** (<10 estudos); **critério LLM/VLM declarado**
+  em §2.2 com ressalva de análise exploratória.
+
 ## Fonte canônica
 - **`data/master_audit.csv`** é a base mais completa e auditável (esquema rico:
   DOI, QUADAS-2 por domínio, motivo de correção, datas). Deve ser tratada como
