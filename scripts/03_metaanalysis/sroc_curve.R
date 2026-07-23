@@ -98,28 +98,65 @@ generate_forest_with_pi("spec", "outputs/figures/Fig2_Forest_Spec_V10.png",
                         sprintf("I² = %.1f%% (Holling)", i2_holl * 100), pi_spec)
 
 
-# ── FIGURA 3: Fagan (Cenário de Sensibilidade sem Huang) ─────────────────────
-# lr_pos_robust / lr_neg_robust calculados acima (pool sem Huang 2025)
-pre_test <- 0.20
-post_pos <- (lr_pos_robust * pre_test) / (pre_test * (lr_pos_robust - 1) + 1)
+# ── FIGURA 3: Nomograma de Fagan (pool principal N=9; pre-teste 5/10/20%) ─────
+# Usa as razoes de verossimilhanca do PONTO SUMARIO do pool principal (RV+/RV-),
+# conforme o metodo declarado no manuscrito (secao 2.9). Nomograma geometricamente
+# correto: eixos em escala logit/log; a reta pre-teste -> RV -> pos-teste satisfaz
+# logit(pos) = logit(pre) + ln(RV).
+co_main     <- summary(fit)$coefficients
+sens_main   <- plogis(co_main[1, 1]); fpr_main <- plogis(co_main[2, 1])
+lr_pos_main <- sens_main / fpr_main
+lr_neg_main <- (1 - sens_main) / (1 - fpr_main)
 
-fagan_df <- data.frame(
-  Prob = factor(c("Pre-teste", "Pos-teste (Robusto)"), levels = c("Pre-teste", "Pos-teste (Robusto)")),
-  Value = c(pre_test, post_pos)
-)
+.logit <- function(p) log(p / (1 - p))
+.inv   <- function(x) 1 / (1 + exp(-x))
+pre_tests <- c(0.05, 0.10, 0.20)
+cores     <- c("#0072B2", "#009E73", "#D55E00")
+post_p    <- .inv(.logit(pre_tests) + log(lr_pos_main))
+post_n    <- .inv(.logit(pre_tests) + log(lr_neg_main))
 
-p3 <- ggplot(fagan_df, aes(x = Prob, y = Value, fill = Prob)) +
-  geom_bar(stat = "identity", width = 0.5, color = "black") +
-  geom_text(aes(label = scales::percent(Value, accuracy = 0.1)), vjust = -0.5, fontface = "bold", size = 6) +
-  scale_y_continuous(labels = scales::percent, limits = c(0, 1.05)) +
-  scale_fill_manual(values = c("Pre-teste" = "grey80", "Pos-teste (Robusto)" = "#E69F00")) +
-  labs(title = NULL,
-       subtitle = sprintf("RV+ = %.1f | RV- = %.2f | Prob. Pre-teste = 20%%", lr_pos_robust, lr_neg_robust),
-       x = NULL, y = "Probabilidade de Doenca") +
-  theme_minimal(base_size = 14) +
-  theme(plot.subtitle = element_text(size = 13, hjust = 0.5))
+png("outputs/figures/Fig3_Fagan_Robust_V10.png", width = 2100, height = 2400, res = 300)
+par(mar = c(3, 5, 5, 5), family = "sans")
+ylim <- c(-7, 8.2)
+plot(NA, xlim = c(-0.18, 1.18), ylim = ylim, xlab = "", ylab = "", axes = FALSE, main = "")
+title(main = sprintf("Nomograma de Fagan — Pool principal (N=9)\nRV+ = %.2f  |  RV- = %.3f",
+                     lr_pos_main, lr_neg_main), font.main = 1, cex.main = 1.1)
 
-ggsave("outputs/figures/Fig3_Fagan_Robust_V10.png", p3, width = 8, height = 7, dpi = 300)
+segments(0, ylim[1], 0, 7);   segments(1, ylim[1], 1, 7)
+segments(0.5, ylim[1], 0.5, 7, col = "grey65")
+probs <- c(0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 0.99)
+for (p in probs) {                                   # esquerdo: pre-teste (invertido)
+  y <- -.logit(p); segments(-0.02, y, 0, y); text(-0.03, y, sprintf("%g", p * 100), adj = 1, cex = 0.7)
+}
+text(0, 7.5, "Pre-teste (%)", font = 2, cex = 0.9)
+for (p in probs) {                                   # direito: pos-teste
+  y <- .logit(p); segments(1, y, 1.02, y); text(1.03, y, sprintf("%g", p * 100), adj = 0, cex = 0.7)
+}
+text(1, 7.5, "Pos-teste (%)", font = 2, cex = 0.9)
+lrs <- c(0.01, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 1000)
+for (L in lrs) {                                     # central: razao de verossimilhanca
+  y <- log(L) / 2; segments(0.475, y, 0.525, y, col = "grey65"); text(0.55, y, sprintf("%g", L), adj = 0, cex = 0.6, col = "grey40")
+}
+text(0.5, 7.5, "RV", font = 2, cex = 0.9, col = "grey30")
+points(0.5, log(lr_pos_main) / 2, pch = 19); points(0.5, log(lr_neg_main) / 2, pch = 19)
+
+for (i in seq_along(pre_tests)) {
+  yL <- -.logit(pre_tests[i])
+  lines(c(0, 1), c(yL, .logit(post_p[i])), col = cores[i], lwd = 2)           # RV+
+  lines(c(0, 1), c(yL, .logit(post_n[i])), col = cores[i], lwd = 2, lty = 2)  # RV-
+}
+# Legenda de tipo de linha na area vazia superior-esquerda (evita colisao com titulos de eixo)
+legend(-0.02, 6.7, bty = "n", cex = 0.8, lty = c(1, 2), lwd = 2,
+       legend = c("Teste positivo (RV+)", "Teste negativo (RV-)"))
+legend("bottomleft", bty = "n", cex = 0.85, col = cores, lwd = 2,
+       title = "Cenarios (pre-teste -> pos-teste)", title.adj = 0,
+       legend = sprintf("Pre %.0f%%: pos+ %.1f%% / pos- %.1f%%",
+                        pre_tests * 100, post_p * 100, post_n * 100))
+dev.off()
+
+cat(sprintf("Fagan (pool principal): RV+=%.2f RV-=%.3f | pos+ 5/10/20%%: %.1f/%.1f/%.1f | pos- : %.1f/%.1f/%.1f\n",
+            lr_pos_main, lr_neg_main, post_p[1]*100, post_p[2]*100, post_p[3]*100,
+            post_n[1]*100, post_n[2]*100, post_n[3]*100))
 
 
 # ── FIGURA 4: SROC com Elipse de Predição ─────────────────────────────────────
