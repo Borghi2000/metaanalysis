@@ -3,10 +3,14 @@
 # =============================================================================
 # AUDITORIA: este arquivo era uma copia byte-a-byte de bivariate_reitsma.R e NAO
 # realizava nenhuma analise de sensibilidade (apesar do nome e da chamada no README).
-# Reescrito para executar, de fato, as analises de robustez declaradas no manuscrito:
-#   (1) Pool completo (N=7)
-#   (2) Excluindo o outlier de volume Huang 2025 (N=6)
-#   (3) Excluindo o cluster nao-independente Hong 2025 a/b/c (N=4)  -> unidade de analise
+# Reescrito para executar, de fato, as analises de robustez declaradas no manuscrito.
+# Cenarios vigentes (pool principal N=9), correspondentes a Tabela de sensibilidade:
+#   (1) Pool completo                                   (N=9)
+#   (A) Sem o outlier de volume/baixa sensibilidade Guzel 2026   (N=8)
+#   (B) Sem o outlier de volume Huang 2025 (TN ~97k)             (N=8)
+#   (C) Sem ambos os outliers de volume                          (N=7)
+#   (D) Sem alto risco QUADAS (Akcay + Khovanova)                (N=7)
+#   (E) Subgrupo homogeneo de pneumotorax                        (N=5)
 # Cada cenario reporta Sens/Spec (IC95%), intervalo de predicao (PI), RV+/RV-,
 # I2 (Zhou) e AUC. Nada hardcoded.
 # =============================================================================
