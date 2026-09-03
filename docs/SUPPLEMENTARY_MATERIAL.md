@@ -2,6 +2,11 @@
 
 **Acurácia Diagnóstica de Modelos de Inteligência Artificial Generativa e Visão-Linguagem na Interpretação de Radiografias de Tórax: Revisão Sistemática e Meta-Análise Bivariada Hierárquica**
 
+**Autor:** Gabriel Borghi de Freitas Oliveira  
+**Afiliação:** Universidade de Santo Amaro (UNISA), Campus I, São Paulo - SP, Brasil  
+**ORCID:** [https://orcid.org/0009-0001-7191-231X](https://orcid.org/0009-0001-7191-231X)  
+**Registro do Protocolo (OSF):** [https://osf.io/4yj92/](https://osf.io/4yj92/)  
+
 ---
 
 ## Tabela S1: Estratégias Completas de Busca Booleana por Base de Dados

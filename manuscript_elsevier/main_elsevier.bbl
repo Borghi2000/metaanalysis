@@ -1,0 +1,177 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{vanginneken}
+B.~van Ginneken, Fifty years of computer analysis in chest imaging: Rule-based,
+  machine learning, deep learning, Radiological Physics and Technology 10~(1)
+  (2017) 23--32.
+\newblock \href {https://doi.org/10.1007/s12194-017-0394-5}
+  {\path{doi:10.1007/s12194-017-0394-5}}.
+
+\bibitem{parikh}
+J.~R. Parikh, A.~Van~Moore, L.~Mead, R.~Bassett, E.~Rubin, Prevalence of
+  burnout of radiologists in private practice, Journal of the American College
+  of Radiology 20~(7) (2023) 712--718.
+\newblock \href {https://doi.org/10.1016/j.jacr.2023.01.007}
+  {\path{doi:10.1016/j.jacr.2023.01.007}}.
+
+\bibitem{hong2025a}
+E.~K. Hong, J.~Ham, B.~Roh, et~al., Diagnostic accuracy and clinical value of a
+  domain-specific multimodal generative {AI} model for chest radiograph report
+  generation, Radiology 314~(3) (2025) e241476, kARA-CXR; Pneumothorax; N=2145.
+\newblock \href {https://doi.org/10.1148/radiol.241476}
+  {\path{doi:10.1148/radiol.241476}}.
+
+\bibitem{huang2025}
+J.~Huang, M.~Moor, O.~Banerjee, et~al., Efficiency and quality of generative
+  {AI}-assisted radiograph reporting, {JAMA} Network Open 8~(6) (2025)
+  e2513921, generative Draft Reporting; Pneumothorax prospective; N=97651.
+\newblock \href {https://doi.org/10.1001/jamanetworkopen.2025.13921}
+  {\path{doi:10.1001/jamanetworkopen.2025.13921}}.
+
+\bibitem{ostrovsky}
+A.~M. Ostrovsky, Evaluating a large language model's accuracy in chest {X}-ray
+  interpretation for acute thoracic conditions, The American Journal of
+  Emergency Medicine 93 (2025) 99--102, chatGPT-4o; Pneumonia vs Normal;
+  N=1400.
+\newblock \href {https://doi.org/10.1016/j.ajem.2025.03.060}
+  {\path{doi:10.1016/j.ajem.2025.03.060}}.
+
+\bibitem{banerjee}
+O.~Banerjee, A.~Saenz, K.~Wu, et~al., {ReXamine-Global}: A framework for
+  uncovering inconsistencies in radiology report generation metrics, arXiv
+  preprint arXiv:2509.01188 (2025).
+\newblock \href {http://arxiv.org/abs/2509.01188} {\path{arXiv:2509.01188}}.
+
+\bibitem{hong2025b}
+E.~K. Hong, H.~W. Kim, O.~K. Song, et~al., Multimodal generative artificial
+  intelligence model for creating radiology reports for chest radiographs in
+  patients undergoing tuberculosis screening, American Journal of Roentgenology
+  225~(4) (2025) e2533059, kARA-CXR; Tuberculosis screening; N=800.
+\newblock \href {https://doi.org/10.2214/AJR.25.33059}
+  {\path{doi:10.2214/AJR.25.33059}}.
+
+\bibitem{mcinnes}
+M.~D.~F. McInnes, D.~Moher, B.~D. Thombs, T.~A. McGrath, P.~M. Bossuyt,
+  {PRISMA-DTA Group}, Preferred reporting items for a systematic review and
+  meta-analysis of diagnostic test accuracy studies: {The} {PRISMA-DTA}
+  statement, {JAMA} 319~(4) (2018) 388--396.
+\newblock \href {https://doi.org/10.1001/jama.2017.19163}
+  {\path{doi:10.1001/jama.2017.19163}}.
+
+\bibitem{whiting}
+P.~F. Whiting, A.~W.~S. Rutjes, M.~E. Westwood, S.~Mallett, J.~J. Deeks, J.~B.
+  Reitsma, M.~M.~G. Leeflang, J.~A.~C. Sterne, P.~M.~M. Bossuyt, {QUADAS}-2:
+  {A} revised tool for the quality assessment of diagnostic accuracy studies,
+  Annals of Internal Medicine 155~(8) (2011) 529--536.
+\newblock \href {https://doi.org/10.7326/0003-4819-155-8-201110180-00009}
+  {\path{doi:10.7326/0003-4819-155-8-201110180-00009}}.
+
+\bibitem{stard}
+P.~M. Bossuyt, J.~B. Reitsma, D.~E. Bruns, C.~A. Gatsonis, P.~P. Glasziou,
+  L.~Irwig, et~al., {STARD} 2015: An updated list of essential items for
+  reporting diagnostic accuracy studies, {BMJ} 351 (2015) h5527.
+\newblock \href {https://doi.org/10.1136/bmj.h5527}
+  {\path{doi:10.1136/bmj.h5527}}.
+
+\bibitem{kagiyama}
+N.~Kagiyama, et~al., {PRIME} 2.0: Proposed requirements for cardiovascular
+  imaging-related multimodal {AI} evaluation, {JACC}: Cardiovascular Imaging
+  19~(2) (2026) 223--251.
+\newblock \href {https://doi.org/10.1016/j.jcmg.2025.08.004}
+  {\path{doi:10.1016/j.jcmg.2025.08.004}}.
+
+\bibitem{reitsma}
+J.~B. Reitsma, A.~S. Glas, A.~W.~S. Rutjes, R.~J. P.~M. Scholten, P.~M.
+  Bossuyt, A.~H. Zwinderman, Bivariate analysis of sensitivity and specificity
+  produces informative summary measures in diagnostic reviews, Journal of
+  Clinical Epidemiology 58~(10) (2005) 982--990.
+\newblock \href {https://doi.org/10.1016/j.jclinepi.2005.02.022}
+  {\path{doi:10.1016/j.jclinepi.2005.02.022}}.
+
+\bibitem{ciflik}
+K.~B. {\c{C}}iflik, B.~{\"O}zdemir~{\c{C}}iflik, Evaluation of multimodal large
+  language models for pneumothorax assessment in real-world clinical scenarios,
+  {BMC} Pulmonary Medicine 26 (2026) 105, chatGPT (GPT-5.1); Real-world PTX;
+  N=240; FN=0 (Haldane).
+\newblock \href {https://doi.org/10.1186/s12890-026-04151-z}
+  {\path{doi:10.1186/s12890-026-04151-z}}.
+
+\bibitem{huang2023}
+J.~Huang, L.~Neill, M.~Wittbrodt, et~al., Generative artificial intelligence
+  for chest radiograph interpretation in the emergency department, {JAMA}
+  Network Open 6~(10) (2023) e2336100, transformer-based GenAI; Emergency CXR;
+  N=500.
+\newblock \href {https://doi.org/10.1001/jamanetworkopen.2023.36100}
+  {\path{doi:10.1001/jamanetworkopen.2023.36100}}.
+
+\bibitem{akcay}
+O.~Ak{\c{c}}ay, {\"O}.~{\"O}zt{\"u}rk, Evaluation of the effectiveness of the
+  {ChatGPT} artificial intelligence application in the diagnosis of spontaneous
+  pneumothorax on chest radiograph interpretation, {BMC} Pulmonary Medicine
+  26~(1) (2025) 8, gPT-4o; Spontaneous pneumothorax; N=220; High QUADAS D1.
+\newblock \href {https://doi.org/10.1186/s12890-025-04041-w}
+  {\path{doi:10.1186/s12890-025-04041-w}}.
+
+\bibitem{guzel}
+H.~E. G{\"u}zel, C.~{\"O}zenba{\c{s}}, A.~M. Ko{\c{c}}, Large-scale evaluation
+  of multimodal large language models for pneumothorax detection, Diagnostic
+  and Interventional RadiologyGemini 2 Pro; SIIM-ACR; N=10675; outlier de
+  volume; epub ahead of print (2026).
+\newblock \href {https://doi.org/10.4274/dir.2026.263696}
+  {\path{doi:10.4274/dir.2026.263696}}.
+
+\bibitem{khovanova}
+D.~Khovanova, Y.~Vasilev, A.~Vladzymyrskyy, et~al., A comparative accuracy
+  study of multimodal {LLM}s, {VLM} and agent-based framework for pulmonary
+  nodule detection on chest radiographs, Frontiers in Digital Health 7 (2026)
+  1674835, claude 3.7 Sonnet (melhor generativo); Nódulo pulmonar; N=83; High
+  QUADAS D1.
+\newblock \href {https://doi.org/10.3389/fdgth.2025.1674835}
+  {\path{doi:10.3389/fdgth.2025.1674835}}.
+
+\bibitem{bai}
+Y.~Bai, R.~Zhang, Y.~Lei, X.~Duan, J.~Yao, et~al., A {DeepSeek}-powered {AI}
+  system for automated chest radiograph interpretation in clinical practice,
+  Nature Communications 17~(1) (2026) 6141, janus-Pro-CXR; Report generation;
+  N=296; accuracy only; publicado em maio de 2026.
+\newblock \href {https://doi.org/10.1038/s41467-026-72680-6}
+  {\path{doi:10.1038/s41467-026-72680-6}}.
+
+\bibitem{bulut}
+B.~Bulut, M.~A. {\"O}z, et~al., New frontiers in radiologic interpretation:
+  Evaluating the effectiveness of large language models in pneumothorax
+  diagnosis, {PLOS ONE} 20~(9) (2025) e0331962, chatGPT-4o; PTX positives only;
+  N=172; accuracy only.
+\newblock \href {https://doi.org/10.1371/journal.pone.0331962}
+  {\path{doi:10.1371/journal.pone.0331962}}.
+
+\bibitem{lee}
+S.~Lee, J.~Youn, H.~Kim, et~al., {CXR-LLaVA}: A multimodal large language model
+  for interpreting chest {X}-ray images, European Radiology 35~(6) (2025)
+  4374--4386, cXR-LLaVA; Multi-finding; N=3689; accuracy only.
+\newblock \href {https://doi.org/10.1007/s00330-024-11339-6}
+  {\path{doi:10.1007/s00330-024-11339-6}}.
+
+\bibitem{hong2025c}
+E.~K. Hong, B.~Roh, B.~Park, et~al., Value of using a generative {AI} model in
+  chest radiography reporting: {A} reader study, Radiology 314~(3) (2025)
+  e241646.
+\newblock \href {https://doi.org/10.1148/radiol.241646}
+  {\path{doi:10.1148/radiol.241646}}.
+
+\bibitem{hongjacr}
+E.~K. Hong, C.~H. Suh, M.~Nukala, A.~Esfahani, A.~Licaros, R.~Madan,
+  A.~Hunsaker, M.~Hammer, Radiologist interaction with artificial
+  intelligence-generated preliminary reports: A longitudinal multireader study,
+  Journal of the American College of Radiology 23~(2) (2026) 292--298,
+  kARA-CXR; reader study longitudinal; citado na Discussão (viés de
+  automação).
+\newblock \href {https://doi.org/10.1016/j.jacr.2025.09.015}
+  {\path{doi:10.1016/j.jacr.2025.09.015}}.
+
+\end{thebibliography}
