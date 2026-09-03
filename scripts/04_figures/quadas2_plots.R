@@ -3,10 +3,11 @@
 # Combina Design Gráfico de Alta Qualidade com Rigor Metodológico Cochrane
 # =============================================================================
 
+if (dir.exists(".r_lib")) .libPaths(c(".r_lib", .libPaths()))
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 required_packages <- c("ggplot2", "dplyr", "tidyr", "forcats", "scales", "patchwork")
 for (pkg in required_packages) {
-  if (!require(pkg, character.only = TRUE)) install.packages(pkg)
+  if (!require(pkg, character.only = TRUE)) install.packages(pkg, lib = ".r_lib")
 }
 
 library(ggplot2)
@@ -144,4 +145,8 @@ p_sum <- ggplot(data_summary, aes(x = domain_label, y = percent, fill = judgment
 
 ggsave("outputs/figures/Grafico_QUADAS2_Summary.png", p_sum, width = 12, height = 7, dpi = 300, bg = "white")
 
-cat("\n✅ FIGURAS PREMIUM + COCHRANE SALVAS COM SUCESSO EM outputs/figures/\n")
+dir.create("outputs/submission/figures", showWarnings = FALSE, recursive = TRUE)
+p_fig2 <- (p_tl / p_sum) + plot_layout(heights = c(1.2, 1))
+ggsave("outputs/submission/figures/Figure_2_QUADAS2.png", p_fig2, width = 14, height = 15, dpi = 300, bg = "white")
+
+cat("\n✅ FIGURAS PREMIUM + COCHRANE SALVAS COM SUCESSO EM outputs/figures/ E outputs/submission/figures/\n")

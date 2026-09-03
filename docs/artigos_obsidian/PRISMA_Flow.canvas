@@ -1,0 +1,16 @@
+{
+	"nodes":[
+		{"id":"p_screening","type":"text","text":"### 2. Triagem Automatizada por PLN\n\n- Pipeline TF-IDF com similaridade de cosseno (threshold = 0,04)\n- **Registros excluídos na triagem:** `134` artigos\n- **Artigos selecionados:** `28` artigos\n- **Busca reversa de citações:** `+1` artigo (Hong JACR)\n- **Total para leitura integral:** `29` artigos","x":400,"y":140,"width":340,"height":340,"color":"4"},
+		{"id":"p_id","type":"text","text":"### 1. Identificação nas Bases de Dados\n\n- **PubMed / MEDLINE:** `164` registros\n- **SciELO:** `0` registros\n- **BVS / LILACS:** `0` registros\n- **Total Bruto:** `164` registros\n- **Duplicatas removidas:** `2` registros\n- **Total para triagem:** `162` registros","x":-120,"y":140,"width":320,"height":280,"color":"6"},
+		{"id":"p_excluded","type":"text","text":"### ❌ 17 Artigos Excluídos no Texto Completo\n\n- **Sem teste de imagem (apenas texto):** Adams 2024, Patel 2025\n- **Modelo CNN clássico (não VLM/LLM):** Chen 2024, Rajpurkar 2024\n- **Modalidade divergente (TC / Patologia):** Kim 2024, Wu 2024\n- **Sem acurácia / Métricas apenas NLP:** Elsayed 2025, Zhang 2024, Tan 2024\n- **Perspectiva / Sem coorte empírica:** Moor 2023, Dosovitskiy 2024\n- **Sem padrão de referência / População pediátrica:** Yang 2025, Zhou 2025\n- *Consulte a Tabela S6 do Material Suplementar para detalhes.*","x":940,"y":120,"width":400,"height":460,"color":"1"},
+		{"id":"p_pool_supp","type":"text","text":"### 📖 3 Estudos no Pool Qualitativo\n\nElegíveis segundo PIRT, analisados em síntese narrativa:\n- [[bai2026]] (Janus-Pro-CXR, N=296, AUCs por achado)\n- [[bulut2025]] (ChatGPT-4o, N=172, coorte de sensibilidade)\n- [[lee2025]] (CXR-LLaVA, N=3.689, acurácia e NLP)","x":740,"y":660,"width":380,"height":305,"color":"5"},
+		{"id":"p_pool_biv","type":"text","text":"### 🎯 9 Estudos no Pool Bivariado (N=113.714)\n\nMatrizes 2x2 brutas completas modeladas por Reitsma REML:\n- [[akcay2026]] (GPT-4o, N=220)\n- [[ciflik2026]] (GPT-5.1, N=240)\n- [[guzel2026]] (Gemini 2 Pro, N=10.675)\n- [[hong2025a_diagnostic]] (KARA-CXR, N=2.145)\n- [[hong2025b_tuberculose]] (KARA-CXR, N=800)\n- [[huang2023]] (Transformer GenAI, N=500)\n- [[huang2025]] (Generative Drafting, N=97.651)\n- [[khovanova2025]] (Claude 3.7, N=83)\n- [[ostrovsky2025]] (ChatGPT-4.0, N=1.400)","x":140,"y":660,"width":380,"height":340,"color":"4"},
+		{"id":"p_title","type":"text","text":"## 🔄 Fluxo de Seleção PRISMA-DTA 2020\n\nRevisão Sistemática e Meta-análise de IA Generativa em Radiografia de Tórax","x":320,"y":-180,"width":500,"height":120,"color":"5"}
+	],
+	"edges":[
+		{"id":"pe1","fromNode":"p_id","fromSide":"right","toNode":"p_screening","toSide":"left","label":"162 registros"},
+		{"id":"pe2","fromNode":"p_screening","fromSide":"right","toNode":"p_excluded","toSide":"left","label":"17 excluídos"},
+		{"id":"pe3","fromNode":"p_screening","fromSide":"bottom","toNode":"p_pool_biv","toSide":"top","label":"9 com 2x2"},
+		{"id":"pe4","fromNode":"p_screening","fromSide":"bottom","toNode":"p_pool_supp","toSide":"top","label":"3 qualitativos"}
+	]
+}

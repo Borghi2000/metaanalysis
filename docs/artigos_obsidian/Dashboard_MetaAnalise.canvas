@@ -1,0 +1,33 @@
+{
+	"nodes":[
+		{"id":"grp_findings","type":"group","x":340,"y":1280,"width":1000,"height":600,"color":"1","label":"🚨 Achados Universais, Limitações e Alertas Regulatórios"},
+		{"id":"grp_general","type":"group","x":1140,"y":440,"width":920,"height":550,"color":"2","label":"🌐 Modelos de Propósito Geral (N=5 estudos bivariados, 12.618 exames)"},
+		{"id":"grp_domain","type":"group","x":-140,"y":370,"width":800,"height":590,"color":"4","label":"🎯 Modelos Domínio-Específicos (N=4 estudos bivariados, 101.096 exames)"},
+		{"id":"header","type":"text","text":"# 📊 Meta-Análise: IA Generativa em Radiografia de Tórax\n\n**12 Estudos Incluídos** | **113.714 Exames Radiográficos**\n- **Sensibilidade Agrupada:** `78,1%` (IC 95%: 54,9% - 91,3%)\n- **Especificidade Agrupada:** `96,8%` (IC 95%: 89,1% - 99,1%)\n- **AUC SROC:** `0,953` | **RV+:** `24,10` | **RV-:** `0,226`\n\n> *Ponto sumário de caráter exploratório devido à heterogeneidade clínica e metodológica.*","x":610,"y":-80,"width":600,"height":280,"color":"6"},
+		{"id":"card_gen_summary","type":"text","text":"### ⚠️ Desempenho do Subgrupo de Propósito Geral\n\n- **Sensibilidade:** **64,8%** (27,3% - 90,1%)\n- **Especificidade:** **93,9%** (92,6% - 94,9%)\n- **Razão Verossimilhança (+):** **10,60**\n- **Razão Verossimilhança (-):** **0,375**\n- **AUC SROC:** **0,941**\n\n*Atingido por penalidades de RLHF anti-alucinação -> limiar excessivamente conservador.*","x":1170,"y":490,"width":360,"height":210,"color":"2"},
+		{"id":"file_khovanova","type":"file","file":"khovanova2025.md","x":1170,"y":720,"width":360,"height":130},
+		{"id":"file_akcay","type":"file","file":"akcay2026.md","x":1560,"y":490,"width":340,"height":130},
+		{"id":"file_guzel","type":"file","file":"guzel2026.md","x":1560,"y":640,"width":340,"height":130},
+		{"id":"file_ostrovsky","type":"file","file":"ostrovsky2025.md","x":1560,"y":790,"width":340,"height":130},
+		{"id":"card_finding_1","type":"text","text":"### ❌ Colapso em Lesões Pequenas\n- **Pneumotórax <2 cm (Akçay):** AUC = 0,439\n- **Pneumotórax SIIM-ACR (Güzel):** Sens = 22,0%\n- **Nódulos Pulmonares (Khovanova):** Sens = 31,6%\n\n> **Conclusão:** É **contraindicado** o uso como ferramenta de exclusão isolada (*rule-out*).","x":370,"y":1330,"width":300,"height":370,"color":"1"},
+		{"id":"card_finding_2","type":"text","text":"### 🛑 Erro Espacial & Alucinações\n- **Erro de Lateralidade (Hong 2025b):** 36,7% de troca entre hemitórax D e E.\n- **ReXamine (Banerjee):** Alucinações graves de tubos e fraturas não existentes.\n\n> **Conclusão:** Falta ancoragem espacial (*grounding*); conferência humana é mandatória.","x":690,"y":1330,"width":300,"height":370,"color":"3"},
+		{"id":"card_finding_3","type":"text","text":"### ⚖️ Governança & ANVISA\n- Classificação como SaMD (RDC 657/2022).\n- Ausência de validação prospectiva no SUS.\n- Aumento progressivo de viés de automação passiva (54% -> 60% em Hong JACR).\n\n> **Conclusão:** Indicação aprovável restrita a **segunda leitura assistida**.","x":1010,"y":1330,"width":300,"height":370,"color":"5"},
+		{"id":"card_domain_summary","type":"text","text":"### 🌟 Desempenho do Subgrupo Domínio-Específico\n\n- **Sensibilidade:** **89,1%** (74,5% - 95,8%)\n- **Especificidade:** **98,7%** (80,8% - 99,9%)\n- **Razão Verossimilhança (+):** **67,39**\n- **Razão Verossimilhança (-):** **0,111**\n- **AUC SROC:** **0,959**\n\n*Treinamento pareado de laudos e imagens médicas nativas (DICOM).*","x":-110,"y":370,"width":360,"height":300,"color":"4"},
+		{"id":"file_hong2025a","type":"file","file":"hong2025a_diagnostic.md","x":280,"y":370,"width":340,"height":130},
+		{"id":"file_hong2025b","type":"file","file":"hong2025b_tuberculose.md","x":280,"y":520,"width":340,"height":130},
+		{"id":"file_bai2026","type":"file","file":"bai2026.md","x":280,"y":670,"width":340,"height":130},
+		{"id":"file_huang2025","type":"file","file":"huang2025.md","x":-110,"y":770,"width":360,"height":130}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"header","fromSide":"bottom","toNode":"card_domain_summary","toSide":"top","label":"Modelos Especializados"},
+		{"id":"e2","fromNode":"header","fromSide":"bottom","toNode":"card_gen_summary","toSide":"top","label":"Modelos Comerciais"},
+		{"id":"e3","fromNode":"card_domain_summary","fromSide":"right","toNode":"file_hong2025a","toSide":"left"},
+		{"id":"e4","fromNode":"card_domain_summary","fromSide":"bottom","toNode":"file_huang2025","toSide":"top"},
+		{"id":"e5","fromNode":"card_gen_summary","fromSide":"right","toNode":"file_akcay","toSide":"left"},
+		{"id":"e6","fromNode":"card_gen_summary","fromSide":"right","toNode":"file_guzel","toSide":"left"},
+		{"id":"e7","fromNode":"card_gen_summary","fromSide":"bottom","toNode":"file_khovanova","toSide":"top"},
+		{"id":"e8","fromNode":"file_guzel","fromSide":"bottom","toNode":"card_finding_1","toSide":"top","label":"Evidência de Colapso"},
+		{"id":"e9","fromNode":"file_hong2025b","fromSide":"bottom","toNode":"card_finding_2","toSide":"top","label":"Erro 36.7% lateralidade"},
+		{"id":"e10","fromNode":"header","fromSide":"bottom","toNode":"card_finding_3","toSide":"top","label":"Diretriz Regulatória"}
+	]
+}

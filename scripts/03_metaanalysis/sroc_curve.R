@@ -1,3 +1,4 @@
+if (dir.exists(".r_lib")) .libPaths(c(".r_lib", .libPaths()))
 library(mada)
 library(ggplot2)
 library(dplyr)
@@ -79,33 +80,38 @@ dados_biv <- dados_biv %>%
 # ── FIGURA 1 & 2: Forest Plots com PI ────────────────────────────────────────
 
 # Custom Forest Plot Function to add PI
-generate_forest_with_pi <- function(type, filename, subtitle_stats, pi_range) {
-  png(filename, width=2400, height=1800, res=300)
-  # Margem inferior ampliada (6 -> 9 linhas) para caber a legenda de texto
-  # abaixo do eixo, sem invadir o quadro que mada::forest() desenha sozinho
-  # (um legend() dentro da area do grafico colide com o cabecalho dele).
-  par(mar = c(9, 4, 4, 2) + 0.1, family = "sans")
+generate_forest_with_pi <- function(type, filenames, subtitle_stats, pi_range) {
+  for (fn in filenames) {
+    dir.create(dirname(fn), showWarnings = FALSE, recursive = TRUE)
+    png(fn, width=2400, height=1800, res=300)
+    # Margem inferior ampliada (6 -> 9 linhas) para caber a legenda de texto
+    # abaixo do eixo, sem invadir o quadro que mada::forest() desenha sozinho
+    # (um legend() dentro da area do grafico colide com o cabecalho dele).
+    par(mar = c(9, 4, 4, 2) + 0.1, family = "sans")
 
-  mada::forest(mada::madad(dados_biv[, c("TP", "FN", "FP", "TN")]), type = type,
-               main = "", snames = dados_biv$authors_year, cex = 1.1)
+    mada::forest(mada::madad(dados_biv[, c("TP", "FN", "FP", "TN")]), type = type,
+                 main = "", snames = dados_biv$authors_year, cex = 1.1)
 
-  # Apenas Subtítulo Estatístico (Normal, linha 1.5)
-  title(main = subtitle_stats, line = 1, font.main = 1, cex.main = 1.1)
+    # Apenas Subtítulo Estatístico (Normal, linha 1.5)
+    title(main = subtitle_stats, line = 1, font.main = 1, cex.main = 1.1)
 
-  # Adicionar o PI como uma linha pontilhada larga na base
-  abline(v = pi_range, lty = 3, col = "red", lwd = 2)
-  mtext(paste0("PI: ", vg(pi_range[1]*100, 1), "% - ", vg(pi_range[2]*100, 1), "%"),
-        side = 1, line = 4, col = "red", font = 2, cex = 1)
-  mtext("Quadrado + linha = estimativa do estudo (IC 95%)   |   linha vermelha pontilhada = Intervalo de Predição (PI) 95%",
-        side = 1, line = 6, col = "black", cex = 0.75)
+    # Adicionar o PI como uma linha pontilhada larga na base
+    abline(v = pi_range, lty = 3, col = "red", lwd = 2)
+    mtext(paste0("PI: ", vg(pi_range[1]*100, 1), "% - ", vg(pi_range[2]*100, 1), "%"),
+          side = 1, line = 4, col = "red", font = 2, cex = 1)
+    mtext("Quadrado + linha = estimativa do estudo (IC 95%)   |   linha vermelha pontilhada = Intervalo de Predição (PI) 95%",
+          side = 1, line = 6, col = "black", cex = 0.75)
 
-  dev.off()
+    dev.off()
+  }
 }
 
-generate_forest_with_pi("sens", "outputs/figures/Fig1_Forest_Sens_V10.png",
+generate_forest_with_pi("sens", c("outputs/figures/Fig1_Forest_Sens_V10.png",
+                                  "outputs/submission/figures/Figure_3_Forest_Sensitivity.png"),
                         sprintf("I² = %s%% (Zhou)", vg(i2_zhou * 100, 1)), pi_sens)
 
-generate_forest_with_pi("spec", "outputs/figures/Fig2_Forest_Spec_V10.png",
+generate_forest_with_pi("spec", c("outputs/figures/Fig2_Forest_Spec_V10.png",
+                                  "outputs/submission/figures/Figure_4_Forest_Specificity.png"),
                         sprintf("I² = %s%% (Holling)", vg(i2_holl * 100, 1)), pi_spec)
 
 
@@ -215,6 +221,7 @@ text(0.5, 0.10, sprintf(paste0("Nota: no cenário de referência sem Huang 2025 
                         vg(lr_pos_robust, 2), vg(lr_neg_robust, 3),
                         vg(post_p_robust20 * 100, 1)), font = 3, cex = 0.78)
 dev.off()
+file.copy("outputs/figures/Fig3_Fagan_Robust_V10.png", "outputs/submission/figures/Figure_7_Fagan.png", overwrite = TRUE)
 layout(1)
 
 cat(sprintf("Fagan (pool principal): RV+=%.2f RV-=%.3f | pos+ 5/10/20%%: %.1f/%.1f/%.1f | pos- : %.1f/%.1f/%.1f\n",
@@ -252,6 +259,7 @@ legend("bottomright", legend = c("Estudos Individuais", "Estimativa Agrupada", "
        pch = c(21, 23, NA, NA), pt.bg = c("red", "blue", NA, NA),
        lty = c(0, 0, 1, 3), col=c("black", "black", "black", "darkred"), bty = "n", cex = 1.1)
 dev.off()
+file.copy("outputs/figures/Fig4_SROC_Prediction_V10.png", "outputs/submission/figures/Figure_5_SROC.png", overwrite = TRUE)
 
 # ── FIGURA 5: FUNNEL PLOT ──────────────────────────────────────────────────
 # Pseudo-IC 95% (o "funil"/triangulo classico): limites pooled +/- 1.96*SE, com
@@ -288,6 +296,7 @@ p5 <- ggplot(dados_biv, aes(x = log(dor), y = 1/se_dor)) +
         legend.position = "bottom", legend.title = element_blank())
 
 ggsave("outputs/figures/Fig5_FunnelPlot_V10.png", p5, width = 8, height = 7, dpi = 300)
+ggsave("outputs/submission/figures/Figure_S1_FunnelPlot.png", p5, width = 8, height = 7, dpi = 300)
 
 # ── FIGURA 6: BUBBLE PLOT ──────────────────────────────────────────────────
 # Classe do modelo (Secao 2.2 / Tabela 6 do manuscrito): dominio-especifico vs.
@@ -308,11 +317,12 @@ p6 <- ggplot(dados_biv, aes(x = 1 - (TN/(TN+FP)), y = TP/(TP+FN), size = N, fill
                         labels = function(x) format(x, big.mark = ".", scientific = FALSE)) +
   scale_x_continuous(limits = c(0, 0.25)) + scale_y_continuous(limits = c(0.1, 1)) +
   labs(title = NULL,
-       subtitle = "Tamanho da bolha proporcional ao N de participantes",
+       subtitle = "Tamanho da bolha proporcional ao N de exames radiográficos",
        x = "1 - Especificidade", y = "Sensibilidade", size = "N Total", fill = "Classe do Modelo") +
   theme_minimal(base_size = 14) +
   theme(plot.subtitle = element_text(size = 13, hjust = 0.5))
 
 ggsave("outputs/figures/Fig6_BubblePlot_V10.png", p6, width = 10, height = 8, dpi = 300)
+ggsave("outputs/submission/figures/Figure_6_Subgroup.png", p6, width = 10, height = 8, dpi = 300)
 
-cat("\n✅ TODAS AS 6 FIGURAS V10 PADRONIZADAS (ABNT) COM SUCESSO!\n")
+cat("\n✅ TODAS AS FIGURAS GERADAS COM SUCESSO EM outputs/figures/ E outputs/submission/figures/!\n")

@@ -1,0 +1,234 @@
+{
+  "main": {
+    "id": "6f313e05b22a7197",
+    "type": "split",
+    "children": [
+      {
+        "id": "80c0ff29ec2e90f5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f30e712d6052638a",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Dashboard_MetaAnalise.canvas",
+                "viewState": {
+                  "x": 900,
+                  "y": 987.0965549705079,
+                  "zoom": -0.5839539756602404
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Dashboard_MetaAnalise"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d59b877e8f788b54",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6d08a6fdadc073b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c7901d26b48cb4c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "f03615dfc677dc6f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "4ffff4a4250ee76b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "17f1eb8be25f84fd",
+    "type": "split",
+    "children": [
+      {
+        "id": "73de979895efba17",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a3d59879834a729f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Dashboard_MetaAnalise.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos"
+            }
+          },
+          {
+            "id": "f79d544a1cba28c7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Dashboard_MetaAnalise.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída"
+            }
+          },
+          {
+            "id": "a93ab998650ab547",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "66ccc9646ea591e8",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "c41a59ffaec27eeb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Dashboard_MetaAnalise.canvas",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "f30e712d6052638a",
+  "lastOpenFiles": [
+    "_Dashboard_Visual.md",
+    "akcay2026.md",
+    "bai2026.md",
+    "banerjee2025_rexamine.md",
+    "ciflik2026.md",
+    "huang2025.md",
+    "huang2023.md",
+    "guzel2026.md",
+    "hong2025c_readerstudy.md",
+    "hong2025b_tuberculose.md",
+    "hong2025a_diagnostic.md",
+    "ostrovsky2025.md",
+    "whiting2011_quadas2.md",
+    "reitsma2005.md",
+    "PRISMA_Flow.canvas",
+    "Sem título.canvas",
+    "conhecimento/Modelos_Proposito_Geral.md",
+    "conhecimento/Gargalo_DICOM_e_Compressao_8bit.md",
+    "Dashboard_MetaAnalise.canvas",
+    "conhecimento/Alucinacoes_e_Erro_Espacial.md",
+    "hong_jacr2025_interaction.md",
+    "conhecimento/Regulacao_ANVISA_SaMD.md",
+    "conhecimento/Vies_de_Automacao_e_Workflow.md",
+    "conhecimento/Pneumotorax_e_Lesoes_Agudas.md",
+    "conhecimento/Modelos_Dominio_Especificos.md",
+    "conhecimento",
+    "assets/Figure_S1_FunnelPlot.png",
+    "assets/Figure_7_Fagan.png",
+    "assets/Figure_6_Subgroup.png",
+    "assets/Figure_5_SROC.png",
+    "assets/Figure_4_Forest_Specificity.png",
+    "assets/Figure_3_Forest_Sensitivity.png",
+    "assets/Figure_2_QUADAS2.png",
+    "assets/Figure_1_PRISMA_DTA.png",
+    "assets/Fig8_PRISMA_Flowchart_V10.png",
+    "assets/Fig6_BubblePlot_V10.png",
+    "assets",
+    "mcinnes2018_prisma-dta.md",
+    "lee2025.md",
+    "_Indice_Artigos.md"
+  ]
+}

@@ -26,6 +26,7 @@ venv/
 .RData
 .Rproj.user/
 *.Rproj
+.r_lib/
 
 # --- LaTeX auxiliares ---
 *.aux
@@ -40,7 +41,8 @@ venv/
 
 
 # --- Saidas regeneraveis pelos scripts (figuras, tabelas, logs) ---
-outputs/
+outputs/*
+!outputs/submission/
 
 # --- Material legado / auditoria (substituido pelo pipeline em scripts/) ---
 analysis/

@@ -143,6 +143,12 @@ def main() -> None:
     plt.savefig(out, dpi=300, bbox_inches="tight")
     print(f"[OK] Fluxograma PRISMA gerado em {out} (contadores de {args.counts})")
 
+    # Salvar copia com nome padronizado para submissao
+    sub_fig1 = Path("outputs/submission/figures/Figure_1_PRISMA_DTA.png")
+    sub_fig1.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(sub_fig1, dpi=300, bbox_inches="tight")
+    print(f"[OK] Copia padronizada salva em {sub_fig1}")
+
 
 if __name__ == "__main__":
     main()
