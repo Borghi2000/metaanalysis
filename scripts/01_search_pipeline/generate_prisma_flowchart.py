@@ -12,7 +12,13 @@ Uso
 ---
     python scripts/01_search_pipeline/generate_prisma_flowchart.py \
         --counts data/processed/prisma_counts.json \
-        --output outputs/figures/Fig8_PRISMA_Flowchart.png
+        --output outputs/figures/Fig8_PRISMA_Flowchart_V10.png
+
+O nome de saida termina em `_V10` para casar com a figura consumida pelo main.tex
+(`figures/Fig8_PRISMA_Flowchart_V10.jpg`) e com a convencao das demais figuras. Antes
+o script gravava em `Fig8_PRISMA_Flowchart.png`, sem o sufixo: reexecutar o pipeline
+atualizava um arquivo que o manuscrito nao usava, deixando a figura publicada
+silenciosamente defasada.
 """
 from __future__ import annotations
 
@@ -42,7 +48,8 @@ def draw_arrow(ax, xs, ys, xe, ye):
 def main() -> None:
     ap = argparse.ArgumentParser(description="Fluxograma PRISMA-DTA rastreável.")
     ap.add_argument("--counts", default="data/processed/prisma_counts.json")
-    ap.add_argument("--output", default="outputs/figures/Fig8_PRISMA_Flowchart.png")
+    ap.add_argument("--output",
+                    default="outputs/figures/Fig8_PRISMA_Flowchart_V10.png")
     args = ap.parse_args()
 
     counts = json.loads(Path(args.counts).read_text(encoding="utf-8"))

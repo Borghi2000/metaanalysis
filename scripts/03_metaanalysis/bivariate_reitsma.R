@@ -166,200 +166,15 @@ write.csv(tabela3, "outputs/statistics/Tabela3_Resultados_Agrupados.csv", row.na
 cat("\n✓ Salvo: outputs/statistics/Tabela3_Resultados_Agrupados.csv\n")
 
 # =============================================================================
-# 6. FOREST PLOT - SENSIBILIDADE
+# 6. FIGURAS -- REMOVIDAS (auditoria)
 # =============================================================================
-
-cat("\n📈 GERANDO GRÁFICOS...\n")
-
-png("outputs/figures/Grafico_1_FlorestaS.png", width = 1200, height = 700, res = 120)
-par(mar = c(5, 16, 4, 2), family = "sans")
-
-sens_vals <- dados$sens_ind
-y_pos <- nrow(dados):1
-
-plot(NA, xlim = c(0.3, 1.0), ylim = c(0.2, nrow(dados) + 1.5),
-     xlab = "Sensibilidade", ylab = "",
-     main = "Gráfico 1: Floresta de Sensibilidade por Estudo (N=9)",
-     yaxt = "n", font.main = 2, cex.main = 1.4, cex.lab = 1.1)
-
-# Estudos individuais
-for(i in 1:nrow(dados)) {
-  se_sens <- sqrt(sens_vals[i] * (1 - sens_vals[i]) / (dados$TP[i] + dados$FN[i]))
-  ci_lo <- max(0, sens_vals[i] - 1.96 * se_sens)
-  ci_hi <- min(1, sens_vals[i] + 1.96 * se_sens)
-  
-  segments(ci_lo, y_pos[i], ci_hi, y_pos[i], lwd = 2.5, col = "#003D82")
-  points(sens_vals[i], y_pos[i], pch = 15, cex = 1.8, col = "#003D82")
-}
-
-# Estimativa agrupada
-ci_lo_pool_sens <- max(0.3, ci_lo_sens)
-ci_hi_pool_sens <- min(1.0, ci_hi_sens)
-segments(ci_lo_pool_sens, 0.4, ci_hi_pool_sens, 0.4, lwd = 4, col = "#DC143C")
-points(sens_pooled, 0.4, pch = 18, cex = 3.2, col = "#DC143C")
-
-# Rótulos dos estudos
-study_labels <- paste0(dados$authors, "\n(", dados$year, ")\nn=", dados$n_total)
-axis(2, at = y_pos, labels = study_labels, las = 1, cex.axis = 0.9, font = 1)
-axis(2, at = 0.4, labels = "AGRUPADO", las = 1, cex.axis = 1.0, font = 2, col.axis = "#DC143C")
-
-# Linha vertical
-abline(v = sens_pooled, lty = 2, col = "gray40", lwd = 1.5, alpha = 0.7)
-
-# Anotação
-text(0.32, nrow(dados) + 1.0,
-     sprintf("Sensibilidade Agrupada: %.1f%%\n[IC 95%%: %.1f%%-%.1f%%]",
-             sens_pooled*100, ci_lo_sens*100, ci_hi_sens*100),
-     cex = 1.0, font = 2, adj = 0,
-     bbox = list(boxstyle = "round", fill = "#FFF8DC", col = "#DC143C", lwd = 2))
-
-axis(1, at = seq(0.3, 1.0, 0.1), cex.axis = 0.9)
-dev.off()
-
-cat("   ✓ Gráfico 1: outputs/figures/Grafico_1_FlorestaS.png\n")
-
-# =============================================================================
-# 7. FOREST PLOT - ESPECIFICIDADE
-# =============================================================================
-
-png("outputs/figures/Grafico_2_FlorestaE.png", width = 1200, height = 700, res = 120)
-par(mar = c(5, 16, 4, 2), family = "sans")
-
-spec_vals <- dados$spec_ind
-
-plot(NA, xlim = c(0.8, 1.0), ylim = c(0.2, nrow(dados) + 1.5),
-     xlab = "Especificidade", ylab = "",
-     main = "Gráfico 2: Floresta de Especificidade por Estudo (N=9)",
-     yaxt = "n", font.main = 2, cex.main = 1.4, cex.lab = 1.1)
-
-# Estudos individuais
-for(i in 1:nrow(dados)) {
-  se_spec <- sqrt(spec_vals[i] * (1 - spec_vals[i]) / (dados$TN[i] + dados$FP[i]))
-  ci_lo <- max(0, spec_vals[i] - 1.96 * se_spec)
-  ci_hi <- min(1, spec_vals[i] + 1.96 * se_spec)
-  
-  segments(ci_lo, y_pos[i], ci_hi, y_pos[i], lwd = 2.5, col = "#2E7D32")
-  points(spec_vals[i], y_pos[i], pch = 15, cex = 1.8, col = "#2E7D32")
-}
-
-# Estimativa agrupada
-ci_lo_pool_spec <- max(0.8, ci_lo_spec)
-ci_hi_pool_spec <- min(1.0, ci_hi_spec)
-segments(ci_lo_pool_spec, 0.4, ci_hi_pool_spec, 0.4, lwd = 4, col = "#DC143C")
-points(spec_pooled, 0.4, pch = 18, cex = 3.2, col = "#DC143C")
-
-# Rótulos dos estudos
-axis(2, at = y_pos, labels = study_labels, las = 1, cex.axis = 0.9, font = 1)
-axis(2, at = 0.4, labels = "AGRUPADO", las = 1, cex.axis = 1.0, font = 2, col.axis = "#DC143C")
-
-# Linha vertical
-abline(v = spec_pooled, lty = 2, col = "gray40", lwd = 1.5, alpha = 0.7)
-
-# Anotação
-text(0.805, nrow(dados) + 1.0,
-     sprintf("Especificidade Agrupada: %.1f%%\n[IC 95%%: %.1f%%-%.1f%%]",
-             spec_pooled*100, ci_lo_spec*100, ci_hi_spec*100),
-     cex = 1.0, font = 2, adj = 0,
-     bbox = list(boxstyle = "round", fill = "#FFF8DC", col = "#2E7D32", lwd = 2))
-
-axis(1, at = seq(0.80, 1.0, 0.05), cex.axis = 0.9)
-dev.off()
-
-cat("   ✓ Gráfico 2: outputs/figures/Grafico_2_FlorestaE.png\n")
-
-# -- 6.3 SROC Curve
-png("outputs/figures/Grafico_4_CurvaSROC.png", width = 800, height = 800, res = 120)
-plot(fit_overall, main = "Gráfico 4: Curva SROC e Resumo Bivariado (N=9)",
-     xlim = c(0, 1), ylim = c(0, 1), pch = 1, cex = 1.2,
-     sroclwd = 2, predict = TRUE)
-points(1 - dados$spec_ind, dados$sens_ind, pch = 19, col = "#003D8280", cex = 1.5)
-points(1 - spec_pooled, sens_pooled, pch = 18, col = "#DC143C", cex = 3)
-legend("bottomright", legend = c("Estudos Individuais", "Estimativa Agrupada (Reitsma)", "Elipse de Confiança 95%"),
-       pch = c(19, 18, NA), lty = c(NA, NA, 1), col = c("#003D8280", "#DC143C", "black"), bty = "n")
-dev.off()
-
-cat("   ✓ Gráfico 4: outputs/figures/Grafico_4_CurvaSROC.png\n")
-
-# =============================================================================
-# 8. NOMOGRAMA DE FAGAN
-# =============================================================================
-
-png("outputs/figures/Grafico_3_NomogramaFagan.png", width = 900, height = 1100, res = 120)
-par(mar = c(3, 12, 3, 12), family = "sans")
-
-# Probabilidades pré-teste (prevalência aproximada)
-prev_pre <- sum(dados$TP + dados$FN) / sum(dados$n_total)
-
-# Calcular probabilidade pós-teste
-odd_pre <- prev_pre / (1 - prev_pre)
-odd_pos <- odd_pre * lr_pos
-odd_neg <- odd_pre * lr_neg
-
-prob_pos <- odd_pos / (1 + odd_pos)
-prob_neg <- odd_neg / (1 + odd_neg)
-
-# Frame do nomograma
-plot(NA, xlim = c(-1, 2), ylim = c(-0.1, 1.1),
-     xlab = "", ylab = "", main = "Gráfico 3: Nomograma de Fagan",
-     font.main = 2, cex.main = 1.4,
-     xaxt = "n", yaxt = "n")
-
-# Eixo esquerdo (Probabilidade Pré-teste)
-probs <- c(0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.98, 0.99)
-y_prob <- probs
-
-# Plot esquerdo
-for(i in seq_along(probs)) {
-  text(-0.95, y_prob[i], sprintf("%.0f%%", probs[i]*100), adj = 1, cex = 0.9)
-  segments(-0.92, y_prob[i], -0.85, y_prob[i], lwd = 1)
-}
-text(-0.95, -0.06, "Probabilidade\nPré-teste", adj = 0.5, cex = 1.0, font = 2)
-
-# Eixo central (Razão de Verossimilhança)
-lr_values <- c(0.01, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100)
-log_lr <- log(lr_values)
-max_log_lr <- log(100)
-
-for(i in seq_along(lr_values)) {
-  y_lr <- 0.1 + (log_lr[i] / max_log_lr) * 0.8
-  text(0.5, y_lr, sprintf("%.2f", lr_values[i]), adj = 0.5, cex = 0.85)
-  segments(0.35, y_lr, 0.65, y_lr, lwd = 0.8)
-}
-text(0.5, -0.06, "Razão de\nVerossimilhança", adj = 0.5, cex = 1.0, font = 2)
-
-# Plot direito (Probabilidade Pós-teste)
-for(i in seq_along(probs)) {
-  text(1.95, y_prob[i], sprintf("%.0f%%", probs[i]*100), adj = 0, cex = 0.9)
-  segments(1.85, y_prob[i], 1.92, y_prob[i], lwd = 1)
-}
-text(1.95, -0.06, "Probabilidade\nPós-teste", adj = 0.5, cex = 1.0, font = 2)
-
-# Linha de LR Positiva
-y_lr_pos <- 0.1 + (log(lr_pos) / max_log_lr) * 0.8
-points(0.5, y_lr_pos, pch = 19, cex = 2.0, col = "#DC143C")
-lines(c(-0.85, 1.92), c(prev_pre, prob_pos), lty = 2, col = "#DC143C", lwd = 2.5)
-
-# Linha de LR Negativa
-y_lr_neg <- 0.1 + (log(lr_neg) / max_log_lr) * 0.8
-points(0.5, y_lr_neg, pch = 19, cex = 2.0, col = "#0066CC")
-lines(c(-0.85, 1.92), c(prev_pre, prob_neg), lty = 2, col = "#0066CC", lwd = 2.5)
-
-# Anotações
-text(0.5, 1.02, "Teste com resultado POSITIVO", adj = 0.5, cex = 1.0, col = "#DC143C", font = 2)
-text(0.5, -0.02, "Teste com resultado NEGATIVO", adj = 0.5, cex = 1.0, col = "#0066CC", font = 2)
-
-# Legenda
-text(-0.95, 0.95, sprintf("RV+ = %.2f\nProb. Pós = %.1f%%", lr_pos, prob_pos*100),
-     cex = 0.95, adj = 0, font = 1,
-     bbox = list(boxstyle = "round", fill = "#FFE6E6", col = "#DC143C", lwd = 1.5))
-text(1.95, 0.05, sprintf("RV- = %.3f\nProb. Pós = %.1f%%", lr_neg, prob_neg*100),
-     cex = 0.95, adj = 1, font = 1,
-     bbox = list(boxstyle = "round", fill = "#E6F2FF", col = "#0066CC", lwd = 1.5))
-
-dev.off()
-
-cat("   ✓ Gráfico 3: outputs/figures/Grafico_3_NomogramaFagan.png\n")
-
+# Este script gerava Grafico_1_FlorestaS, Grafico_2_FlorestaE,
+# Grafico_3_NomogramaFagan e Grafico_4_CurvaSROC, que DUPLICAVAM as Figuras 1,
+# 2, 3 e 4 do manuscrito com uma renderizacao antiga e sem as convencoes pt-BR.
+# Nenhuma era referenciada pelo main.tex, e copias desatualizadas delas acabaram
+# encalhadas em manuscript/figures. A fonte unica de figuras passa a ser
+# scripts/03_metaanalysis/sroc_curve.R; este script permanece como verificacao
+# independente do ponto sumario e gerador das Tabelas 1-3.
 # =============================================================================
 # 9. RESUMO FINAL
 # =============================================================================
@@ -382,8 +197,5 @@ cat("\n📁 ARQUIVOS GERADOS:\n")
 cat("   ✓ outputs/statistics/Tabela1_Estudos_Incluidos.csv\n")
 cat("   ✓ outputs/statistics/Tabela2_Desempenho_Individual.csv\n")
 cat("   ✓ outputs/statistics/Tabela3_Resultados_Agrupados.csv\n")
-cat("   ✓ outputs/figures/Grafico_1_FlorestaS.png\n")
-cat("   ✓ outputs/figures/Grafico_2_FlorestaE.png\n")
-cat("   ✓ outputs/figures/Grafico_3_NomogramaFagan.png\n")
 
 cat("\n✅ Análise concluída com sucesso!\n\n")

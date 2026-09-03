@@ -1,38 +1,48 @@
 \documentclass[12pt,a4paper]{article}
-% \usepackage{fontspec}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes} % Times New Roman padrão ABNT
 \usepackage[portuguese]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
 \usepackage{float}
 \usepackage[font=small, labelfont=bf, labelsep=endash, justification=centering]{caption}
 \usepackage{setspace}
 \usepackage{geometry}
 \geometry{left=3cm, top=3cm, right=2cm, bottom=2cm}
-% \usepackage{mathptmx} % Causava crash no xdvipdfmx do Prism
 \usepackage{fancyhdr}
 \usepackage{titlesec}
-\usepackage{url}
+\usepackage[hyphens]{url}
+\usepackage{microtype}
 
-% Configuração das seções para ABNT (normalsize, bold, seção primária em maiúsculo)
+% Configuração das seções para ABNT (NBR 6024: 12pt, bold; seção primária em MAIÚSCULO)
 \titleformat{\section}{\normalfont\normalsize\bfseries\MakeUppercase}{\thesection\quad}{0pt}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection\quad}{0pt}{}
-\titleformat{\subsubsection}{\normalfont\normalsize\itshape}{\thesubsubsection\quad}{0pt}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection\quad}{0pt}{}
 
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titlespacing*{\subsection}{0pt}{12pt}{6pt}
 \titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
 
-% Parágrafo
+% Parágrafo ABNT (recuo de 1,25 cm, sem espaçamento entre parágrafos)
 \setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0pt}
 
-% Estilo de página para ABNT (numeração no cabeçalho à direita)
+% Prevenção de quebra de margem / overflow
+\tolerance=9999
+\emergencystretch=3em
+\hfuzz=0.5pt
+
+% Estilo de página ABNT (numeração no cabeçalho superior à direita)
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\thepage}
+\fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \setlength{\headheight}{15pt}
@@ -43,25 +53,20 @@
 \renewcommand{\listtablename}{LISTA DE TABELAS}
 \renewcommand{\refname}{REFERÊNCIAS}
 
-% \hypersetup{ unicode=true,
-%     colorlinks=true,
-%     linkcolor=black,
-%     citecolor=black,
-%     urlcolor=black
-% }
-
+\def\UrlBreaks{\do\/\do-\do.\do_\do=\do?\do&\do\#}
 
 \begin{document}
 
-% Capa e Folha de Rosto (pré-textuais)
+% Elementos Pré-Textuais (sem numeração visível)
 \pagestyle{empty}
 
+% Capa
 \begin{titlepage}
 \begin{center}
     {\large \textbf{UNIVERSIDADE SANTO AMARO}} \\
     \vspace{4cm}
     {\large \textbf{GABRIEL BORGHI DE FREITAS OLIVEIRA}} \\
-    \vspace{4cm}
+    \vspace{3.5cm}
     {\Large \textbf{ACURÁCIA DIAGNÓSTICA DE MODELOS DE INTELIGÊNCIA ARTIFICIAL GENERATIVA E MULTIMODAL NA INTERPRETAÇÃO DE RADIOGRAFIAS DE TÓRAX:}} \\
     \vspace{0.5cm}
     {\large \textbf{Uma Revisão Sistemática e Meta-análise Exploratória Bivariada Hierárquica}} \\
@@ -71,18 +76,19 @@
 \end{center}
 \end{titlepage}
 
+% Folha de Rosto
 \begin{titlepage}
 \begin{center}
     {\large \textbf{GABRIEL BORGHI DE FREITAS OLIVEIRA}} \\
-    \vspace{4cm}
+    \vspace{3.5cm}
     {\Large \textbf{ACURÁCIA DIAGNÓSTICA DE MODELOS DE INTELIGÊNCIA ARTIFICIAL GENERATIVA E MULTIMODAL NA INTERPRETAÇÃO DE RADIOGRAFIAS DE TÓRAX:}} \\
     \vspace{0.5cm}
     {\large \textbf{Uma Revisão Sistemática e Meta-análise Exploratória Bivariada Hierárquica}} \\
-    \vspace{3cm}
+    \vspace{2.5cm}
     \hspace{.45\textwidth}
     \begin{minipage}{.5\textwidth}
         \begin{singlespace}
-            \small Monografia de revisão sistemática e meta-análise.
+            \small Monografia de revisão sistemática e meta-análise apresentada ao Curso de Medicina da Universidade Santo Amaro como requisito parcial para obtenção do título de Médico.
         \end{singlespace}
     \end{minipage}
     \vfill
@@ -94,9 +100,12 @@
 
 \onehalfspacing
 
+% Resumo
+\newpage
 \begin{center}
     {\large \textbf{RESUMO}}
 \end{center}
+\vspace{0.5cm}
 \begin{singlespace}
 \noindent \textbf{Objetivo:} Estimar a acurácia diagnóstica de modelos de Linguagem Multimodal (VLMs) e de Linguagem de Grande Escala (LLMs) na interpretação de radiografias de tórax (CXR), por meio de revisão sistemática e meta-análise exploratória bivariada hierárquica, e identificar lacunas metodológicas na literatura primária que limitam sínteses quantitativas de maior robustez.
 
@@ -106,15 +115,16 @@
 
 \noindent \textbf{Conclusão:} O ponto sumário tem caráter exploratório e não constitui parâmetro transferível, por agregar condições-alvo heterogêneas e apresentar intervalo de predição de 6,4--99,5\% para a sensibilidade. A especificidade do pool completo (96,8\%) depende do perfil de um único estudo de prevalência extremamente baixa (Huang 2025); o cenário sem esse estudo (especificidade de 93,7\%) é o adotado como referência. Os achados mais robustos são a queda acentuada da sensibilidade em lesões pequenas e a diferença sistemática entre modelos adaptados ao domínio (sensibilidade média de 87,0\%) e modelos de propósito geral (60,1\%). As probabilidades pós-teste calculadas para diferentes prevalências pré-teste a partir das razões de verossimilhança do pool principal podem ser visualizadas no Nomograma de Fagan da Figura \ref{fig:fagan}. A baixa sensibilidade observada para lesões pequenas (ex: nódulos ou pneumotórax sutil) impede o uso desses modelos como ferramentas isoladas de exclusão (rule-out). O uso como segunda leitura assistida, sob supervisão médica, constitui o modelo compatível com a evidência disponível.
 
-\vspace{0.5cm}
+\vspace{0.8cm}
 \noindent \textbf{Palavras-chave:} Inteligência Artificial Generativa. Modelos de Linguagem Multimodal. Radiografia de Tórax. Meta-análise. Acurácia Diagnóstica. PRISMA-DTA.
 \end{singlespace}
 
+% Abstract
 \newpage
-
 \begin{center}
     {\large \textbf{ABSTRACT}}
 \end{center}
+\vspace{0.5cm}
 \begin{singlespace}
 \noindent \textbf{Objective:} To estimate the diagnostic accuracy of Vision-Language Models (VLMs) and Large Language Models (LLMs) in chest radiograph interpretation through a systematic review and hierarchical bivariate exploratory meta-analysis, and to identify methodological gaps in the primary literature that limit more robust quantitative syntheses.
 
@@ -122,12 +132,13 @@
 
 \noindent \textbf{Results:} The bivariate model estimated a pooled sensitivity of 78.1\% (95\% CI: 54.9--91.3\%) and pooled specificity of 96.8\% (95\% CI: 89.1--99.1\%), with AUC SROC=0.953, LR+=24.10, and LR-=0.226. The 95\% prediction interval for sensitivity ranged from 6.4\% to 99.5\%. In the sensitivity analysis excluding the study with the highest sample weight (Huang 2025, N=97,651, prevalence=0.03\%), results were: sensitivity 79.2\% (95\% CI: 52.8--92.8\%), specificity 93.7\% (95\% CI: 91.0--95.6\%), LR+=12.54, and AUC=0.950.
 
-\noindent \textbf{Conclusion:} The evaluated VLM and LLM models were associated with clinically relevant sensitivity and specificity estimates in thoracic radiological screening tasks. Use as an assisted second reading under mandatory radiological supervision constitutes the model of use consistent with available evidence.
+\noindent \textbf{Conclusion:} The summary point is exploratory and does not constitute a transferable performance parameter, as it pools heterogeneous target conditions and yields a 6.4--99.5\% prediction interval for sensitivity. The specificity of the full pool (96.8\%) depends on the profile of a single study with extremely low prevalence (Huang 2025); the scenario excluding that study (specificity 93.7\%) is adopted as the reference. The most robust findings are the marked drop in sensitivity for small lesions and the systematic difference between domain-adapted models (mean sensitivity 87.0\%) and general-purpose models (60.1\%). The low sensitivity observed for small lesions (e.g., nodules or subtle pneumothorax) precludes the use of these models as stand-alone rule-out tools. Use as an assisted second reading under mandatory radiological supervision constitutes the model of use consistent with available evidence.
 
-\vspace{0.5cm}
+\vspace{0.8cm}
 \noindent \textbf{Keywords:} Generative Artificial Intelligence. Vision-Language Models. Chest Radiograph. Meta-analysis. Diagnostic Accuracy. PRISMA-DTA.
 \end{singlespace}
 
+% Sumário e Listas
 \newpage
 \tableofcontents
 \newpage
@@ -157,14 +168,14 @@ LLM & Large Language Model (Modelo de linguagem de grande escala) \\
 NLP & Natural language processing (Processamento de linguagem natural) \\
 NPV & Negative predictive value (Valor preditivo negativo) \\
 PI & Prediction interval (Intervalo de predição) \\
-PIRT & Participantes, Índice, Referência, Condição-alvo \\
+PIRT & Participantes, Teste Índice, Padrão de Referência, Condição-alvo (\textit{Target}) \\
 PLN & Processamento de linguagem natural \\
 PPV & Positive predictive value (Valor preditivo positivo) \\
 PRISMA-DTA & Preferred Reporting Items for Systematic Reviews -- Diagnostic Test Accuracy \\
 PROSPERO & International Prospective Register of Systematic Reviews \\
 QUADAS-2 & Quality Assessment of Diagnostic Accuracy Studies 2 \\
 REML & Restricted maximum likelihood (Máxima verossimilhança restrita) \\
-RV- & Razão de verossimilhança negativa \\
+RV$-$ & Razão de verossimilhança negativa \\
 RV+ & Razão de verossimilhança positiva \\
 SaMD & Software as a Medical Device (Software como dispositivo médico) \\
 SROC & Summary receiver operating characteristic \\
@@ -175,8 +186,11 @@ VN & Verdadeiro negativo \\
 VP & Verdadeiro positivo \\
 \end{tabular}
 \end{singlespace}
+
+% Início dos Elementos Textuais (Numeração ativada no canto superior direito)
 \newpage
 \pagestyle{fancy}
+
 \section{INTRODUÇÃO}
 
 \subsection{Contextualização Clínica}
@@ -209,7 +223,7 @@ Os objetivos secundários são:
 Este estudo constitui uma revisão sistemática com meta-análise de acurácia diagnóstica conduzida em estrito alinhamento com as recomendações do \textit{Preferred Reporting Items for Systematic Reviews and Meta-Analyses for Diagnostic Test Accuracy} (PRISMA-DTA) \cite{mcinnes} e os princípios do \textit{Standards for Reporting Diagnostic Accuracy} (STARD) \cite{stard}. Para subsidiar a análise de modelos multimodais de imagem aplicados ao tórax, recorreu-se aos princípios norteadores recém-propostos do framework PRIME 2.0 \cite{kagiyama} (\textit{Proposed Requirements for Cardiovascular Imaging-Related Multimodal AI Evaluation}), que estabelece diretrizes para a transparência do reporte de prompts, parâmetros de inferência e controle de alucinações em IAs generativas de imagem médica. O protocolo não foi registrado prospectivamente no PROSPERO devido ao caráter exploratório e à constatação de elevada heterogeneidade de dados no levantamento inicial da literatura primária. O protocolo desta revisão sistemática foi posteriormente registrado no Open Science Framework (OSF) sob o DOI: 10.17605/OSF.IO/U6BJS. Todos os dados, códigos analíticos e materiais suplementares utilizados para garantir a reprodutibilidade desta pesquisa estão publicamente disponíveis no repositório GitHub, espelhados no projeto OSF (\url{https://osf.io/sh5z7}).
 
 \subsection{Estratégia de Busca e Critérios de Elegibilidade (PIRT)}
-A busca sistemática de artigos foi realizada nas bases PubMed/MEDLINE, SciELO e BVS, com escopo temporal congelado por data de publicação entre 30 de novembro de 2022 --- data do lançamento público do ChatGPT, marco inicial da era de IA generativa --- e 9 de junho de 2026. A data de corte é fixa, e não ``a data corrente'', de modo que a reexecução da busca em qualquer momento futuro devolve a mesma janela de registros. A triagem inicial de títulos e resumos foi automatizada, de forma determinística, por meio de um pipeline de Processamento de Linguagem Natural (PLN) baseado em Term Frequency-Inverse Document Frequency (TF-IDF); a avaliação de elegibilidade por texto completo e a subsequente extração de dados foram conduzidas por um único revisor. A elegibilidade dos estudos primários baseou-se nos critérios PIRT:
+A busca sistemática de artigos foi realizada nas bases PubMed/MEDLINE, SciELO e BVS, com escopo temporal congelado por data de publicação entre 30 de novembro de 2022, data do lançamento público do ChatGPT e marco inicial da era de IA generativa, e 9 de junho de 2026. A data de corte é fixa, e não ``a data corrente'', de modo que a reexecução da busca em qualquer momento futuro devolve a mesma janela de registros. A triagem inicial de títulos e resumos foi automatizada, de forma determinística, por meio de um pipeline de Processamento de Linguagem Natural (PLN) baseado em Term Frequency-Inverse Document Frequency (TF-IDF); a avaliação de elegibilidade por texto completo e a subsequente extração de dados foram conduzidas por um único revisor. A elegibilidade dos estudos primários baseou-se nos critérios PIRT:
 \begin{itemize}
     \item \textbf{P (Participantes):} Pacientes adultos que realizaram radiografia de tórax frontal (PA ou AP);
     \item \textbf{I (Índice):} Modelos de inteligência artificial generativa e multimodal (VLMs ou LLMs de imagem), operados de forma independente ou como assistentes de laudo (ex: GPT-4o, Gemini 2, Claude 3.7, LLaVA-Rad, KARA-CXR);
@@ -266,13 +280,14 @@ A busca sistemática e a triagem recuperaram 12 estudos primários elegíveis pu
 
 \begin{figure}[H]
     \centering
-    \caption{Fluxograma PRISMA-DTA de Seleção dos Estudos.}
+    \caption{Fluxograma PRISMA-DTA de Seleção dos Estudos}
     \label{fig:prisma}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig8_PRISMA_Flowchart_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} NLP: Processamento de Linguagem Natural; PRISMA-DTA: \textit{Preferred Reporting Items for Systematic Reviews and Meta-Analyses for Diagnostic Test Accuracy}. O diagrama sintetiza as fases de busca sistemática, remoção de duplicatas, triagem automatizada via PLN (TF-IDF), avaliação de elegibilidade em texto completo e composição final dos pools quantitativo (N=9) e suplementar (N=3).
     \end{singlespace}
 \end{figure}
 
@@ -280,7 +295,8 @@ A busca sistemática e a triagem recuperaram 12 estudos primários elegíveis pu
 \centering
 \caption{Características dos Estudos Bivariados Incluídos (N=9)}
 \label{tab:estudos}
-\resizebox{\textwidth}{!}{
+\begin{singlespace}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lllrrrrr}
 \toprule
 Estudo & Classe do modelo & Cenário Clínico & N Total & VP & FP & FN & VN \\
@@ -295,10 +311,13 @@ Ciflik 2026 \cite{ciflik} & Propósito geral & Pneumotórax (real-world) & 240 &
 Güzel 2026 \cite{guzel} & Propósito geral & Pneumotórax (SIIM-ACR) & 10.675 & 523 & 415 & 1.856 & 7.881 \\
 Khovanova 2026 \cite{khovanova} & Propósito geral & Nódulo Pulmonar & 83 & 12 & 3 & 26 & 42 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
 }
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026), com base nos estudos primários citados.
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026), com base nos estudos primários citados. \\
+\textbf{Nota:} VP = Verdadeiros Positivos; FP = Falsos Positivos; FN = Falsos Negativos; VN = Verdadeiros Negativos. Ciflik 2026: FN = 0; correção de continuidade de Haldane (+0,5) aplicada para estabilidade computacional no modelo de Reitsma (sensibilidade bruta = 100,0\%; sensibilidade corrigida = 98,4\%). Akçay 2025 e Khovanova 2026 julgados com alto risco de viés no domínio de seleção de pacientes devido ao desenho caso-controle balanceado.
 \end{singlespace}
 \end{table}
 
@@ -308,6 +327,8 @@ O desempenho de acurácia diagnóstica estimado de forma individual para cada es
 \centering
 \caption{Desempenho Diagnóstico Individual dos Estudos}
 \label{tab:desempenho}
+\begin{singlespace}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lcrrrrrr}
 \toprule
 Estudo & Sensibilidade & Especificidade & VP & FP & FN & VN & Acurácia \\
@@ -316,15 +337,19 @@ Hong 2025a & 95,3\% & 92,7\% & 181 & 142 & 9 & 1.813 & 93,0\% \\
 Hong 2025b & 95,2\% & 86,7\% & 360 & 56 & 18 & 366 & 90,8\% \\
 Ostrovsky 2025 & 76,2\% & 93,7\% & 141 & 77 & 44 & 1.138 & 91,4\% \\
 Huang 2023 & 84,8\% & 98,5\% & 139 & 5 & 25 & 331 & 94,0\% \\
-Huang 2025 & 72,7\% & 100,0\% & 24 & 22 & 9 & 97.596 & 100,0\% \\
+Huang 2025 & 72,7\% & 99,98\% & 24 & 22 & 9 & 97.596 & 99,97\% \\
 Akçay 2025 & 70,9\% & 96,4\% & 78 & 4 & 32 & 106 & 83,6\% \\
 Ciflik 2026 & 100,0\% & 91,4\% & 30 & 18 & 0 & 192 & 92,5\% \\
 Güzel 2026 & 22,0\% & 95,0\% & 523 & 415 & 1.856 & 7.881 & 78,7\% \\
 Khovanova 2026 & 31,6\% & 93,3\% & 12 & 3 & 26 & 42 & 65,1\% \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026), com base nos estudos primários citados.
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026), com base nos estudos primários citados. \\
+\textbf{Nota:} VP = Verdadeiros Positivos; FP = Falsos Positivos; FN = Falsos Negativos; VN = Verdadeiros Negativos. Acurácia bruta = $(\text{VP}+\text{VN})/\text{N Total}$. Note-se que a acurácia é sensível à prevalência amostral, razão pela qual Huang 2025 (prevalência = 0,03\%) atinge acurácia de 99,97\% apesar de apresentar sensibilidade de apenas 72,7\%. Para esse estudo, a especificidade (99,98\% = 97.596/97.618) e a acurácia são apresentadas com duas casas decimais para não serem arredondadas indevidamente a 100,0\%; nas Figuras \ref{fig:forest_spec} e \ref{fig:sroc}, limitadas a duas casas decimais, ambas aparecem como 1,00.
 \end{singlespace}
 \end{table}
 
@@ -334,7 +359,8 @@ A avaliação do risco de viés e preocupações com a aplicabilidade pelo instr
 \centering
 \caption{Avaliação da Qualidade Metodológica dos Estudos pelo Instrumento QUADAS-2 (N=12)}
 \label{tab:quadas2}
-\resizebox{\textwidth}{!}{
+\begin{singlespace}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccccc}
 \toprule
  & \multicolumn{4}{c}{Risco de Viés} & \multicolumn{3}{c}{Preocupações com Aplicabilidade} \\
@@ -354,34 +380,39 @@ Khovanova 2026 & Alto & Incerto & Baixo & Incerto & Baixo & Baixo & Baixo \\
 Bai 2026 & Incerto & Baixo & Baixo & Baixo & Baixo & Baixo & Baixo \\
 Bulut 2025 & Incerto & Incerto & Baixo & Alto & Baixo & Baixo & Baixo \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
 }
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026).
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+\textbf{Nota:} O instrumento QUADAS-2 avalia quatro domínios de risco de viés (Seleção de pacientes, Teste índice, Padrão de referência, Fluxo e tempo) e três de aplicabilidade (Seleção, Teste índice, Padrão de referência). Julgamentos realizados por revisor único conforme os critérios formais do protocolo.
 \end{singlespace}
 \end{table}
 
 \begin{figure}[H]
     \centering
-    \caption{QUADAS-2: Avaliação Individual por Estudo e Domínio.}
+    \caption{QUADAS-2: Avaliação Individual por Estudo e Domínio}
     \label{fig:quadas_traffic}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.9\textwidth]{figures/Grafico_QUADAS2_TrafficLight.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Gráfico semáforo (\textit{traffic light plot}) apresentando a avaliação individual dos 12 estudos primários incluídos para cada um dos quatro domínios de risco de viés e três de aplicabilidade clínica do QUADAS-2. Verde (+) = Baixo risco; Amarelo (?) = Risco incerto; Vermelho (X) = Alto risco.
     \end{singlespace}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \caption{QUADAS-2: Resumo por Domínio (N=12).}
+    \caption{QUADAS-2: Resumo por Domínio (N=12)}
     \label{fig:quadas_summary}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.9\textwidth]{figures/Grafico_QUADAS2_Summary.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Distribuição percentual agregada dos julgamentos metodológicos. Nenhum estudo apresentou preocupações de aplicabilidade clínica (100\% baixo risco nos três domínios). O domínio de Teste Índice concentrou o maior nível de incerteza (58\%, 7/12 estudos) devido à ausência de limiares de decisão textuais formalmente especificados.
     \end{singlespace}
 \end{figure}
 
@@ -392,20 +423,24 @@ A síntese quantitativa das estimativas de acurácia diagnóstica do pool princi
 \centering
 \caption{Resultados Meta-analíticos Agrupados do Pool Principal (N=9)}
 \label{tab:agrupados}
-\begin{tabular}{lcc}
+\begin{singlespace}
+\begin{tabularx}{\textwidth}{@{} p{7.5cm} >{\centering\arraybackslash}p{3.5cm} X @{}}
 \toprule
 Métrica & Estimativa & Intervalo de Confiança (IC 95\%) \\
 \midrule
 Sensibilidade Agrupada & 78,1\% & 54,9\%--91,3\% \\
 Especificidade Agrupada & 96,8\% & 89,1\%--99,1\% \\
-Razão de Verossimilhança Positiva (RV+) & 24,10 & --- \\
-Razão de Verossimilhança Negativa (RV-) & 0,226 & --- \\
-Estudos Incluídos & 9 & --- \\
-Total de Participantes & 113.714 & --- \\
+Razão de Verossimilhança Positiva (RV+) & 24,10 &, \\
+Razão de Verossimilhança Negativa (RV-) & 0,226 &, \\
+Estudos Incluídos & 9 &, \\
+Total de Participantes & 113.714 &, \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026), com base no modelo bivariado de Reitsma, método REML.
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026), com base no modelo bivariado de Reitsma, método REML. \\
+\textbf{Nota:} IC 95\% = Intervalo de Confiança de 95\%; RV+ = Razão de Verossimilhança Positiva; RV$-$ = Razão de Verossimilhança Negativa. Modelo estimado na escala logit com preservação da correlação bivariada entre sensibilidade e taxa de falsos positivos.
 \end{singlespace}
 \end{table}
 
@@ -413,37 +448,40 @@ O intervalo de predição de 95\% estimado para a sensibilidade foi de 6,4\% a 9
 
 \begin{figure}[H]
     \centering
-    \caption{Forest Plot da Sensibilidade Agrupada (N=9, Raw 2$\times$2).}
+    \caption{Forest Plot da Sensibilidade Agrupada (N=9, Raw 2$\times$2)}
     \label{fig:forest_sens}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig1_Forest_Sens_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Forest plot da sensibilidade diagnóstica para os 9 estudos bivariados com matrizes $2\times 2$ completas. Quadrados pretos indicam a estimativa pontual individual; linhas horizontais delimitam os intervalos de confiança de 95\%. A linha tracejada vermelha representa o Intervalo de Predição (PI) de 95\% (6,4\% a 99,5\%). Heterogeneidade: $I^2 = 74,6\%$ (método de Zhou-Dendukuri). As estimativas exibidas nesta figura incorporam a correção de continuidade de Haldane-Anscombe (+0,5), aplicada a todos os estudos do pool conforme a Seção 2.5, e portanto correspondem às quantidades efetivamente modeladas, e não aos valores brutos das Tabelas \ref{tab:estudos} e \ref{tab:desempenho}. A divergência só é perceptível em Ciflik 2026, cuja sensibilidade bruta de 100,0\% (FN = 0) é exibida como 0,98 (98,4\%).
     \end{singlespace}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \caption{Forest Plot da Especificidade Agrupada (N=9, Raw 2$\times$2).}
+    \caption{Forest Plot da Especificidade Agrupada (N=9, Raw 2$\times$2)}
     \label{fig:forest_spec}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig2_Forest_Spec_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Forest plot da especificidade diagnóstica para os 9 estudos bivariados. Quadrados pretos indicam a estimativa pontual individual; linhas horizontais delimitam os intervalos de confiança de 95\%. A linha tracejada vermelha representa o Intervalo de Predição (PI) de 95\% (18,1\% a 100,0\%). Como na Figura \ref{fig:forest_sens}, as estimativas exibidas incorporam a correção de continuidade de Haldane-Anscombe (+0,5) da Seção 2.5; na escala de duas casas decimais do gráfico, nenhuma difere do valor bruto da Tabela \ref{tab:desempenho}, e a especificidade de Huang 2025 (99,98\%) aparece arredondada como 1,00.
     \end{singlespace}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \caption{Curva SROC Hierárquica e Regiões de Confiança e Predição: Pool Principal (N=9).}
+    \caption{Curva SROC Hierárquica e Regiões de Confiança e Predição: Pool Principal (N=9)}
     \label{fig:sroc}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig4_SROC_Prediction_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Curva SROC (\textit{Summary Receiver Operating Characteristic}) hierárquica ajustada pelo modelo de Reitsma (REML), com Área sob a Curva (AUC) de 0,953. O ponto sumário azul representa o par médio combinado de sensibilidade e taxa de falsos positivos; a elipse contínua indica a região de confiança de 95\% e o retângulo tracejado delimita a região de predição de 95\%.
     \end{singlespace}
 \end{figure}
 
@@ -454,7 +492,8 @@ As análises de sensibilidade executadas para avaliar a robustez das estimativas
 \centering
 \caption{Resultados das Análises de Sensibilidade (Robustez)}
 \label{tab:sensibilidade}
-\resizebox{\textwidth}{!}{
+\begin{singlespace}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lcrrcccrcc}
 \toprule
 Cenário & Estudos (N) & Participantes & Sens (\%) & IC 95\% & Spec (\%) & IC 95\% & RV+ & RV- & AUC \\
@@ -466,10 +505,13 @@ C. Sem Ambos & 7 & 5.388 & 84,6 & 64,8--94,3 & 93,7 & 90,2--96,0 & 13,41 & 0,164
 D. Sem Alto Risco & 7 & 113.411 & 83,7 & 59,4--94,8 & 97,2 & 86,8--99,5 & 29,83 & 0,167 & 0,963 \\
 E. Subgrupo PTX & 5 & 110.931 & 79,0 & 40,0--95,5 & 98,0 & 83,8--99,8 & 38,87 & 0,214 & 0,962 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
 }
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026).
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+\textbf{Nota:} Sens = Sensibilidade agrupada; Spec = Especificidade agrupada; IC 95\% = Intervalo de Confiança de 95\%; RV+ = Razão de Verossimilhança Positiva; RV$-$ = Razão de Verossimilhança Negativa; AUC = Área sob a Curva SROC. O Cenário B (sem Huang 2025) corrige a distorção induzida pelo estudo de prevalência extremamente baixa sem incorrer no viés de exclusão da evidência desfavorável de Güzel 2026.
 \end{singlespace}
 \end{table}
 
@@ -477,35 +519,37 @@ A exclusão de Güzel 2026 (Cenário A) elevou a sensibilidade agrupada para 83,
 
 A exclusão de Huang 2025 (Cenário B) reduziu a especificidade agrupada de 96,8\% para 93,7\% (IC 95\%: 91,0--95,6\%), o que comprova que a especificidade próxima a 100\% do pool principal era artificialmente inflada pelo peso amostral maciço (N=97.651) e baixa prevalência de doença deste estudo.
 
-A exclusão simultânea de ambos os extremos (Cenário C) resultou em sensibilidade de 84,6\% e especificidade de 93,7\%. Este cenário, contudo, remove também o estudo de pior desempenho (Güzel 2026), deslocando a sensibilidade para cima; por essa razão, adota-se o Cenário B --- e não o C --- como referência para a leitura clínica (Seção 4.2), por ser o recorte que corrige a distorção de especificidade sem descartar a evidência desfavorável.
+A exclusão simultânea de ambos os extremos (Cenário C) resultou em sensibilidade de 84,6\% e especificidade de 93,7\%. Este cenário, contudo, remove também o estudo de pior desempenho (Güzel 2026), deslocando a sensibilidade para cima; por essa razão, adota-se o Cenário B, e não o C, como referência para a leitura clínica (Seção 4.2), por ser o recorte que corrige a distorção de especificidade sem descartar a evidência desfavorável.
 
 \subsection{Heterogeneidade}
-A heterogeneidade quantificada pelo índice $I^2$ bivariado de Zhou-Dendukuri foi de 74,6\% no pool principal completo. Pelo método de Holling não ajustado, a variabilidade situou-se entre 89,1\% e 99,7\%, enquanto o método ajustado pelo tamanho amostral situou-se entre 9,1\% e 21,9\%. A acentuada divergência entre as versões ajustada e não ajustada reflete o peso da assimetria amostral do pool, sobretudo a dominância de Huang 2025. A exclusão simultânea dos dois extremos de volume (Cenário C) reduz o índice de Zhou-Dendukuri de 74,6\% para 52,0\%, indicando que parcela relevante --- porém não a totalidade --- da heterogeneidade se associa à dispersão de tamanhos amostrais e prevalências. Ressalte-se, contudo, que a heterogeneidade não diminui em todos os recortes: nos Cenários D (exclusão de estudos com alto risco de viés) e E (subgrupo restrito a pneumotórax), o índice de Zhou-Dendukuri sobe para 86,4\% e 86,6\%, respectivamente. Assim, a variabilidade remanescente não é atribuível apenas ao tamanho amostral e persiste mesmo em subconjuntos clinicamente mais homogêneos, reforçando a leitura de que a inconsistência de desempenho entre modelos e tarefas é intrínseca à literatura primária. A análise do viés de publicação e da assimetria de relato foi realizada graficamente através do Funnel Plot apresentado na Figura \ref{fig:funnel}, complementada pelo teste de regressão de Deeks (p = 0,008), cujo resultado é aqui reportado em caráter estritamente descritivo. Com menos de 10 estudos, o Cochrane-DTA não recomenda a realização nem a interpretação formal desse teste, que carece de poder estatístico adequado; ademais, ele é fortemente sensível à acentuada heterogeneidade de tamanho amostral do pool --- sobretudo ao peso desproporcional de Huang 2025. Por essas razões, o valor obtido não deve ser lido como evidência de viés de publicação, refletindo mais provavelmente um efeito de tamanho de amostra.
+A heterogeneidade quantificada pelo índice $I^2$ bivariado de Zhou-Dendukuri foi de 74,6\% no pool principal completo. Pelo método de Holling não ajustado, a variabilidade situou-se entre 89,1\% e 99,7\%, enquanto o método ajustado pelo tamanho amostral situou-se entre 9,1\% e 21,9\%. A acentuada divergência entre as versões ajustada e não ajustada reflete o peso da assimetria amostral do pool, sobretudo a dominância de Huang 2025. A exclusão simultânea dos dois extremos de volume (Cenário C) reduz o índice de Zhou-Dendukuri de 74,6\% para 52,0\%, indicando que parcela relevante, porém não a totalidade, da heterogeneidade se associa à dispersão de tamanhos amostrais e prevalências. Ressalte-se, contudo, que a heterogeneidade não diminui em todos os recortes: nos Cenários D (exclusão de estudos com alto risco de viés) e E (subgrupo restrito a pneumotórax), o índice de Zhou-Dendukuri sobe para 86,4\% e 86,6\%, respectivamente. Assim, a variabilidade remanescente não é atribuível apenas ao tamanho amostral e persiste mesmo em subconjuntos clinicamente mais homogêneos, reforçando a leitura de que a inconsistência de desempenho entre modelos e tarefas é intrínseca à literatura primária. A análise do viés de publicação e da assimetria de relato foi realizada graficamente através do Funnel Plot apresentado na Figura \ref{fig:funnel}, complementada pelo teste de regressão de Deeks (p = 0,008), cujo resultado é aqui reportado em caráter estritamente descritivo. Com menos de 10 estudos, o Cochrane-DTA não recomenda a realização nem a interpretação formal desse teste, que carece de poder estatístico adequado; ademais, ele é fortemente sensível à acentuada heterogeneidade de tamanho amostral do pool, sobretudo ao peso desproporcional de Huang 2025. Por essas razões, o valor obtido não deve ser lido como evidência de viés de publicação, refletindo mais provavelmente um efeito de tamanho de amostra.
 
 \begin{figure}[H]
     \centering
-    \caption{Funnel Plot para Avaliação de Viés de Publicação e Assimetria de Relato.}
+    \caption{Funnel Plot para Avaliação de Viés de Publicação e Assimetria de Relato}
     \label{fig:funnel}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig5_FunnelPlot_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Gráfico de funil relacionando o logaritmo da Razão de Chances Diagnóstica (\textit{Log Diagnostic Odds Ratio} - Log DOR) à precisão amostral ($1/\text{SE}$). A assimetria observada reflete predominantemente a extrema heterogeneidade de volume amostral entre os estudos primários incluídos.
     \end{singlespace}
 \end{figure}
 
 \subsection{Análise Exploratória por Subgrupos}
 
 \subsubsection{Por Especialização do Modelo (Propósito Geral vs. Domínio-específico)}
-A comparação de médias aritméticas simples segundo o grau de especialização do modelo-índice (Seção 2.2) revelou o contraste mais nítido de toda a análise exploratória. Os modelos \textbf{domínio-específicos} (N=4 estudos: Hong 2025a, Hong 2025b, Huang 2023 e Huang 2025) alcançaram sensibilidade média de 87,0\% e especificidade média de 94,5\%. Os modelos de \textbf{propósito geral} (N=5 estudos: Ostrovsky 2025, Akçay 2025, Ciflik 2026, Güzel 2026 e Khovanova 2026) obtiveram sensibilidade média de apenas 60,1\%, com especificidade média de 94,0\%, conforme sintetizado na Tabela \ref{tab:subgrupo_arch}. Note-se que a especificidade média é praticamente idêntica entre os grupos (94,5\% vs. 94,0\%), enquanto a sensibilidade difere em cerca de 27 pontos percentuais --- padrão compatível com modelos generalistas que adotam limiares de decisão conservadores. Ressalva-se que a comparação é descritiva: apoia-se em médias não ponderadas e em poucos estudos por braço, não autorizando teste formal de diferença entre grupos.
+A comparação de médias aritméticas simples segundo o grau de especialização do modelo-índice (Seção 2.2) revelou o contraste mais nítido de toda a análise exploratória. Os modelos \textbf{domínio-específicos} (N=4 estudos: Hong 2025a, Hong 2025b, Huang 2023 e Huang 2025) alcançaram sensibilidade média de 87,0\% e especificidade média de 94,5\%. Os modelos de \textbf{propósito geral} (N=5 estudos: Ostrovsky 2025, Akçay 2025, Ciflik 2026, Güzel 2026 e Khovanova 2026) obtiveram sensibilidade média de apenas 60,1\%, com especificidade média de 94,0\%, conforme sintetizado na Tabela \ref{tab:subgrupo_arch}. Note-se que a especificidade média é praticamente idêntica entre os grupos (94,5\% vs. 94,0\%), enquanto a sensibilidade difere em cerca de 27 pontos percentuais, padrão compatível com modelos generalistas que adotam limiares de decisão conservadores. Ressalva-se que a comparação é descritiva: apoia-se em médias não ponderadas e em poucos estudos por braço, não autorizando teste formal de diferença entre grupos.
 
-A baixa sensibilidade média do grupo de propósito geral é fortemente influenciada por Güzel 2026 (22,0\%) e Khovanova 2026 (31,6\%), ambos avaliando modelos comerciais sobre lesões de pequenas dimensões. Em contraste, os modelos adaptados ao domínio radiológico --- notadamente o KARA-CXR nos estudos de Hong --- mantiveram sensibilidade acima de 95\% em suas respectivas tarefas. Ressalte-se que essa diferença não deve ser atribuída exclusivamente à especialização do modelo: os braços também diferem quanto à tarefa, à prevalência e ao tamanho das lesões avaliadas, de modo que o desenho dos estudos é um confundidor plausível. A distribuição conjunta das taxas de sensibilidade e especificidade ponderadas pelo tamanho da amostra de cada estudo é ilustrada no Bubble Plot da Figura \ref{fig:bubble}.
+A baixa sensibilidade média do grupo de propósito geral é fortemente influenciada por Güzel 2026 (22,0\%) e Khovanova 2026 (31,6\%), ambos avaliando modelos comerciais sobre lesões de pequenas dimensões. Em contraste, os modelos adaptados ao domínio radiológico, notadamente o KARA-CXR nos estudos de Hong, mantiveram sensibilidade acima de 95\% em suas respectivas tarefas. Ressalte-se que essa diferença não deve ser atribuída exclusivamente à especialização do modelo: os braços também diferem quanto à tarefa, à prevalência e ao tamanho das lesões avaliadas, de modo que o desenho dos estudos é um confundidor plausível. A distribuição conjunta das taxas de sensibilidade e especificidade ponderadas pelo tamanho da amostra de cada estudo é ilustrada no Bubble Plot da Figura \ref{fig:bubble}.
 
 \begin{table}[H]
 \centering
 \caption{Análise Exploratória por Especialização do Modelo (N=9)}
 \label{tab:subgrupo_arch}
-\resizebox{\textwidth}{!}{
+\begin{singlespace}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lcccl}
 \toprule
 Classe do modelo & Estudos (N) & Sensibilidade Média & Especificidade Média & Estudos Incluídos \\
@@ -514,27 +558,31 @@ Domínio-específico & 4 & 87,0\% & 94,5\% & Hong 2025a, Hong 2025b, Huang 2023,
 Propósito geral & 5 & 60,1\% & 94,0\% & Ostrovsky 2025, Akçay 2025, Ciflik 2026, \\
     &   &        &        & Güzel 2026, Khovanova 2026 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
 }
+\end{singlespace}
+\vspace{0.2cm}
 \begin{singlespace}
-\centering\small Fonte: Elaborado pelo autor (2026).
+\small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+\textbf{Nota:} Comparação descritiva de médias aritméticas simples não ponderadas entre modelos com pré-treinamento/ajuste fino radiológico (\textit{domain-specific}) versus modelos comerciais de propósito geral.
 \end{singlespace}
 \end{table}
 
 \begin{figure}[H]
     \centering
-    \caption{Bubble Plot: Sensibilidade $\times$ Especificidade $\times$ Tamanho da Amostra.}
+    \caption{Bubble Plot: Sensibilidade $\times$ Especificidade $\times$ Tamanho da Amostra}
     \label{fig:bubble}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig6_BubblePlot_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Dispersão dos 9 estudos bivariados no espaço ROC ($1 - \text{Especificidade}$ vs. $\text{Sensibilidade}$). A dimensão de cada bolha é diretamente proporcional ao tamanho da amostra ($N$ total). Cores distinguem as classes tecnológicas (modelos de domínio-específico vs. propósito geral).
     \end{singlespace}
 \end{figure}
 
 \subsubsection{Por Condição Clínica}
-O desempenho variou de forma acentuada conforme a patologia avaliada. O subgrupo de pneumotórax reúne 5 estudos (110.931 exames: Hong 2025a, Huang 2025, Akçay 2025, Ciflik 2026 e Güzel 2026) e as demais condições reúnem 4 estudos (2.783 exames: Hong 2025b, Ostrovsky 2025, Huang 2023 e Khovanova 2026). Para a detecção de tuberculose (Hong 2025b), a sensibilidade individual foi elevada (95,2\%, com especificidade de 86,7\%), refletindo o bom desempenho do modelo em identificar padrões consolidation e infiltrados típicos de triagem epidemiológica. Para pneumonia (Ostrovsky 2025), a sensibilidade foi de 76,2\% e especificidade de 93,7\%.\footnote{O subconjunto de 1.400 imagens do \textit{NIH Chest X-ray} utilizado por Ostrovsky 2025 abrange sete categorias patológicas (200 imagens cada). A matriz 2$\times$2 aqui adotada refere-se especificamente à tarefa de pneumonia (sensibilidade 76,2\%, especificidade 93,7\%, conforme a tabela do artigo); consequentemente, os casos classificados como ``negativos'' incluem imagens de outras patologias além de exames estritamente normais, e o total de positivos reconstruído (185) aproxima-se dos 200 exames rotulados como pneumonia.} O pior desempenho geral ocorreu na detecção de nódulos pulmonares (Khovanova 2026), no qual a sensibilidade caiu para apenas 31,6\%, evidenciando a extrema dificuldade das IAs generativas em identificar lesões nodulares pequenas e isoladas.
+O desempenho variou de forma acentuada conforme a patologia avaliada. O subgrupo de pneumotórax reúne 5 estudos (110.931 exames: Hong 2025a, Huang 2025, Akçay 2025, Ciflik 2026 e Güzel 2026) e as demais condições reúnem 4 estudos (2.783 exames: Hong 2025b, Ostrovsky 2025, Huang 2023 e Khovanova 2026). Para a detecção de tuberculose (Hong 2025b), a sensibilidade individual foi elevada (95,2\%, com especificidade de 86,7\%), refletindo o bom desempenho do modelo em identificar padrões de consolidação e infiltrados típicos de triagem epidemiológica. Para pneumonia (Ostrovsky 2025), a sensibilidade foi de 76,2\% e especificidade de 93,7\%.\footnote{O subconjunto de 1.400 imagens do \textit{NIH Chest X-ray} utilizado por Ostrovsky 2025 abrange sete categorias patológicas (200 imagens cada). A matriz 2$\times$2 aqui adotada refere-se especificamente à tarefa de pneumonia (sensibilidade 76,2\%, especificidade 93,7\%, conforme a tabela do artigo); consequentemente, os casos classificados como ``negativos'' incluem imagens de outras patologias além de exames estritamente normais, e o total de positivos reconstruído (185) aproxima-se dos 200 exames rotulados como pneumonia.} O pior desempenho geral ocorreu na detecção de nódulos pulmonares (Khovanova 2026), no qual a sensibilidade caiu para apenas 31,6\%, evidenciando a extrema dificuldade das IAs generativas em identificar lesões nodulares pequenas e isoladas.
 
 \subsubsection{Por Tamanho e Gravidade da Lesão}
 A acurácia dos modelos generativos mostrou-se altamente dependente do tamanho físico da patologia. No estudo de Akçay 2025 \cite{akcay}, a área sob a curva (AUC) do ChatGPT-4o para diagnosticar pneumotórax caiu drasticamente de 0,894 em lesões classificadas como grandes (distância hilum-pleura $\ge 2$ cm) para apenas 0,439 em lesões pequenas ($< 2$ cm), indicando desempenho inferior ao acaso em patologias sutis. No estudo em larga escala de Güzel 2026 \cite{guzel} (N=10.675 CXRs), a baixíssima sensibilidade global do GPT-4o, Gemini 2 e Claude 4 (variando entre 16,0\% e 36,0\%) foi atribuída diretamente à incapacidade dos modelos de identificar pequenos focos de colapso pulmonar no conjunto de dados SIIM-ACR.
@@ -554,20 +602,21 @@ Apesar dos benefícios de velocidade, os laudos gerados exibiram inconsistência
 \section{DISCUSSÃO}
 
 \subsection{Interpretação das Estimativas}
-Os resultados da meta-análise apontam para especificidade agrupada elevada (96,8\%) acompanhada de sensibilidade apenas intermediária (78,1\%). Cabe ressaltar que nenhum dos estudos do pool principal comparou os modelos generativos ao desempenho de radiologistas sobre a mesma amostra; esta síntese, portanto, não autoriza qualquer afirmação de equivalência ou paridade diagnóstica com leitores humanos. Além disso, a elevada dispersão expressa no intervalo de predição [6,4\%; 99,5\%] indica que o ponto sumário não deve ser interpretado como uma garantia de desempenho estática --- tampouco como um parâmetro transferível a um contexto clínico específico. A grande variação decorre do desalinhamento de construto entre os estudos incluídos, nos quais as tarefas de diagnóstico variam desde a detecção simples de pneumotórax até a caracterização clínica complexa de infiltrados e nódulos pulmonares.
+Os resultados da meta-análise apontam para especificidade agrupada elevada (96,8\%) acompanhada de sensibilidade apenas intermediária (78,1\%). Cabe ressaltar que nenhum dos estudos do pool principal comparou os modelos generativos ao desempenho de radiologistas sobre a mesma amostra; esta síntese, portanto, não autoriza qualquer afirmação de equivalência ou paridade diagnóstica com leitores humanos. Além disso, a elevada dispersão expressa no intervalo de predição [6,4\%; 99,5\%] indica que o ponto sumário não deve ser interpretado como uma garantia de desempenho estática, tampouco como um parâmetro transferível a um contexto clínico específico. A grande variação decorre do desalinhamento de construto entre os estudos incluídos, nos quais as tarefas de diagnóstico variam desde a detecção simples de pneumotórax até a caracterização clínica complexa de infiltrados e nódulos pulmonares.
 
 \subsection{Implicações da Dominância Amostral}
-A análise de dominância amostral revelou que as altas estimativas de especificidade do pool completo são fortemente influenciadas pelo estudo prospectivo de Huang 2025 \cite{huang2025}, que contribui com 97.651 dos 113.714 participantes (85,9\% do peso meta-analítico).\footnote{O estudo de Huang 2025 não apresenta uma matriz 2$\times$2 única para o desfecho de pneumotórax. As células aqui empregadas foram reconstruídas a partir de duas sub-análises reportadas no artigo: a coorte de sensibilidade (33 pneumotórax inesperados que preencheram os critérios de priorização, dos quais 24 foram sinalizados, resultando em VP=24 e FN=9) e a coorte de precisão do sistema de sinalização (78 exames sinalizados, dos quais 56 verdadeiros, resultando em FP=22); os verdadeiros negativos (97.596) foram obtidos por complemento sobre os 97.651 exames rastreados. O par sensibilidade 72,7\%/especificidade 99,9\% corresponde ao resultado principal declarado pelos autores.} Como a prevalência de pneumotórax na coorte de Huang 2025 foi extremamente baixa (0,03\%, correspondendo a apenas 33 casos positivos em quase 100.000 exames), a especificidade de 100\% obtida pelo modelo influenciou pesadamente a estimativa agrupada. O Cenário B (sem Huang 2025), uma das cinco análises de sensibilidade pré-especificadas na Seção 2.7, recoloca a especificidade em 93,7\% e é adotado, nesta revisão, como o cenário de referência para leitura clínica e para eventuais projeções regulatórias, por remover a distorção de especificidade induzida pela prevalência extrema sem excluir o estudo de pior desempenho (Güzel 2026). A aplicação das razões de verossimilhança do ponto sumário a probabilidades pré-teste clinicamente plausíveis (Figura \ref{fig:fagan}) delimita essa utilidade de forma quantitativa: partindo de uma prevalência de 20\%, um resultado positivo eleva a probabilidade pós-teste para 85,8\%, ao passo que um resultado negativo a reduz apenas para 5,4\% --- patamar incompatível com a exclusão segura de pneumotórax agudo. Para prevalências de 10\% e 5\%, a probabilidade pós-teste negativa situa-se em 2,5\% e 1,2\%, respectivamente. Ou seja, mesmo em cenários de baixa prevalência, o desempenho observado sustenta melhor a confirmação do que a exclusão diagnóstica.
+A análise de dominância amostral revelou que as altas estimativas de especificidade do pool completo são fortemente influenciadas pelo estudo prospectivo de Huang 2025 \cite{huang2025}, que contribui com 97.651 dos 113.714 participantes (85,9\% do peso meta-analítico).\footnote{O estudo de Huang 2025 não apresenta uma matriz 2$\times$2 única para o desfecho de pneumotórax. As células aqui empregadas foram reconstruídas a partir de duas sub-análises reportadas no artigo: a coorte de sensibilidade (33 pneumotórax inesperados que preencheram os critérios de priorização, dos quais 24 foram sinalizados, resultando em VP=24 e FN=9) e a coorte de precisão do sistema de sinalização (78 exames sinalizados, dos quais 56 verdadeiros, resultando em FP=22); os verdadeiros negativos (97.596) foram obtidos por complemento sobre os 97.651 exames rastreados. O par sensibilidade 72,7\%/especificidade 99,98\% corresponde ao resultado principal declarado pelos autores.} Como a prevalência de pneumotórax na coorte de Huang 2025 foi extremamente baixa (0,03\%, correspondendo a apenas 33 casos positivos em quase 100.000 exames), a especificidade de 99,98\% obtida pelo modelo influenciou pesadamente a estimativa agrupada. O Cenário B (sem Huang 2025), uma das cinco análises de sensibilidade pré-especificadas na Seção 2.7, recoloca a especificidade em 93,7\% e é adotado, nesta revisão, como o cenário de referência para leitura clínica e para eventuais projeções regulatórias, por remover a distorção de especificidade induzida pela prevalência extrema sem excluir o estudo de pior desempenho (Güzel 2026). A aplicação das razões de verossimilhança do ponto sumário a probabilidades pré-teste clinicamente plausíveis (Figura \ref{fig:fagan}) delimita essa utilidade de forma quantitativa: partindo de uma prevalência de 20\%, um resultado positivo eleva a probabilidade pós-teste para 85,8\%, ao passo que um resultado negativo a reduz apenas para 5,4\%, patamar incompatível com a exclusão segura de pneumotórax agudo. Para prevalências de 10\% e 5\%, a probabilidade pós-teste negativa situa-se em 2,5\% e 1,2\%, respectivamente. Ou seja, mesmo em cenários de baixa prevalência, o desempenho observado sustenta melhor a confirmação do que a exclusão diagnóstica.
 
 \begin{figure}[H]
     \centering
-    \caption{Nomograma de Fagan: Probabilidades Pós-teste para Cenários Clínicos.}
+    \caption{Nomograma de Fagan: Probabilidades Pós-teste para Cenários Clínicos}
     \label{fig:fagan}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \includegraphics[width=0.85\textwidth]{figures/Fig3_Fagan_Robust_V10.jpg}
-    \vspace{4pt}
+    \vspace{0.2cm}
     \begin{singlespace}
-    \centering\small Fonte: Elaborado pelo autor (2026).
+    \small \noindent \textbf{Fonte:} Elaborado pelo autor (2026). \\
+    \textbf{Nota:} Atualização bayesiana para o pool principal (RV+ = 24,10 e RV$-$ = 0,226) nos cenários de probabilidade pré-teste de 5\% (triagem ambulatorial), 10\% (pronto-socorro / baixo risco) e 20\% (pronto-socorro / alto risco). Linhas contínuas indicam teste positivo e tracejadas indicam teste negativo. No cenário de referência sem Huang 2025 (RV+ = 12,54 e RV$-$ = 0,222), a probabilidade pós-teste positivo para prevalência de 20\% situa-se em 75,8\%.
     \end{singlespace}
 \end{figure}
 
@@ -584,14 +633,14 @@ A formulação das instruções fornecidas às IAs generativas atua como o princ
 \subsection{Ferramenta Diagnóstica Isolada vs. Colaboração Humano-IA}
 A evidência cumulativa demonstra que os modelos multimodais de IA generativa não apresentam segurança científica para uso autônomo na prática clínica. A baixa sensibilidade demonstrada na detecção de lesões sutis (como nódulos pulmonares em Khovanova 2026 \cite{khovanova} ou pneumotórax pequeno em Akçay 2025 \cite{akcay}) inviabiliza o emprego dessas ferramentas como mecanismos de exclusão de diagnóstico (rule-out). O papel clinicamente seguro e suportado pelas evidências é o de segunda leitura assistida (copiloto). Nesse modelo de uso colaborativo, a IA funciona como um revisor preliminar que agiliza o laudo e previne omissões por fadiga visual do radiologista, mantendo a responsabilidade final do diagnóstico sob supervisão e validação humana obrigatória.
 
-No entanto, a transição de modelos tradicionais de redes neurais convolucionais (CNNs) para modelos multimodais generativos introduz o chamado **gap de explicabilidade**. As CNNs clássicas de classificação visual costumam ser acompanhadas por mapas de calor baseados em ativação (como o Grad-CAM), os quais fornecem uma explicabilidade espacial direta ao apontar a região exata do pixel que determinou a inferência da IA. Em contrapartida, as IAs generativas produzem laudos textuais fluentes em linguagem livre que descrevem a patologia de forma descritiva, mas carecem de mecanismos nativos de ancoragem espacial visual (*grounding*). Essa lacuna dá origem a um tipo inédito de erro na radiologia computadorizada: o **diagnóstico correto com atribuição espacial incorreta**. Como observado no estudo de triagem de tuberculose de Hong 2025b \cite{hong2025b}, a IA gerou laudos descrevendo consolidações no pulmão direito quando a lesão real localizava-se no pulmão esquerdo, registrando uma taxa de erro de lateralidade de 36,7\%. Esse descompasso semântico-visual exige que o radiologista humano atue não apenas validando a presença da patologia sugerida, mas auditando meticulosamente a coerência espacial descrita pelo modelo.
+No entanto, a transição de modelos tradicionais de redes neurais convolucionais (CNNs) para modelos multimodais generativos introduz o chamado \textbf{gap de explicabilidade}. As CNNs clássicas de classificação visual costumam ser acompanhadas por mapas de calor baseados em ativação (como o Grad-CAM), os quais fornecem uma explicabilidade espacial direta ao apontar a região exata do pixel que determinou a inferência da IA. Em contrapartida, as IAs generativas produzem laudos textuais fluentes em linguagem livre que descrevem a patologia de forma descritiva, mas carecem de mecanismos nativos de ancoragem espacial visual (\textit{grounding}). Essa lacuna dá origem a um tipo inédito de erro na radiologia computadorizada: o \textbf{diagnóstico correto com atribuição espacial incorreta}. Como observado no estudo de triagem de tuberculose de Hong 2025b \cite{hong2025b}, a IA gerou laudos descrevendo consolidações no pulmão direito quando a lesão real localizava-se no pulmão esquerdo, registrando uma taxa de erro de lateralidade de 36,7\%. Esse descompasso semântico-visual exige que o radiologista humano atue não apenas validando a presença da patologia sugerida, mas auditando meticulosamente a coerência espacial descrita pelo modelo.
 
-Adicionalmente, os ganhos expressivos de eficiência no fluxo de trabalho clínico --- como a redução de 42\% no tempo de digitação e leitura documentada por Hong 2025c \cite{hong2025c} --- trazem consigo o risco latente do **viés de automação** associado à fadiga cognitiva. Sob condições de sobrecarga crônica de trabalho e exaustão mental (conforme discutido na Seção 1.1), o radiologista tende a aceitar passivamente o laudo preliminar gerado pela IA para acelerar a liberação do exame, reduzindo seu nível de escrutínio ativo sobre a imagem. Evidência longitudinal corrobora essa preocupação: no estudo multileitor longitudinal de Hong et al. \cite{hongjacr} (756 radiografias interpretadas por cinco radiologistas em sete lotes sequenciais ao longo de um mês) --- publicação distinta do \textit{reader study} de Hong 2025c \cite{hong2025c}, embora oriunda do mesmo grupo e do mesmo sistema de IA ---, a taxa de aceitação dos laudos de IA sem modificação aumentou progressivamente de 54,6\% para 60,2\% ($P < 0,001$) à medida que os leitores se habituavam à ferramenta, enquanto a concordância e a qualidade permaneceram estáveis nos exames normais mas oscilaram nos casos anormais --- justamente os que mais demandam escrutínio independente. Esse comportamento passivo pode induzir o fenômeno de **co-omissão**: caso a IA generativa falhe em relatar um achado sutil ou pequeno (cenário frequente devido ao gargalo de compressão de 8 bits), o radiologista, induzido pelo relatório "normal" da IA, também deixará de detectar a patologia. Assim, a colaboração Humano-IA só se traduz em incremento real de segurança se houver salvaguardas de fluxo que forcem o médico a realizar uma leitura visual independente antes de visualizar a sugestão textual da máquina, mitigando a transferência sistemática dos erros do algoritmo para o diagnóstico do paciente.
+Adicionalmente, os ganhos expressivos de eficiência no fluxo de trabalho clínico, como a redução de 42\% no tempo de digitação e leitura documentada por Hong 2025c \cite{hong2025c}, trazem consigo o risco latente do \textbf{viés de automação} associado à fadiga cognitiva. Sob condições de sobrecarga crônica de trabalho e exaustão mental (conforme discutido na Seção 1.1), o radiologista tende a aceitar passivamente o laudo preliminar gerado pela IA para acelerar a liberação do exame, reduzindo seu nível de escrutínio ativo sobre a imagem. Evidência longitudinal corrobora essa preocupação: no estudo multileitor longitudinal de Hong et al. \cite{hongjacr} (756 radiografias interpretadas por cinco radiologistas em sete lotes sequenciais ao longo de um mês), publicação distinta do \textit{reader study} de Hong 2025c \cite{hong2025c}, embora oriunda do mesmo grupo e do mesmo sistema de IA, a taxa de aceitação dos laudos de IA sem modificação aumentou progressivamente de 54,6\% para 60,2\% ($P < 0,001$) à medida que os leitores se habituavam à ferramenta, enquanto a concordância e a qualidade permaneceram estáveis nos exames normais mas oscilaram nos casos anormais, justamente os que mais demandam escrutínio independente. Esse comportamento passivo pode induzir o fenômeno de \textbf{co-omissão}: caso a IA generativa falhe em relatar um achado sutil ou pequeno (cenário frequente devido ao gargalo de compressão de 8 bits), o radiologista, induzido pelo relatório "normal" da IA, também deixará de detectar a patologia. Assim, a colaboração Humano-IA só se traduz em incremento real de segurança se houver salvaguardas de fluxo que forcem o médico a realizar uma leitura visual independente antes de visualizar a sugestão textual da máquina, mitigando a transferência sistemática dos erros do algoritmo para o diagnóstico do paciente.
 
 \subsection{Lacunas da Literatura Primária}
-A literatura primária apresenta lacunas estruturais significativas que limitam o alcance das sínteses quantitativas atuais. Em primeiro lugar, destaca-se o **gargalo de compressão e resolução da imagem**. A radiologia digital utiliza nativamente arquivos no padrão DICOM (*Digital Imaging and Communications in Medicine*), que possuem profundidades de cor variando de 12 a 16 bits, o que corresponde a uma escala de cinza com 4.096 a 65.536 níveis de intensidade. Além disso, a prática radiológica humana baseia-se no ajuste interativo de brilho e contraste (*windowing* ou janelamento) no monitor diagnóstico, permitindo ao médico realçar linhas pleurais sutis ou pequenas atenuações nodulares pulmonares. 
+A literatura primária apresenta lacunas estruturais significativas que limitam o alcance das sínteses quantitativas atuais. Em primeiro lugar, destaca-se o \textbf{gargalo de compressão e resolução da imagem}. A radiologia digital utiliza nativamente arquivos no padrão DICOM (\textit{Digital Imaging and Communications in Medicine}), que possuem profundidades de cor variando de 12 a 16 bits, o que corresponde a uma escala de cinza com 4.096 a 65.536 níveis de intensidade. Além disso, a prática radiológica humana baseia-se no ajuste interativo de brilho e contraste (\textit{windowing} ou janelamento) no monitor diagnóstico, permitindo ao médico realçar linhas pleurais sutis ou pequenas atenuações nodulares pulmonares. 
 
-Entre os estudos primários que descreveram explicitamente o pré-processamento de imagem, a conversão do DICOM original para formatos de 8 bits (JPEG ou PNG) --- que oferecem apenas 256 níveis de cinza --- foi a prática predominante, documentada em Güzel 2026 \cite{guzel} (que detalha um fluxo explícito de conversão DICOM para PNG de 8 bits), Khovanova 2026 \cite{khovanova}, Akçay 2025 \cite{akcay}, Ciflik 2026 \cite{ciflik} e Hong 2025a \cite{hong2025a}, frequentemente acompanhada de redimensionamento para resoluções reduzidas (da ordem de 224$\times$224 a 1.024$\times$1.024 pixels), de modo a atender às limitações computacionais dos codificadores visuais. Registre-se, todavia, que parcela relevante dos estudos incluídos \textbf{não relata} o formato de arquivo nem a profundidade de bits das imagens submetidas ao modelo --- omissão que, por si só, constitui lacuna de reporte e impede quantificar com precisão o alcance desse gargalo. Esta compressão e perda de profundidade de bits causam uma **destruição física de informações de alta frequência espacial**, eliminando o contraste tênue necessário para visualizar descolamentos pleurais finos (como no pneumotórax sutil) ou densidades de tecidos moles pequenas (nódulos menores que 1 cm). Esse fator explica por que o desempenho da IA decaiu de forma tão acentuada para lesões pequenas nos estudos de Akçay 2025 \cite{akcay} e Güzel 2026 \cite{guzel}, revelando que a baixa acurácia em patologias sutis é, em grande parte, uma limitação física da qualidade da imagem de entrada fornecida ao modelo, e não apenas um déficit cognitivo de interpretação.
+Entre os estudos primários que descreveram explicitamente o pré-processamento de imagem, a conversão do DICOM original para formatos de 8 bits (JPEG ou PNG), que oferecem apenas 256 níveis de cinza, foi a prática predominante, documentada em Güzel 2026 \cite{guzel} (que detalha um fluxo explícito de conversão DICOM para PNG de 8 bits), Khovanova 2026 \cite{khovanova}, Akçay 2025 \cite{akcay}, Ciflik 2026 \cite{ciflik} e Hong 2025a \cite{hong2025a}, frequentemente acompanhada de redimensionamento para resoluções reduzidas (da ordem de 224$\times$224 a 1.024$\times$1.024 pixels), de modo a atender às limitações computacionais dos codificadores visuais. Registre-se, todavia, que parcela relevante dos estudos incluídos \textbf{não relata} o formato de arquivo nem a profundidade de bits das imagens submetidas ao modelo, omissão que, por si só, constitui lacuna de reporte e impede quantificar com precisão o alcance desse gargalo. Esta compressão e perda de profundidade de bits causam uma \textbf{destruição física de informações de alta frequência espacial}, eliminando o contraste tênue necessário para visualizar descolamentos pleurais finos (como no pneumotórax sutil) ou densidades de tecidos moles pequenas (nódulos menores que 1 cm). Esse fator explica por que o desempenho da IA decaiu de forma tão acentuada para lesões pequenas nos estudos de Akçay 2025 \cite{akcay} e Güzel 2026 \cite{guzel}, revelando que a baixa acurácia em patologias sutis é, em grande parte, uma limitação física da qualidade da imagem de entrada fornecida ao modelo, e não apenas um déficit cognitivo de interpretação.
 
 Em segundo lugar, observa-se uma quase total ausência de dados clínicos estruturados e integrados (sintomas, dados laboratoriais) nos conjuntos de teste primários, forçando os modelos a realizar leituras visuais cegas desprovidas de contexto. Na prática clínica, o histórico do paciente (ex: "tabagista pesado com tosse produtiva" ou "pós-procedimento de acesso venoso central") atua como um prior bayesiano que orienta a busca visual do radiologista; a privação desse contexto penaliza injustamente os modelos generativos.
 
@@ -616,11 +665,12 @@ No cenário regulatório brasileiro, sistemas de auxílio diagnóstico baseados 
 \section{CONCLUSÃO}
 A presente revisão sistemática avaliou a acurácia diagnóstica de modelos de IA generativa e multimodal na interpretação de radiografias de tórax. O pool principal de N=9 estudos, totalizando 113.714 participantes, estimou sensibilidade agrupada de 78,1\% e especificidade agrupada de 96,8\%; a especificidade é condicionada pela dominância de um único estudo prospectivo de baixíssima prevalência (Huang 2025), ajustando-se para 93,7\% no cenário de referência (sem esse estudo). Cumpre enfatizar, contudo, que esse ponto sumário tem valor exploratório e não deve ser tomado como parâmetro de desempenho transferível: ele agrega condições-alvo heterogêneas (pneumotórax, tuberculose, pneumonia e nódulo pulmonar) que não configuram um estimando clínico único, e o intervalo de predição de 6,4\% a 99,5\% para a sensibilidade indica que o valor agrupado não prediz de forma útil o desempenho em um novo cenário.
 
-A contribuição mais robusta desta revisão não reside, portanto, na estimativa agrupada, mas em dois achados convergentes e consistentes entre estudos independentes. O primeiro é o colapso da sensibilidade diante de lesões pequenas e pouco conspícuas --- 22,0\% em Güzel 2026, 31,6\% em Khovanova 2026 e AUC de 0,439 para pneumotórax menor que 2 cm em Akçay 2025 ---, padrão que sustenta com segurança a recusa do uso autônomo para exclusão diagnóstica. O segundo é a diferença sistemática entre modelos adaptados ao domínio radiológico e modelos comerciais de propósito geral, cuja sensibilidade média cai de 87,0\% para 60,1\% sem ganho correspondente de especificidade.
+A contribuição mais robusta desta revisão não reside, portanto, na estimativa agrupada, mas em dois achados convergentes e consistentes entre estudos independentes. O primeiro é o colapso da sensibilidade diante de lesões pequenas e pouco conspícuas, com 22,0\% em Güzel 2026, 31,6\% em Khovanova 2026 e AUC de 0,439 para pneumotórax menor que 2 cm em Akçay 2025, padrão que sustenta com segurança a recusa do uso autônomo para exclusão diagnóstica. O segundo é a diferença sistemática entre modelos adaptados ao domínio radiológico e modelos comerciais de propósito geral, cuja sensibilidade média cai de 87,0\% para 60,1\% sem ganho correspondente de especificidade.
 
 Recomenda-se a adoção de um padrão mínimo de reporte metodológico em estudos futuros (framework PIRT-IA), contemplando a disponibilização de matrizes 2$\times$2 completas por threshold avaliado, descrição do prompt e temperatura de inferência, especificação do formato de imagem (DICOM vs. PNG) e a presença de controle clínico de alucinações. O uso clínico desses modelos generativos mostra-se inviável de forma autônoma ou para fins de exclusão rápida (rule-out) de patologias agudas devido à baixa sensibilidade diagnóstica demonstrada para lesões sutis e pequenas. Contudo, seu papel assistencial como segunda leitura acoplada à revisão humana obrigatória apresenta robustez estatística e científica, proporcionando redução no tempo de emissão de laudos e mitigação de erros por fadiga nos serviços de radiologia. Ressalta-se, todavia, que a evidência longitudinal de aumento progressivo da aceitação passiva dos laudos gerados por IA à medida que os radiologistas se habituam à ferramenta reforça a necessidade de salvaguardas de fluxo que preservem a leitura visual independente, sob pena de transferência sistemática dos erros do modelo para o diagnóstico final.
 
 \newpage
+\begin{singlespace}
 \begin{thebibliography}{99}
 
 \bibitem{vanginneken} VAN GINNEKEN, B. Fifty years of computer analysis in chest imaging: rule-based, machine learning, deep learning. \textit{Radiological Physics and Technology}, v. 10, n. 1, p. 23--32, 2017.
@@ -668,6 +718,8 @@ Recomenda-se a adoção de um padrão mínimo de reporte metodológico em estudo
 \bibitem{banerjee} BANERJEE, O.; SAENZ, A.; WU, K. et al. ReXamine-Global: A Framework for Uncovering Inconsistencies in Radiology Report Generation Metrics. \textit{arXiv preprint arXiv:2509.01188}, 2025.
 
 \bibitem{hongjacr} HONG, E. K.; SUH, C. H.; NUKALA, M. et al. Radiologist Interaction with Artificial Intelligence-Generated Preliminary Reports: A Longitudinal Multireader Study. \textit{Journal of the American College of Radiology}, v. 23, n. 2, p. 292--298, 2026.
+
 \end{thebibliography}
+\end{singlespace}
 
 \end{document}

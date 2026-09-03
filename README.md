@@ -110,15 +110,38 @@ source("scripts/03_metaanalysis/fagan_nomogram.R")
 
 ### Step 5 — Generate figures
 ```r
-# Forest plots, SROC, Fagan, funnel, bubble e bar chart (Fig1–Fig7) sao todos
-# gerados pela fonte unica sroc_curve.R (os stubs em 04_figures redirecionam a ela).
+# Forest plots, SROC, Fagan, funnel e bubble (Fig1–Fig6) sao todos gerados pela
+# fonte unica sroc_curve.R (os stubs em 04_figures redirecionam a ela).
 source("scripts/03_metaanalysis/sroc_curve.R")
 
 # Graficos QUADAS-2 (traffic light + summary) a partir de data/master_audit.csv
 source("scripts/04_figures/quadas2_plots.R")
 ```
 
-All figures will be saved to `outputs/figures/`.
+O fluxograma PRISMA (Fig8) e gerado a parte, em Python, a partir dos contadores
+versionados:
+```bash
+python scripts/01_search_pipeline/generate_prisma_flowchart.py
+```
+
+All figures will be saved to `outputs/figures/` as PNG.
+
+### Step 6 — Export figures to the manuscript
+
+`outputs/figures/` guarda os PNG mestres; o `main.tex` consome JPG (e o PDF serve para
+submissao). Esta etapa faz a ponte — **sem ela, uma figura regerada nunca chega ao
+manuscrito**:
+```bash
+python scripts/04_figures/export_manuscript_figures.py
+```
+A lista de figuras e' extraida dos `\includegraphics` do `main.tex`, entao a exportacao
+acompanha o manuscrito automaticamente e acusa erro se faltar o PNG de origem. Use
+`--check` para so verificar, sem escrever.
+
+### Step 7 — Compile the manuscript
+```bash
+cd manuscript && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+```
 
 ## Data Description
 
