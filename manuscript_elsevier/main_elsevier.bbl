@@ -101,14 +101,6 @@ K.~B. {\c{C}}iflik, B.~{\"O}zdemir~{\c{C}}iflik, Evaluation of multimodal large
 \newblock \href {https://doi.org/10.1186/s12890-026-04151-z}
   {\path{doi:10.1186/s12890-026-04151-z}}.
 
-\bibitem{huang2023}
-J.~Huang, L.~Neill, M.~Wittbrodt, et~al., Generative artificial intelligence
-  for chest radiograph interpretation in the emergency department, {JAMA}
-  Network Open 6~(10) (2023) e2336100, transformer-based GenAI; Emergency CXR;
-  N=500.
-\newblock \href {https://doi.org/10.1001/jamanetworkopen.2023.36100}
-  {\path{doi:10.1001/jamanetworkopen.2023.36100}}.
-
 \bibitem{akcay}
 O.~Ak{\c{c}}ay, {\"O}.~{\"O}zt{\"u}rk, Evaluation of the effectiveness of the
   {ChatGPT} artificial intelligence application in the diagnosis of spontaneous
@@ -117,6 +109,14 @@ O.~Ak{\c{c}}ay, {\"O}.~{\"O}zt{\"u}rk, Evaluation of the effectiveness of the
 \newblock \href {https://doi.org/10.1186/s12890-025-04041-w}
   {\path{doi:10.1186/s12890-025-04041-w}}.
 
+\bibitem{bulut}
+B.~Bulut, M.~A. {\"O}z, et~al., New frontiers in radiologic interpretation:
+  Evaluating the effectiveness of large language models in pneumothorax
+  diagnosis, {PLOS ONE} 20~(9) (2025) e0331962, chatGPT-4o; PTX positives only;
+  N=172; accuracy only.
+\newblock \href {https://doi.org/10.1371/journal.pone.0331962}
+  {\path{doi:10.1371/journal.pone.0331962}}.
+
 \bibitem{guzel}
 H.~E. G{\"u}zel, C.~{\"O}zenba{\c{s}}, A.~M. Ko{\c{c}}, Large-scale evaluation
   of multimodal large language models for pneumothorax detection, Diagnostic
@@ -124,6 +124,14 @@ H.~E. G{\"u}zel, C.~{\"O}zenba{\c{s}}, A.~M. Ko{\c{c}}, Large-scale evaluation
   volume; epub ahead of print (2026).
 \newblock \href {https://doi.org/10.4274/dir.2026.263696}
   {\path{doi:10.4274/dir.2026.263696}}.
+
+\bibitem{huang2023}
+J.~Huang, L.~Neill, M.~Wittbrodt, et~al., Generative artificial intelligence
+  for chest radiograph interpretation in the emergency department, {JAMA}
+  Network Open 6~(10) (2023) e2336100, transformer-based GenAI; Emergency CXR;
+  N=500.
+\newblock \href {https://doi.org/10.1001/jamanetworkopen.2023.36100}
+  {\path{doi:10.1001/jamanetworkopen.2023.36100}}.
 
 \bibitem{khovanova}
 D.~Khovanova, Y.~Vasilev, A.~Vladzymyrskyy, et~al., A comparative accuracy
@@ -134,6 +142,13 @@ D.~Khovanova, Y.~Vasilev, A.~Vladzymyrskyy, et~al., A comparative accuracy
 \newblock \href {https://doi.org/10.3389/fdgth.2025.1674835}
   {\path{doi:10.3389/fdgth.2025.1674835}}.
 
+\bibitem{lee}
+S.~Lee, J.~Youn, H.~Kim, et~al., {CXR-LLaVA}: A multimodal large language model
+  for interpreting chest {X}-ray images, European Radiology 35~(6) (2025)
+  4374--4386, cXR-LLaVA; Multi-finding; N=3689; accuracy only.
+\newblock \href {https://doi.org/10.1007/s00330-024-11339-6}
+  {\path{doi:10.1007/s00330-024-11339-6}}.
+
 \bibitem{bai}
 Y.~Bai, R.~Zhang, Y.~Lei, X.~Duan, J.~Yao, et~al., A {DeepSeek}-powered {AI}
   system for automated chest radiograph interpretation in clinical practice,
@@ -141,21 +156,6 @@ Y.~Bai, R.~Zhang, Y.~Lei, X.~Duan, J.~Yao, et~al., A {DeepSeek}-powered {AI}
   N=296; accuracy only; publicado em maio de 2026.
 \newblock \href {https://doi.org/10.1038/s41467-026-72680-6}
   {\path{doi:10.1038/s41467-026-72680-6}}.
-
-\bibitem{bulut}
-B.~Bulut, M.~A. {\"O}z, et~al., New frontiers in radiologic interpretation:
-  Evaluating the effectiveness of large language models in pneumothorax
-  diagnosis, {PLOS ONE} 20~(9) (2025) e0331962, chatGPT-4o; PTX positives only;
-  N=172; accuracy only.
-\newblock \href {https://doi.org/10.1371/journal.pone.0331962}
-  {\path{doi:10.1371/journal.pone.0331962}}.
-
-\bibitem{lee}
-S.~Lee, J.~Youn, H.~Kim, et~al., {CXR-LLaVA}: A multimodal large language model
-  for interpreting chest {X}-ray images, European Radiology 35~(6) (2025)
-  4374--4386, cXR-LLaVA; Multi-finding; N=3689; accuracy only.
-\newblock \href {https://doi.org/10.1007/s00330-024-11339-6}
-  {\path{doi:10.1007/s00330-024-11339-6}}.
 
 \bibitem{hong2025c}
 E.~K. Hong, B.~Roh, B.~Park, et~al., Value of using a generative {AI} model in

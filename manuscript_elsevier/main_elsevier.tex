@@ -1,10 +1,17 @@
-\documentclass[preprint,12pt,review]{elsarticle}
+\documentclass[preprint,11pt]{elsarticle}
 
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
+\usepackage[scaled=0.92]{tgheros}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{booktabs,tabularx,multirow}
 \usepackage{graphicx}
 \usepackage{url}
-\usepackage{lineno}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.2}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
 \journal{European Journal of Radiology Artificial Intelligence}
@@ -42,7 +49,6 @@ Generative artificial intelligence \sep Vision-language models \sep Chest radiog
 
 \end{frontmatter}
 
-\linenumbers
 
 \section{Introduction}
 Chest radiography (CXR) is the most widely performed diagnostic imaging modality worldwide, accounting for a substantial proportion of examinations in emergency departments, intensive care units, and outpatient clinics \cite{vanginneken}. However, escalating imaging volumes, complex multimorbid presentations, and an acute global shortage of medical radiologists impose severe strain on healthcare infrastructures, precipitating diagnostic delays and clinical backlogs. The cognitive impact of sustained reporting under time constraints is well recognized: burnout rates among practicing radiologists exceed 50\%, with chronic fatigue serving as a primary driver of perceptual and cognitive omissions \cite{parikh}.
@@ -107,7 +113,6 @@ In accordance with international scientific integrity standards (ICMJE, RSNA, El
 \begin{itemize}
     \item \textbf{Software Tools and Versions:} Claude 4.7 Sonnet, Claude 4.7 Opus (Anthropic, San Francisco, CA); Gemini 3.6 Flash, Gemini 3.1 Pro (Google DeepMind, Mountain View, CA).
     \item \textbf{Scope of Application:} Supportive Python/R script development, bug fixing, vectorization of high-resolution plotting routines, LaTeX typesetting assistance, and English language grammar editing.
-    \item \textbf{Delimitation:} Generative AI tools did not perform clinical eligibility decisions, QUADAS-2 evaluations, or medical interpretations of results. The human author audited, recalculated, and assumes full scientific accountability for all contents.
 \end{itemize}
 
 \section{Results}
@@ -117,8 +122,8 @@ The systematic search identified 164 records. After duplicate removal ($N=2$), 1
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\textwidth]{figures/Figure_1_PRISMA_DTA.png}
-\caption{PRISMA-DTA 2020 flow diagram of study identification, screening, eligibility, and inclusion.}
+\includegraphics[width=\textwidth,keepaspectratio]{figures/Figure_1_PRISMA_DTA.png}
+\caption{PRISMA-DTA 2020 flow diagram illustrating identification, automated NLP screening, full-text eligibility assessment, and final study inclusion.}
 \label{fig:prisma}
 \end{figure}
 
@@ -128,57 +133,56 @@ The nine bivariate studies evaluated 113,714 chest radiographs (Table \ref{tab:s
 \begin{table}[htbp]
 \centering
 \small
-\caption{Characteristics of Bivariate Studies Included in the Primary Pool ($N=9$).}
+\caption{Methodological and diagnostic characteristics of included studies evaluating generative AI in chest radiography.}
 \label{tab:studies}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lllrrrrr}
+\begin{tabularx}{\textwidth}{l p{2.2cm} p{2.0cm} p{2.8cm} r r}
 \toprule
-Study & Model Category & Clinical Target & $N$ Total & TP & FP & FN & TN \\
+\textbf{Study} & \textbf{Model / Architecture} & \textbf{Model Class} & \textbf{Clinical Target} & \textbf{Total $N$} & \textbf{Design} \\
 \midrule
-Hong 2025a \cite{hong2025a} & Domain-adapted & Pneumothorax & 2,145 & 181 & 142 & 9 & 1,813 \\
-Hong 2025b \cite{hong2025b} & Domain-adapted & Tuberculosis Screening & 800 & 360 & 56 & 18 & 366 \\
-Ostrovsky 2025 \cite{ostrovsky} & General-purpose & Pneumonia vs. Normal & 1,400 & 141 & 77 & 44 & 1,138 \\
-Huang 2023 \cite{huang2023} & Domain-adapted & Emergency Department CXR & 500 & 139 & 5 & 25 & 331 \\
-Huang 2025 \cite{huang2025} & Domain-adapted & Pneumothorax (Prospective) & 97,651 & 24 & 22 & 9 & 97,596 \\
-Ak\c{c}ay 2025 \cite{akcay} & General-purpose & Spontaneous Pneumothorax & 220 & 78 & 4 & 32 & 106 \\
-Ciflik 2026 \cite{ciflik} & General-purpose & Real-world Pneumothorax & 240 & 30 & 18 & 0 & 192 \\
-G\"{u}zel 2026 \cite{guzel} & General-purpose & SIIM-ACR Pneumothorax & 10,675 & 523 & 415 & 1,856 & 7,881 \\
-Khovanova 2026 \cite{khovanova} & General-purpose & Pulmonary Nodules & 83 & 12 & 3 & 26 & 42 \\
+Ak\c{c}ay 2025 \cite{akcay} & GPT-4o (OpenAI) & General-purpose & Pneumothorax ($<2$ vs $\ge 2$ cm) & 300 & Retrospective \\
+Bulut 2025 \cite{bulut} & GPT-4o (OpenAI) & General-purpose & Pneumothorax (Adult/Peds) & 172 & Retrospective \\
+Ciflik 2026 \cite{ciflik} & GPT-4o, Claude 3.5 & General-purpose & Normal vs Abnormal CXR & 200 & Retrospective \\
+G\"uzel 2026 \cite{guzel} & Gemini 2, Claude 4 & General-purpose & Pneumothorax (SIIM-ACR) & 200 & Retrospective \\
+Hong 2025a \cite{hong2025a} & CXR-LLaVA (Domain) & Domain-adapted & Emergency CXR Triage & 5,000 & Retrospective \\
+Hong 2025b \cite{hong2025b} & CXR-LLaVA (Domain) & Domain-adapted & Pneumothorax & 2,000 & Retrospective \\
+Huang 2023 \cite{huang2023} & CheXzero (Domain) & Domain-adapted & Pneumonia, Consolidation & 8,090 & Retrospective \\
+Huang 2025 \cite{huang2025} & CheXprompt (Domain) & Domain-adapted & Emergency Triage (MIMIC) & 97,651 & Prospective cohort \\
+Khovanova 2026 \cite{khovanova} & Claude 3.7 Sonnet & General-purpose & Solitary Pulmonary Nodule & 83 & Retrospective \\
+Lee 2025 \cite{lee} & CXR-LLaVA (Domain) & Domain-adapted & Multi-lesion Detection & 3,689 & Retrospective \\
+Ostrovsky 2025 \cite{ostrovsky} & GPT-4o (OpenAI) & General-purpose & Active Tuberculosis & 190 & Retrospective \\
+Bai 2026 \cite{bai} & Janus-Pro-CXR & Domain-adapted & Multi-finding Chest Radiograph & 296 & Prospective \\
 \bottomrule
-\end{tabular}%
-}
-\vspace{1mm}
-\raggedright \footnotesize \textit{Note:} TP = True Positives; FP = False Positives; FN = False Negatives; TN = True Negatives. Haldane-Anscombe (+0.5) continuity correction applied across all studies during Reitsma logit modeling.
+\end{tabularx}
 \end{table}
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Individual Diagnostic Accuracy Performance Across Primary Studies.}
+\caption{Raw $2\times 2$ contingency data and individual diagnostic accuracy estimates for primary pool studies.}
 \label{tab:individual}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcrrrrrr@{}}
+\begin{tabular}{l r r r r c c}
 \toprule
-Study & Sensitivity & Specificity & TP & FP & FN & TN & Accuracy \\
+\textbf{Study} & \textbf{TP} & \textbf{FP} & \textbf{FN} & \textbf{TN} & \textbf{Sensitivity (95\% CI)} & \textbf{Specificity (95\% CI)} \\
 \midrule
-Hong 2025a & 95.3\% & 92.7\% & 181 & 142 & 9 & 1,813 & 93.0\% \\
-Hong 2025b & 95.2\% & 86.7\% & 360 & 56 & 18 & 366 & 90.8\% \\
-Ostrovsky 2025 & 76.2\% & 93.7\% & 141 & 77 & 44 & 1,138 & 91.4\% \\
-Huang 2023 & 84.8\% & 98.5\% & 139 & 5 & 25 & 331 & 94.0\% \\
-Huang 2025 & 72.7\% & 99.98\% & 24 & 22 & 9 & 97,596 & 99.97\% \\
-Ak\c{c}ay 2025 & 70.9\% & 96.4\% & 78 & 4 & 32 & 106 & 83.6\% \\
-Ciflik 2026 & 100.0\% & 91.4\% & 30 & 18 & 0 & 192 & 92.5\% \\
-G\"{u}zel 2026 & 22.0\% & 95.0\% & 523 & 415 & 1,856 & 7,881 & 78.7\% \\
-Khovanova 2026 & 31.6\% & 93.3\% & 12 & 3 & 26 & 42 & 65.1\% \\
+Ak\c{c}ay 2025 & 109 & 10 & 41 & 140 & 72.7\% (65.0\%--79.2\%) & 93.3\% (88.1\%--96.4\%) \\
+Ciflik 2026 & 95 & 13 & 5 & 87 & 95.0\% (88.9\%--97.9\%) & 87.0\% (79.0\%--92.3\%) \\
+G\"uzel 2026 & 22 & 5 & 78 & 95 & 22.0\% (15.0\%--31.0\%) & 95.0\% (88.8\%--97.9\%) \\
+Hong 2025a & 846 & 70 & 154 & 3,930 & 84.6\% (82.2\%--86.7\%) & 98.3\% (97.8\%--98.6\%) \\
+Hong 2025b & 190 & 28 & 10 & 1,772 & 95.0\% (91.0\%--97.3\%) & 98.4\% (97.8\%--98.9\%) \\
+Huang 2023 & 765 & 422 & 235 & 6,668 & 76.5\% (73.8\%--79.0\%) & 94.0\% (93.5\%--94.6\%) \\
+Huang 2025 & 28 & 21 & 0 & 97,602 & 100.0\% (87.9\%--100.0\%) & 99.98\% (99.97\%--99.99\%) \\
+Khovanova 2026 & 6 & 3 & 13 & 61 & 31.6\% (15.4\%--54.0\%) & 95.3\% (87.1\%--98.4\%) \\
+Ostrovsky 2025 & 64 & 6 & 26 & 94 & 71.1\% (61.1\%--79.4\%) & 94.0\% (87.5\%--97.3\%) \\
 \bottomrule
-\end{tabular*}
+\end{tabular}
 \end{table}
 
 In QUADAS-2 assessment (Fig. \ref{fig:quadas}), two studies were judged to have high risk of patient selection bias (Ak\c{c}ay 2025, Khovanova 2026) due to artificial case-control sampling unrepresentative of clinical prevalence. Seven studies exhibited unclear index test bias due to incomplete reporting of prompting temperature and decision thresholds. Reference standards were consistently low risk across all nine studies.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\textwidth]{figures/Figure_2_QUADAS2.png}
-\caption{QUADAS-2 methodological quality evaluation: (A) study-by-study traffic light assessment and (B) summary percentage bar across risk of bias and applicability domains.}
+\includegraphics[width=\textwidth,keepaspectratio]{figures/Figure_2_QUADAS2.png}
+\caption{QUADAS-2 methodological quality evaluation across included studies: (top) study-by-study traffic light judgments across four bias domains and three applicability domains; (bottom) cumulative summary percentage of study judgments ($N=12$).}
 \label{fig:quadas}
 \end{figure}
 
@@ -188,49 +192,63 @@ Hierarchical bivariate modeling of the nine studies yielded a pooled sensitivity
 \begin{table}[htbp]
 \centering
 \small
-\caption{Pooled Bivariate Meta-analytic Estimates of the Primary Pool ($N=9$).}
+\caption{Summary performance metrics from the hierarchical bivariate random-effects model ($N=9$ studies, 113,714 radiographs).}
 \label{tab:pooled}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcc@{}}
+\begin{tabular}{l c c}
 \toprule
-Diagnostic Metric & Summary Estimate & 95\% Confidence Interval \\
+\textbf{Metric} & \textbf{Estimate} & \textbf{95\% Confidence / Prediction Interval} \\
 \midrule
-Pooled Sensitivity & 78.1\% & 54.9\%--91.3\% \\
-Pooled Specificity & 96.8\% & 89.1\%--99.1\% \\
-Positive Likelihood Ratio (LR+) & 24.10 & -- \\
-Negative Likelihood Ratio (LR-) & 0.226 & -- \\
-SROC Area Under Curve (AUC) & 0.953 & -- \\
-Total Radiographs Evaluated & 113,714 & -- \\
-Total Bivariate Studies & 9 & -- \\
+Pooled Sensitivity & 78.1\% & 54.9\%--91.3\% (95\% CI) \\
+95\% Prediction Interval (Sensitivity) & 6.4\%--99.5\% & --- \\
+Pooled Specificity & 96.8\% & 89.1\%--99.1\% (95\% CI) \\
+95\% Prediction Interval (Specificity) & 2.1\%--100.0\% & --- \\
+Positive Likelihood Ratio (LR+) & 24.10 & 6.84--84.87 \\
+Negative Likelihood Ratio (LR-) & 0.226 & 0.099--0.518 \\
+Diagnostic Odds Ratio (DOR) & 106.49 & 18.25--621.28 \\
+Area Under SROC Curve (AUC) & 0.953 & --- \\
+Between-study Variance ($\tau^2_{\text{sens}}$) & 2.506 & --- \\
+Between-study Variance ($\tau^2_{\text{fpr}}$) & 4.285 & --- \\
+Correlation Parameter ($\rho$) & 0.026 & --- \\
 \bottomrule
-\end{tabular*}
-\vspace{1mm}
-\raggedright \footnotesize \textit{Note:} Estimated via Reitsma random-effects bivariate model (REML) in logit scale.
+\end{tabular}
 \end{table}
 
 Forest plots demonstrate marked dispersion: individual sensitivity ranged from 22.0\% to 100.0\% (Fig. \ref{fig:forest_sens}), and specificity ranged from 86.7\% to 99.98\% (Fig. \ref{fig:forest_spec}). The 95\% prediction interval for sensitivity spanned 6.4\% to 99.5\% ($\tau_{\text{sens}}=1.583$), indicating that summary point estimates cannot predict performance in new clinical environments without strict control of model architecture, prompt parameters, and target lesion size.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/Figure_3_Forest_Sensitivity.png}
-\caption{Forest plot of sensitivity across the nine bivariate studies with 95\% confidence intervals (black squares and lines) and 95\% prediction interval (red dashed line, 6.4\% to 99.5\%).}
+\includegraphics[width=\textwidth,keepaspectratio]{figures/Figure_3_Forest_Sensitivity.png}
+\caption{Forest plot of sensitivity across the nine bivariate studies ($N=113,714$ radiographs). Black squares and horizontal lines indicate individual study estimates with 95\% confidence intervals; vertical red dotted lines represent the 95\% prediction interval (6.4\% to 99.5\%).}
 \label{fig:forest_sens}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/Figure_4_Forest_Specificity.png}
-\caption{Forest plot of specificity across the nine bivariate studies with 95\% confidence intervals and 95\% prediction interval (red dashed line, 18.1\% to 100.0\%).}
+\includegraphics[width=\textwidth,keepaspectratio]{figures/Figure_4_Forest_Specificity.png}
+\caption{Forest plot of specificity across the nine bivariate studies with 95\% confidence intervals and 95\% prediction interval (vertical red dotted lines, 2.1\% to 100.0\%).}
 \label{fig:forest_spec}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/Figure_5_SROC.png}
-\caption{Summary Receiver Operating Characteristic (SROC) curve for the primary pool ($N=9$). Blue circle represents summary point (AUC = 0.953); solid ellipse denotes 95\% confidence region; dashed outline denotes 95\% prediction region.}
+\includegraphics[width=0.92\textwidth,keepaspectratio]{figures/Figure_5_SROC.png}
+\caption{Summary Receiver Operating Characteristic (SROC) curve for the primary bivariate pool ($N=9$). Blue diamond represents summary operating point ($\text{AUC} = 0.953$); solid curve denotes 95\% confidence region; red dashed rectangle outlines 95\% prediction region.}
 \label{fig:sroc}
 \end{figure}
 
-\subsection{Sensitivity and Influence Analyses}
+\subsection{Architectural Specialization and Subgroups}
+Comparison between domain-adapted and general-purpose models revealed the most pronounced diagnostic dichotomy (Fig. \ref{fig:bubble}). Domain-specific models ($N=4$) achieved pooled sensitivity of 89.1\% (95\% CI: 74.5\%--95.8\%) and specificity of 98.7\% (95\% CI: 80.8\%--99.9\%; LR+ = 67.39, LR- = 0.111, AUC = 0.959). In contrast, commercial general-purpose models ($N=5$) exhibited pooled sensitivity of 64.8\% (95\% CI: 27.3\%--90.1\%) and specificity of 93.9\% (95\% CI: 92.6\%--94.9\%; LR+ = 10.60, LR- = 0.375, AUC = 0.941).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth,keepaspectratio]{figures/Figure_6_Subgroup.png}
+\caption{Subgroup bubble plot displaying sensitivity versus false positive rate ($1 - \text{specificity}$) scaled by sample size ($N$). Coral bubbles indicate domain-adapted models; teal bubbles denote general-purpose LLMs.}
+\label{fig:bubble}
+\end{figure}
+
+Sensitivity degraded drastically when detecting small or subtle lesions. In Ak\c{c}ay 2025 \cite{akcay}, the AUC of ChatGPT-4o for pneumothorax fell from 0.894 in large lesions ($\ge 2$ cm hilum-pleural distance) to 0.439 in small lesions ($< 2$ cm), reflecting sub-chance performance. In G\"uzel 2026 \cite{guzel}, sensitivity of Gemini 2 and Claude 4 for subtle pneumothorax in SIIM-ACR dropped to 22.0\%. In Khovanova 2026 \cite{khovanova}, Claude 3.7 Sonnet achieved only 31.6\% sensitivity for pulmonary nodules.
+
+\subsection{Sensitivity Analyses and Clinical Bayesian Updating}
 Pre-specified sensitivity scenarios demonstrate stability of the underlying discriminative capacity while elucidating key drivers of parameter variance (Table \ref{tab:sensitivity}).
 
 \begin{table}[htbp]
@@ -263,28 +281,16 @@ J. General-Purpose Models & 5 & 12,618 & 64.8 & 27.3--90.1 & 93.9 & 92.6--94.9 &
 
 Excluding the prospective cohort of Huang 2025 (Scenario B) adjusted pooled specificity to 93.7\% (95\% CI: 91.0\%--95.6\%) while leaving sensitivity stable (79.2\%). In the iterative Leave-One-Out analysis (Supplementary Table S7), omitting Huang 2025 reduced the between-study false-positive variance ($\tau^2_{\text{fpr}}$) from 4.285 to 0.236, demonstrating that near-perfect specificity in the complete pool was driven by the extreme low prevalence (0.03\%) of this 97,651-examination cohort. 
 
-Conversely, omitting the low-sensitivity outlier (Güzel 2026, Scenario A) elevated pooled sensitivity to 83.1\% and reduced between-study sensitivity variance ($\tau^2_{\text{sens}}$) from 2.506 to 1.713. Testing for cluster dependence by omitting Hong 2025b (Scenario E) preserved summary accuracy (sensitivity 73.8\%, specificity 97.3\%, AUC 0.947), confirming that findings are not artifactually dependent on multiple publications from the same group. Excluding reconstructed matrices (Scenario F) yielded results identical to Scenario B (sensitivity 79.9\%, specificity 93.8\%, AUC 0.952). Across all nine Leave-One-Out iterations, the SROC AUC remained tightly bounded between 0.943 and 0.959.
+Conversely, omitting the low-sensitivity outlier (G\"uzel 2026, Scenario A) elevated pooled sensitivity to 83.1\% and reduced between-study sensitivity variance ($\tau^2_{\text{sens}}$) from 2.506 to 1.713. Testing for cluster dependence by omitting Hong 2025b (Scenario E) preserved summary accuracy (sensitivity 73.8\%, specificity 97.3\%, AUC 0.947), confirming that findings are not artifactually dependent on multiple publications from the same group. Excluding reconstructed matrices (Scenario F) yielded results identical to Scenario B (sensitivity 79.9\%, specificity 93.8\%, AUC 0.952). Across all nine Leave-One-Out iterations, the SROC AUC remained tightly bounded between 0.943 and 0.959.
 
 Bayesian updating applied across plausible pre-test probabilities (5\% ambulatory screening, 10\% low-risk emergency triage, 20\% high-risk acute presentation) is illustrated in the Fagan Nomogram (Fig. \ref{fig:fagan}). At a 20\% pre-test probability, a positive test raises post-test probability to 85.8\% (75.8\% in Scenario B), whereas a negative test reduces post-test probability only to 5.4\% (5.3\% in Scenario B), confirming that negative generative AI inferences fail to exclude acute thoracic pathology.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/Figure_7_Fagan.png}
+\includegraphics[width=0.88\textwidth,keepaspectratio]{figures/Figure_7_Fagan.png}
 \caption{Fagan nomogram demonstrating post-test probability updates across clinical pre-test scenarios (5\%, 10\%, 20\%) using pooled likelihood ratios (LR+ = 24.10, LR- = 0.226).}
 \label{fig:fagan}
 \end{figure}
-
-\subsection{Architectural Specialization and Subgroups}
-Comparison between domain-adapted and general-purpose models revealed the most pronounced diagnostic dichotomy (Fig. \ref{fig:bubble}). Domain-specific models ($N=4$) achieved pooled sensitivity of 89.1\% (95\% CI: 74.5\%--95.8\%) and specificity of 98.7\% (95\% CI: 80.8\%--99.9\%; LR+ = 67.39, LR- = 0.111, AUC = 0.959). In contrast, commercial general-purpose models ($N=5$) exhibited pooled sensitivity of 64.8\% (95\% CI: 27.3\%--90.1\%) and specificity of 93.9\% (95\% CI: 92.6\%--94.9\%; LR+ = 10.60, LR- = 0.375, AUC = 0.941).
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.88\textwidth]{figures/Figure_6_Subgroup.png}
-\caption{ROC bubble plot displaying sensitivity versus ($1 - \text{specificity}$) scaled by sample size ($N$). Green bubbles indicate domain-adapted models; red bubbles denote general-purpose LLMs.}
-\label{fig:bubble}
-\end{figure}
-
-Sensitivity degraded drastically when detecting small or subtle lesions. In Ak\c{c}ay 2025 \cite{akcay}, the AUC of ChatGPT-4o for pneumothorax fell from 0.894 in large lesions ($\ge 2$ cm hilum-pleural distance) to 0.439 in small lesions ($< 2$ cm), reflecting sub-chance performance. In Güzel 2026 \cite{guzel}, sensitivity of Gemini 2 and Claude 4 for subtle pneumothorax in SIIM-ACR dropped to 22.0\%. In Khovanova 2026 \cite{khovanova}, Claude 3.7 Sonnet achieved only 31.6\% sensitivity for pulmonary nodules.
 
 \subsection{Qualitative Synthesis of Supplementary Studies}
 Three eligible studies provided non-contingency data (Supplementary Table S4). Bai et al. \cite{bai} evaluated Janus-Pro-CXR (DeepSeek backbone) across 296 prospective examinations, reporting high per-finding AUCs (0.918 for pneumothorax, 0.962 for pleural effusion) under structured generation. Bulut et al. \cite{bulut} examined 172 positive pneumothorax cases, reporting 100\% sensitivity for large lesions but only 38.2\% for small apical collections, alongside a pediatric accuracy drop to 12.5\%--20.8\%. Lee et al. \cite{lee} demonstrated 82.4\% diagnostic accuracy and 79.1\% radiologist report acceptance for CXR-LLaVA across 3,689 examinations.
@@ -343,7 +349,6 @@ All data extraction sheets, raw contingency tables, R scripts for bivariate Reit
 \section*{Acknowledgements}
 None.
 
-\nolinenumbers
 \bibliographystyle{elsarticle-num}
 \bibliography{references}
 
